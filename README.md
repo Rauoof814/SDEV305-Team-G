@@ -1,1 +1,1 @@
-# SDEV305-Team-G
+# SDEV305 Team Gnat (gnocchi) webpage
