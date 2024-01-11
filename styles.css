@@ -1,0 +1,17 @@
+.navigation {
+    background-color: #f8f9fa;
+    border: 1px solid yellow;
+}
+
+.container {
+    border: 1px solid red;
+}
+
+.site-content {
+    border: 1px solid blue;
+}
+
+[class*="col"] {
+    border: 1px solid green;
+}
+
