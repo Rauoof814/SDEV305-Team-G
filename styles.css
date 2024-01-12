@@ -1,26 +1,34 @@
 .site-navigation {
     background-color: #f8f9fa;
-    border: 1px solid yellow;
+    /* border: 1px solid yellow; */
 }
 
 .container {
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .site-content {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 }
 
 [class*="col-"] {
-    border: 1px solid green;
+    /* border: 1px solid green; */
 }
 
 .signUp {
-    border: 1px solid magenta;
-    /* margin-right: 5px; */
+    /* border: 1px solid magenta; */
+    margin-right: 5px;
 }
 
 h5 {
-    border: 1px solid cyan;
-    /* margin-bottom: 0px;*/
+    /* border: 1px solid cyan; */
+    /* margin-bottom: 0px; */
+}
+
+.application-data {
+    padding-top:11px !important;
+}
+
+.reminder-content {
+    padding-top: 10px;
 }
