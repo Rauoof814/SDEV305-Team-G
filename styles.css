@@ -32,3 +32,21 @@ h5 {
 .reminder-content {
     padding-top: 10px;
 }
+
+.auburnCenter {
+    width: 250px;
+    margin-top: 15px;
+    border: 1px solid #757575;
+}
+
+.site-information {
+    color: #333333;
+}
+
+.table {
+    margin-bottom: 0px;
+}
+
+.show-more {
+    color: #2C882B;
+}

@@ -18,14 +18,14 @@
             <div class="container">
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Site Logo</a>
+                        <a class="navbar-brand" href="#">GRC ATT</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarText">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">New Application</a>
@@ -97,9 +97,11 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <a class="btn container-fluid show-more" href="#" role="button">Show More</a>
                         </div>
                     </div>
                     <!-- Reminders panel -->
+                    <!-- TODO: Fix view button spacing -->
                     <div class="col-md-4 reminders">
                         <h5>Reminders</h5>
                         <div class="card">
@@ -127,7 +129,47 @@
                     </div>
                 </div>
             </div>
-
+            <br>
+            <!-- Site info -->
+            <div class="container">
+                <h5 class="text-center rounded site-information">
+                    Welcome to the Green River College Software Development Application Tracking Tool (ATT). 
+                    The purpose of this tool is to provide a centralized place to track your job/internship 
+                    applications that can be helpful in your application journey!
+                </h5>
+            </div>
+            <!-- About & resources -->
+            <div class="container">
+                <div class="row mb-3 g-3">
+                    <!-- Resources -->
+                    <div class="col-md-7 resources">
+                        <h5>Resources</h5>
+                        <p>Utilize these resources to help your job search!</p>
+                        <ul>
+                            <li>Linkedin</li>
+                            <li>Indeed</li>
+                            <li>Green River Devs</li>
+                            <li>adfs</li>
+                        </ul>
+                    </div>
+                    <!-- About -->
+                    <div class="col-md-5 about">
+                        <div class="row">
+                            <div class="col">
+                                <h5>About us</h5>
+                                <p>
+                                    The GRC Software Development program is an excellent way to prepare for a career in tech. 
+                                    Through its affordable tuition, caring instructors, and thoughtfully curated curriculum, 
+                                    you will be able to achieve whatever you set out to become. 
+                                </p>
+                            </div>
+                            <div class="col gx-4 gy-4">
+                                <img src="img/Auburn-Center-building-exterior.jpg" class="rounded float-end auburnCenter">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
         <!-- Required JavaScript -->
         <!-- Popper.js, then Bootstrap JS -->
