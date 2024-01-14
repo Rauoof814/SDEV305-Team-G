@@ -47,6 +47,41 @@ h5 {
     margin-bottom: 0px;
 }
 
-.show-more {
-    color: #2C882B;
+
+
+/* BUTTON STYLES */
+.btn-bd-primary {
+    --bs-btn-color: aliceblue;
+    --bs-btn-bg: #2c882b;
+    --bs-btn-border-color: #2c882b;
+    --bs-btn-hover-color: aliceblue;
+    --bs-btn-hover-bg: #287a27;
+    --bs-btn-hover-border-color: #287a27;
+    --bs-btn-active-color: aliceblue;
+    --bs-btn-active-bg: #236d22;
+    --bs-btn-active-border-color: #236d22;
 }
+
+.btn-bd-primary-inverse {
+    --bs-btn-color: #2C882B;
+    --bs-btn-bg: white;
+    --bs-btn-border-color: white;
+    --bs-btn-hover-color: #287a27;
+    --bs-btn-hover-bg: white;
+    --bs-btn-hover-border-color: white;
+    --bs-btn-active-color: #236d22;
+    --bs-btn-active-bg: white;
+    --bs-btn-active-border-color: white;
+}
+
+.btn-bd-accent-blue {
+    --bs-btn-color: aliceblue;
+    --bs-btn-bg: #418FDE;
+    --bs-btn-border-color: #418FDE;
+    --bs-btn-hover-color: aliceblue;
+    --bs-btn-hover-bg: #3b81c8;
+    --bs-btn-hover-border-color: #3b81c8;
+    --bs-btn-active-color: aliceblue;
+    --bs-btn-active-bg: #3472b2;
+    --bs-btn-active-border-color: #3472b2;
+  }
