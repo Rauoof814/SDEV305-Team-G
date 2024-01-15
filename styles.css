@@ -50,7 +50,11 @@ h5 {
 
 
 /* BUTTON STYLES */
-.btn-bd-primary {
+.btn-bd-primary2 {
+    background-color: red;
+}
+
+/* .btn-bd-primary {
     --bs-btn-color: aliceblue;
     --bs-btn-bg: #2c882b;
     --bs-btn-border-color: #2c882b;
@@ -84,4 +88,4 @@ h5 {
     --bs-btn-active-color: aliceblue;
     --bs-btn-active-bg: #3472b2;
     --bs-btn-active-border-color: #3472b2;
-  }
+  } */
