@@ -25,11 +25,26 @@ h5 {
     /* margin-bottom: 0px; */
 }
 
+.table {
+    margin-top: -5px;
+}
+
 .application-data {
     padding-top:11px !important;
 }
 
 .reminder-content {
+    border: 1px solid #dee2e6;
+    margin-top: 12px;
+    padding-top: 10px;  
+}
+
+.reminder-message {
+    position: relative;
+    top: 2px;
+}
+
+.more-opportunities {
     padding-top: 10px;
 }
 

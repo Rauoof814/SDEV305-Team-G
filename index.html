@@ -2,9 +2,7 @@
 <html lang="en">
     <head>
         <!-- TODO -->
-        <!-- redo button styles -->
         <!-- Apply GRC style theme -->
-        <!-- Finish reminders section -->
         <!-- Finish lower page section -->
         
         <!-- Required meta tags -->
@@ -53,8 +51,9 @@
         <main class="site-content">
             <div class="container">
                 <br>
-                <!-- Applications panel -->
+                <!-- Applications & Reminders -->
                 <div class="row mb-3 g-3">
+                    <!-- Applications panel -->
                     <div class="col-md-8 applications">
                         <h5>Recent Applications</h5>
                         <div class="applications-list">
@@ -110,11 +109,20 @@
                     <!-- TODO: Fix view button spacing -->
                     <div class="col-md-4 reminders">
                         <h5>Reminders</h5>
-                        <div class="card">
-                            <div class="card-body d-flex reminder-content">
-                                Reminder message
-                                <button type="button" class="btn btn-bd-primary btn-sm">View</button>
-                            </div>
+                        <div class="container-fluid rounded reminder-content">
+                            <p>
+                                <text class="reminder-message">Reminder message</text>
+                                <button type="button" class="btn btn-bd-primary btn-sm float-end">View</button>
+                            </p>
+                        </div>
+                        <div class="container-fluid rounded reminder-content">
+                            <p>
+                                <text class="reminder-message">Reminder message</text>
+                                <button type="button" class="btn btn-bd-primary btn-sm float-end">View</button>
+                            </p>
+                        </div>
+                        <div class="d-flex justify-content-center more-opportunities">
+                            <button type="button" class="btn btn-bd-primary-inverse">Find More Opportunities</button>
                         </div>
                     </div>
                 </div>
