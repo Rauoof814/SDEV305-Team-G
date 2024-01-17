@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="newApplicationForm.css">
+    <title>Application Form</title>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <a href="#">Dashboard</a>
+    <a href="#">Sign Up</a>
+    <a href="#">Add New Application</a>
+    <a href="#">Contact</a>
+</nav>
+
+<!-- Dark Mode button -->
+<button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+<!-- Application Form -->
+<div class="form-container">
+    <form action="vardump.php" method="post">
+        <label for="role">Name of Role*</label>
+        <input type="text" id="role" name="role" required>
+
+        <label for="jobDescription">Job Description URL*</label>
+        <input type="text" id="jobDescription" name="jobDescription" required>
+
+        <label for="date">Date of Application*</label>
+        <input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" required>
+
+        <label>Status*</label>
+        <div>
+            <label><input type="radio" name="status" value="Need to Apply"> Need to Apply</label>
+            <label><input type="radio" name="status" value="Applied"> Applied</label>
+            <label><input type="radio" name="status" value="Interviewing"> Interviewing</label>
+            <label><input type="radio" name="status" value="Rejected"> Rejected</label>
+            <label><input type="radio" name="status" value="Accepted"> Accepted</label>
+            <label><input type="radio" name="status" value="Inactive/Expired"> Inactive/Expired</label>
+        </div>
+
+        <label for="updates">Updates</label>
+        <textarea id="updates" name="updates"></textarea>
+
+        <label for="followUpDate">Follow up date*</label>
+        <input type="date" id="followUpDate" name="followUpDate" value="<?php echo date('Y-m-d', strtotime('+2 weeks')); ?>" required>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<!-- JavaScript for Dark Mode toggle -->
+<script src="script.js"></script>
+
+</body>
+</html>

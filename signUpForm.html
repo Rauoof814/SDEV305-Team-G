@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Sign-up Form</title>
+  <link href="sprint1/sprint1.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <nav>
+    <a href ="index.html">Home</a>
+    <a href ="BrandonViorato.html">Dashboard</a>
+    <a href ="SignUpForm.html">Sign-Up Form</a>
+    <a href ="contact.html">Contact Form</a>
+   </nav>
+
+  <!-- Title -->
+  <h1>Sign-Up Form</h1>
+
+  <!-- Dark Mode -->
+  <!-- Submit Sign-up button -->
+  <p><button type="submit" style="height:30px;width:300px;" value="Submit">Dark Mode</button></p>
+
+  <!-- Name* -->
+  <form>
+   <label for = "name"> Name: </label>
+    <br>
+   <input type = "text" id = "name" name = "name">
+  </form>
+  
+  <!-- Email* (use Javascript to mention that their greenriver.edu email is preferred, but not required) -->
+  <form>
+   <label for = "email"> Greenriver.edu email is preferred, but not required </label>
+    <br>
+   <input type = "email" id = "email" email = "email">
+  </form>
+  
+  <!-- Cohort Number -->
+  <form>
+   <label for = "cohortNumber"> Cohort Number: </label>
+    <br>
+   <input type = "int" id = "cohortNumber" number = "cohortNumber">
+  </form>
+
+  <!-- (use JS to confirm, must be between 1 and 100) -->
+  <script>
+    for(x=0; x<100; x++) {
+      document.getElementByID("cohortNumber").innerHTML= x;
+    }
+  </script>
+  
+  <!-- Check Boxes: Seeking Internship, Seeking Job, Not Actively Searching -->
+    <h2>Current Job Status</h2>
+    <input type="checkbox" id="seekingInternship" name="jobStage" value="seekingInternship">
+    <label for="seekingInternship">Seeking Internship</label><br>
+
+    <input type="checkbox" id="seekingJob" name="jobStage" value="seekingJob">
+    <label for="seekingJob">Seeking Job</label><br>
+
+    <input type="checkbox" id="notActivelySearching" name="jobStage" value="notActivelySearching">
+    <label for="notActivelySearching">Not Actively Searching</label><br>
+  
+  <!-- Text*: What types of roles are you seeking? -->
+  <h2>What type of roles are you seeking?</h2>
+  <label for="notes">Description: </label>
+  <input type="text" id="notes" name="notes"><br><br>
+
+  <!-- Submit Sign-up button -->
+  <p><button type="submit" style="height:30px;width:300px;" value="Submit">Submit Sign-Up</button></p>
+  
+  <script src="script.js"></script>
+
+</body>
+
+</html>
