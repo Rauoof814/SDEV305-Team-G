@@ -59,6 +59,10 @@ body.dark-mode {
     margin-right: 5px;
 }
 
+.form-title {
+    font-family: "BigNoodleTitling";
+}
+
 /* Form container styles */
 .form-container {
     max-width: 600px;

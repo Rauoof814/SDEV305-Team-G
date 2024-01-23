@@ -50,6 +50,10 @@ body.dark-mode {
     color: white;
 }
 
+.navbar-toggler {
+    border: none;
+}
+
 .active {
     color: #6CB443 !important;
 }
@@ -66,14 +70,28 @@ body.dark-mode {
     margin-bottom: -5px;
 }
 
+.column-heading, .application-listing {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.application-data.dark-mode {
+    background-color: #0e0d0d;
+}
+
+/* Table styles */
+
 .table {
     margin-top: -5px;
+    margin-bottom: 0px;
 }
+
 
 .application-data {
     padding-top:13px !important;
 }
 
+/* End table styles */
+   
 .reminder-content {
     border: 1px solid #dee2e6;
     margin-top: 12px;
@@ -86,7 +104,11 @@ body.dark-mode {
 }
 
 .more-opportunities {
-    padding-top: 10px;
+    padding-top: 2px;
+}
+
+.resource-links {
+    padding-left: 2px;
 }
 
 .auburnCenter {
@@ -95,19 +117,18 @@ body.dark-mode {
     border: 1px solid #757575;
 }
 
-.site-information {
-    color: #333333;
-}
-
-.table {
-    margin-bottom: 0px;
-}
-
-
-
 /* BUTTON STYLES */
 .btn {
     font-family: "AvenirNextLTPro-Regular",sans-serif;
+}
+
+/* Link Buttons */
+.btn-link {
+    color: #2c882b;
+}
+
+.btn-link:hover {
+    color: #2c882b !important;
 }
 
 /* Primary GRC GREEN */
@@ -142,6 +163,7 @@ body.dark-mode {
     background-color: white !important;
     color: #236d22 !important;
 }
+
 /* Accent Sky Blue */
 .btn-bd-accent-blue {
     background-color: #418FDE;
@@ -158,40 +180,3 @@ body.dark-mode {
     background-color: #3472b2 !important;
     color: aliceblue !important;
 }
-
-/* custom bootstrap sass styles */
-/* .btn-bd-primary {
-    --bs-btn-color: aliceblue;
-    --bs-btn-bg: #2c882b;
-    --bs-btn-border-color: #2c882b;
-    --bs-btn-hover-color: aliceblue;
-    --bs-btn-hover-bg: #287a27;
-    --bs-btn-hover-border-color: #287a27;
-    --bs-btn-active-color: aliceblue;
-    --bs-btn-active-bg: #236d22;
-    --bs-btn-active-border-color: #236d22;
-}
-
-.btn-bd-primary-inverse {
-    --bs-btn-color: #2C882B;
-    --bs-btn-bg: white;
-    --bs-btn-border-color: white;
-    --bs-btn-hover-color: #287a27;
-    --bs-btn-hover-bg: white;
-    --bs-btn-hover-border-color: white;
-    --bs-btn-active-color: #236d22;
-    --bs-btn-active-bg: white;
-    --bs-btn-active-border-color: white;
-}
-
-.btn-bd-accent-blue {
-    --bs-btn-color: aliceblue;
-    --bs-btn-bg: #418FDE;
-    --bs-btn-border-color: #418FDE;
-    --bs-btn-hover-color: aliceblue;
-    --bs-btn-hover-bg: #3b81c8;
-    --bs-btn-hover-border-color: #3b81c8;
-    --bs-btn-active-color: aliceblue;
-    --bs-btn-active-bg: #3472b2;
-    --bs-btn-active-border-color: #3472b2;
-  } */

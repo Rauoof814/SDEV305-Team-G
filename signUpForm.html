@@ -51,15 +51,15 @@
         <div class="form-container">
             <form action="vardump.php" method="post">
                 <!-- Title -->
-                <p class="d-flex justify-content-center fs-3">Sign up</p>
+                <p class="fs-3 form-title">Sign up</p>
                 <!-- Name* -->
-                <label for="name">Name</label>
+                <label for="name">Name*</label>
                 <input type="text" id="name" name="name" required>
                 <!-- Email* (use Javascript to mention that their greenriver.edu email is preferred, but not required) -->
-                <label for="email">Email - GRC email is preferred, but not required</label>
+                <label for="email">Email* - GRC email is preferred, but not required</label>
                 <input type="text" id="email" name="email" required>
                 <!-- Cohort Number -->
-                <label for="date">Cohort Number</label>
+                <label for="date">Cohort Number*</label>
                 <input type="number" id="number" name="number" required>
                 <!-- (use JS to confirm, must be between 1 and 100) -->
                 <script>
@@ -68,17 +68,17 @@
                     }
                 </script>
                 <!-- Radio buttons: Seeking Internship, Seeking Job, Not Actively Searching -->
-                <label>Current Job Status</label>
+                <label>Current Job Status*</label>
                 <div class="mb-2">
                     <label><input type="radio" name="jobStage" value="seekingInternship"> Seeking Internship</label>
                     <label><input type="radio" name="jobStage" value="seekingJob"> Seeking Job</label>
                     <label><input type="radio" name="jobStage" value="notActivelySearching"> Not Actively Searching</label>
                 </div>
                 <!-- Text*: What types of roles are you seeking? -->
-                <label for="notes">What types of roles are you seeking?</label>
+                <label for="notes">What types of roles are you seeking?*</label>
                 <textarea id="notes" name="notes" placeholder="Description..."></textarea>
                 <!-- Submit Sign-up button -->
-                <input class="btn btn-bd-primary" type="submit" value="Submit Sign Up">
+                <input class="btn btn-bd-primary" type="submit" value="Submit">
             </form>
         </div>
         

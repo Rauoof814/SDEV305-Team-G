@@ -2,8 +2,7 @@
 <html lang="en">
     <head>
         <!-- TODO -->
-        <!-- Fix dark mode -->
-        <!-- Finish lower page section -->
+        <!-- All done! -->
         
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -24,7 +23,7 @@
                     <div class="container-fluid">
                         <a class="navbar-brand fs-3" href="#">GRC ATT</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
-                            <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-dark navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse fs-3" id="navbarText">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -60,52 +59,46 @@
                     <div class="col-md-8 applications">
                         <p class="fs-2 heading">Recent Applications</p>
                         <div class="applications-list">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <td scope="col">Date</td>
-                                        <td scope="col">Title</td>
-                                        <td scope="col">Status</td>
-                                        <td scope="col">Manage</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="application-data" scope="row">1/5/24</td>
-                                        <td class="application-data">Google</td>
-                                        <td class="application-data">Submitted</td>
-                                        <td>
-                                            <div class="btn-group btn-group-sm" role="group">
-                                                <button type="button" class="btn btn-bd-primary">Update</button>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="application-data" scope="row">12/27/23</td>
-                                        <td class="application-data">Amazon</td>
-                                        <td class="application-data">Interview</td>
-                                        <td>
-                                            <div class="btn-group btn-group-sm" role="group">
-                                                <button type="button" class="btn btn-bd-primary ">Update</button>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="application-data" scope="row">12/28/23</td>
-                                        <td class="application-data">Microsoft</td>
-                                        <td class="application-data">Received</td>
-                                        <td>
-                                            <div class="btn-group btn-group-sm" role="group">
-                                                <button type="button" class="btn btn-bd-primary">Update</button>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a class="btn container-fluid btn-bd-primary-inverse" href="#" role="button">Show More</a>
+                            <div class="d-flex flex-row column-heading">
+                                <div class="p-2 col-2">Date</div>
+                                <div class="p-2 col-2">Title</div>
+                                <div class="p-2 col-4">Status</div>
+                                <div class="p-2 flex-fill">Manage</div>
+                            </div>
+                            <div class="d-flex flex-row application-listing">
+                                <div class="p-2 col-2">1/5/24</div>
+                                <div class="p-2 col-2">Google</div>
+                                <div class="p-2 col-4">Submitted</div>
+                                <div class="p-2 flex-fill">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button type="button" class="btn btn-bd-primary ">Update</button>
+                                        <button type="button" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row application-listing">
+                                <div class="p-2 col-2">12/23/23</div>
+                                <div class="p-2 col-2">Amazon</div>
+                                <div class="p-2 col-4">Interviewing</div>
+                                <div class="p-2 flex-fill">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button type="button" class="btn btn-bd-primary ">Update</button>
+                                        <button type="button" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row application-listing">
+                                <div class="p-2 col-2">12/5/23</div>
+                                <div class="p-2 col-2">Microsoft</div>
+                                <div class="p-2 col-4">Inactive/Expired</div>
+                                <div class="p-2 flex-fill">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button type="button" class="btn btn-bd-primary ">Update</button>
+                                        <button type="button" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="container-fluid btn btn-link" href="#" role="button">Show More</a>
                         </div>
                     </div>
                     <!-- Reminders panel -->
@@ -124,8 +117,8 @@
                                 <button type="button" class="btn btn-bd-primary btn-sm float-end">View</button>
                             </p>
                         </div>
-                        <div class="d-flex justify-content-center more-opportunities">
-                            <button type="button" class="btn btn-bd-primary-inverse">Find More Opportunities</button>
+                        <div class="container-fluid rounded reminder-content" style="min-height: 51px">
+                            <a class="container-fluid btn btn-link more-opportunities" href="#" role="button">Find More Opportunities</a>
                         </div>
                     </div>
                 </div>
@@ -138,36 +131,46 @@
                         </div>                    
                     </div>
                     <div class="col-4">
-                        <div class="d-grid gap-2 col-12 mx-auto">
-                            <button type="button" class="btn btn-bd-primary-inverse">Account Settings</button>
+                        <div class="gap-2 col-12 mx-auto">
+                            <a class="container-fluid btn btn-link" href="#" role="button">Account Settings</a>
                         </div> 
                     </div>
                 </div>
                 <br>
                 <!-- Site info -->
-                <h5 class="text-center rounded site-information">
+                <hr>
+                <p class=" fs-5 text-center rounded site-information">
                     Welcome to the Green River College Software Development Application Tracking Tool (ATT). 
                     The purpose of this tool is to provide a centralized place to track your job/internship 
                     applications that can be helpful in your application journey!
-                </h5>
+                </p>
                 <br>
                 <!-- About & resources -->
                 <div class="row mb-3 g-3">
                     <!-- Resources -->
-                    <div class="col-md-7 resources">
+                    <div class="col-md-4 resources">
                         <p class="fs-2 heading">Resources</p>
                         <p>Utilize these resources to help your job search!</p>
-                        <ul>
-                            <li>Linkedin</li>
-                            <li>Indeed</li>
-                            <li>Green River Devs</li>
-                            <li>adfs</li>
+                        <ul class="resource-links">
+                            <li class="list-group-item mb-2">
+                                <a href="https://linkedin.com" target="_blank">
+                                    <img src="./img/LI-Logo.png" style="height: 25px;">
+                                </a>
+                            </li>
+                            <li class="list-group-item mb-2">
+                                <a href="https://indeed.com" target="_blank">
+                                    <img src="./img/Indeed_Logo_RGB.png" style="height: 25px;">
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="https://devs.greenrivertech.net/" target="_blank">Green River Devs</a>
+                            </li>
                         </ul>
                     </div>
                     <!-- About -->
-                    <div class="col-md-5 about">
+                    <div class="col-md-8 about">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-7">
                                 <p class="fs-2 heading">About Us</p>
                                 <p>
                                     The GRC Software Development program is an excellent way to prepare for a career in tech. 
@@ -175,8 +178,8 @@
                                     you will be able to achieve whatever you set out to become. 
                                 </p>
                             </div>
-                            <div class="col gx-4 gy-4">
-                                <img src="img/Auburn-Center-building-exterior.jpg" class="rounded float-end auburnCenter">
+                            <div class="col-4 gx-4 gy-4">
+                                <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter">
                             </div>
                         </div>
                     </div>
