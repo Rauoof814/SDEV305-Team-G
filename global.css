@@ -18,7 +18,7 @@
     font-weight: normal;
     font-style: normal;
 }
-  
+
 body { 
     font-family: "AvenirNextLTPro-Regular",sans-serif;
     background-color: #FFFFFF; /* Lighter color scheme by default */
@@ -31,13 +31,9 @@ body.dark-mode {
     color: white;
 }
 
+/* Navigation styles */
 .site-navigation {
     font-family: "BigNoodleTitling",sans-serif;
-    background-color: #333333 !important;
-    color: aliceblue !important;
-}
-
-.navbar {
     background-color: #333333 !important;
     color: aliceblue !important;
 }
@@ -46,12 +42,13 @@ body.dark-mode {
     color: white !important;
 }
 
-.nav-link {
-    color: white;
+.navbar {
+    background-color: #333333 !important;
+    color: aliceblue !important;
 }
 
-.navbar-toggler {
-    border: none;
+.nav-link {
+    color: white;
 }
 
 .active {
@@ -62,59 +59,43 @@ body.dark-mode {
     margin-right: 5px;
 }
 
-.fs-2 {
-    font-family: "BigNoodleTitling",sans-serif;
+.navbar-toggler {
+    border: none;
 }
 
-.heading {
-    margin-bottom: -5px;
+/* Form Styles */
+
+.form-title {
+    font-family: "BigNoodleTitling";
 }
 
-.column-heading, .application-listing {
-    border-bottom: 1px solid #dee2e6;
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #DDD;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.application-data.dark-mode {
-    background-color: #0e0d0d;
+label {
+    display: block;
+    margin-bottom: 5px;
 }
 
-/* Table styles */
-
-.table {
-    margin-top: -5px;
-    margin-bottom: 0px;
+input[type="text"],
+input[type="date"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #DDD;
+    border-radius: 4px;
 }
 
-
-.application-data {
-    padding-top:13px !important;
-}
-
-/* End table styles */
-   
-.reminder-content {
-    border: 1px solid #dee2e6;
-    margin-top: 12px;
-    padding-top: 9px;  
-}
-
-.reminder-message {
-    position: relative;
-    top: 3px;
-}
-
-.more-opportunities {
-    padding-top: 2px;
-}
-
-.resource-links {
-    padding-left: 2px;
-}
-
-.auburnCenter {
-    width: 250px;
-    margin-top: 15px;
-    border: 1px solid #757575;
+input[type="radio"] {
+    margin-right: 5px;
 }
 
 /* BUTTON STYLES */
