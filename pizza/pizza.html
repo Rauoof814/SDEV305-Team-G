@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="pizza.css">
+        <title>Pizza ordering form</title>
+
+        <!-- JavaScript -->
+        <script src="pizzascript.js"></script>
+    </head>
+    <body>
+        <!-- Site nav -->
+        <header class="site-navigation">
+            <div class="container">
+                <div class="navbar">
+                    <a class="navbar-brand">PizzaTime</a>
+                </div>
+            </div>
+        </header>
+        
+        <script>
+                                function initialcode() {
+                                  // Choose other for dropdown
+                                  let instructions = window.open("notWashington.html","Instructions", "width= 400, height = 250, left = 600, top = 300");
+                                }
+        </script>
+        
+        <br>
+        <main class="site-content">
+            <div class="container">
+                <Form onsubmit="validateform()" method="post" action="vardump.php">
+                    <!-- Form title -->
+                    <div class="form-title">
+                        <h1>Order Form</h1>
+                        <hr>    
+                    </div>
+                    <!-- Form instructions -->
+                    <div class="form-instructions">
+                        <h2>Instructions:</h2>
+                        <p>First, fill in your name, phone, email, and address. Then, select pizza size, toppings, and delivery option.</p>
+                    </div>
+                    <!-- Contact information -->
+                    <div class="contact-information">
+                        <h6>Contact Information</h6>
+                        <div class = "input-fields">
+                            <!-- Name -->
+                            <label for = "fname">Name:</label><br>
+                            <input type = "text" id = "fname" name = "fname"><br>
+
+                            <!-- Phone -->
+                            <label for="phone">Enter a phone number:</label><br>
+                            <input type="tel" id="phone" name="phone" placeholder="123-452-1678" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required><br>
+
+                            <!-- Email -->
+                            <label for="email">Enter your Green River email:</label><br>
+                            <input type="email" id="email" name="email"><br>
+
+                            <p>If not located in Washington, please contact a pizza delivery service near you.</p>
+
+                            <div class="dropdown">
+                                <select>
+                                    <option>Washington</option>
+                                    <option>Ineligble</option>
+                                </select>
+                            </div>
+
+                            <!-- Address -->
+                            <label for="address">Enter your address:</label><br>
+                            <input type="address" id="address" name="address"><br>
+                            
+                            <!-- City -->
+                            <label for= "city">Enter your city:</label><br>
+                            <input type="text" id = "city" name = "city"><br>
+                            
+                            <!-- Promo -->
+                            <label for="promo">Enter your promo code:</label><br>
+                            <input type="promo" id="promo" name="promo"><br>
+                            <hr>
+                        </div>
+                    </div>
+                    <!-- Pizza size -->
+                    <div class="pizza-size">
+                        <h6>Select your pizza size</h6>
+                        <!-- Size sm, md, lg -->
+                        <input type="radio" id="small" name="size" value="small">
+                        <label for="small">Small</label><br>
+
+                        <input type="radio" id="medium" name="size" value="medium">
+                        <label for="medium">Medium</label><br>
+
+                        <input type="radio" id="large" name="size" value="large">
+                        <label for="large">Large</label>
+                        <hr>
+                    </div>
+                    <!-- Toppings -->
+                    <div class="pizza-toppings">
+                        <h6>Select your toppings</h6>
+                        <!-- toppings (8 options) -->
+                        <input type="checkbox" id="pepperoni" name="topping" value="pepperoni">
+                        <label for="pepperoni">Pepperoni</label><br>
+                        
+                        <input type="checkbox" id="peppers" name="topping" value="peppers">
+                        <label for="peppers">Peppers</label><br>
+                        
+                        <input type="checkbox" id="onions" name="topping" value="onions">
+                        <label for="onions">Onions</label><br>
+
+                        <input type="checkbox" id="anchovies" name="topping" value="anchovies">
+                        <label for="anchovies">Anchovies</label><br>
+
+                        <input type="checkbox" id="pineapples" name="topping" value="pineapples">
+                        <label for="pineapples">Pineapples</label><br>
+
+                        <input type="checkbox" id="mushrooms" name="topping" value="mushrooms">
+                        <label for="mushrooms">Mushrooms</label><br>
+
+                        <input type="checkbox" id="chicken" name="topping" value="chicken">
+                        <label for="chicken">Chicken</label><br>
+
+                        <input type="checkbox" id="lobster" name="topping" value="lobster">
+                        <label for="lobster">Lobster</label><br>
+                        <hr>
+                    </div>
+                    <!-- Delivery or pickup -->
+                    <h6>Select delivery method</h6>
+                    <input type="radio" id="pick-up" name="delivery-option" value="pick-up">
+                    <label for="pick-up">Pick-up</label><br>
+                    <input type="radio" id="delivery" name="delivery-option" value="delivery">
+                    <label for="delivery">Delivery</label><br>
+                    <hr>
+                    <!-- Notes --> 
+                    <label for="notes">Notes:</label><br>
+                    <input type="text" id="notes" name="notes"><br>
+                    <hr>
+                    <input type="submit" value="submit">
+                    <img src="pizzatime.jpg">   
+                </Form>
+            </div>
+        </main>
+
+
+        <!-- Validate phone and email -->
+        <!-- <script>
+            function validateform(){
+            var phone = document.getElementById("phone").value;
+            var email = document.getElementById("email").value;
+                if (phone == "" || email == ""){
+                    alert("Phone or email invalid");
+                    return false;
+                } else {
+                    return;
+                }
+            }
+        </script> -->
+        <!-- Required JavaScript -->
+        <!-- Popper.js, then Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script> 
+    </body>
