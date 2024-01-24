@@ -51,6 +51,10 @@ body.dark-mode {
     color: white;
 }
 
+.nav-link:hover {
+    color: #ABB2B9 !important;
+}
+
 .active {
     color: #6CB443 !important;
 }
