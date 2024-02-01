@@ -59,7 +59,7 @@
         $results = compileUserInput();
 
         //send email of results. Replace with tschrock@greenriver.edu when ready
-        sendConfirmationEmail($results);
+        sendConfirmationEmail($results, $_POST["email"]);
 
         //display results on page
         echo $results;
@@ -87,8 +87,7 @@
         return $results;
     }
 
-    function sendConfirmationEmail($results){
-        $to = "";
+    function sendConfirmationEmail($results,$to){
         $subject = "Thanks for signing up!";
 
         $headers = "MIME-Version: 1.0" . "\r\n";
@@ -98,5 +97,13 @@
         mail($to, $subject, $results, $headers);
     }
 ?>
+
+<!-- JavaScript for Dark Mode toggle -->
+<script src="scripts/script.js"></script>
+
+<!-- Required JavaScript -->
+<!-- Popper.js, then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>
 </html>
