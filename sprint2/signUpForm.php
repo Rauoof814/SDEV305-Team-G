@@ -50,55 +50,58 @@
     </div>
 </header>
 
-<!-- Sign Up Form -->
-<div class="form-container">
-    <p class="fs-3 form-title">Sign up</p>
+<!--form handling for sign up form-->
+<?php
+    if(isset($_POST["fName"]) && isset($_POST["lName"]) && isset($_POST["email"]) && isset($_POST["cohort-number"]) && isset($_POST["jobStage"])
+        && $_POST["fName"] != "" && $_POST["lName"] != "" & $_POST["email"] != "" && $_POST["cohort-number"] && $_POST["jobStage"] != ""){
 
-    <!--loads index on success until php is set up-->
-    <form action="signUpForm.php" onsubmit="return validSignUp()" method="post" name="sign-up-form">
+        //string together results message
+        $results = compileUserInput();
 
-        <!-- First Name* -->
-        <label for="fName">First Name*</label>
-        <input type="text" id="fName" name="fName">
-        <span class="text-danger" id="first-name-span"></span>
+        //send email of results. Replace with tschrock@greenriver.edu when ready
+        sendConfirmationEmail($results, $_POST["email"]);
 
-        <!-- Last Name* -->
-        <label for="lName">Last Name*</label>
-        <input type="text" id="lName" name="lName">
-        <span class="text-danger" id="last-name-span"></span>
+        //display results on page
+        echo $results;
+    }
+    else{
+        echo "<p class='text-danger'>*Please fill out form completely and submit again</p>";
+    }
 
-        <!-- Email* (use Javascript to mention that their greenriver.edu email is preferred, but not required) -->
-        <label for="email">Email*</label>
-        <input type="email" id="email" name="email" onchange="signUpEmailWarning()">
-        <br/>
-        <span class="text-success" id="email-span-good"></span>
-        <br/>
-        <span class="text-danger" id="email-span-bad"></span>
+    function compileUserInput(){
+        $results = "<div class='form-container pt-0'>
+            <h1 class='pt-5 header-text'>Welcome!</h1>
+            <h4>Your account information:</h4><br/>
+            <p>First name: " . $_POST["fName"] . "</p>
+            <p>Last name: " . $_POST["lName"] . "</p>
+            <p>Email: " . $_POST["email"] . ".</p>
+            <p>Cohort number: " . $_POST["cohort-number"] . "</p>
+            <p>What are you seeking?: " . $_POST["jobStage"] . " </p>";
 
-        <!-- Cohort Number -->
-        <label for="cohort-number">Cohort Number*</label>
-        <input type="number" id="cohort-number" name="cohort-number">
-        <span class="text-danger" id="cohort-number-span"></span>
+        if(isset($_POST["notes"]) && $_POST["notes"] != "") {
+            $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ></div>";
+        }
+        else{
+            $results .= "<p> Any additional roles: *No additional information added</p ></div>";
+        }
+        return $results;
+    }
 
-        <!--Job Status-->
-        <label>Current Job Status*</label>
-        <div class="mb-2">
-            <label><input type="radio" name="jobStage" value="Seeking internship"> Seeking internship</label>
-            <label><input type="radio" name="jobStage" value="Seeking job"> Seeking job</label>
-            <label><input type="radio" name="jobStage" value="Not actively searching"> Not actively searching</label>
-        </div>
+    function sendConfirmationEmail($results,$to){
+        $subject = "Thanks for signing up!";
 
-        <!-- Text*: What types of roles are you seeking? -->
-        <label for="notes">What types of roles are you seeking?*</label>
-        <textarea id="notes" name="notes" placeholder="Description..."></textarea>
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= "From: <" . $_POST["email"] . ">" . "\r\n";
 
-        <!-- Submit Sign-up button -->
-        <input class="btn btn-bd-primary" type="submit" value="Submit" name="submit-sign-up">
-    </form>
-</div>
+        mail($to, $subject, $results, $headers);
+    }
+?>
 
 <!-- JavaScript for Dark Mode toggle -->
-<script src="./scripts/script.js"></script>
+<script src="scripts/script.js"></script>
+
+<!-- Required JavaScript -->
 <!-- Popper.js, then Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
