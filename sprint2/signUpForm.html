@@ -54,38 +54,38 @@
 <div class="form-container">
     <p class="fs-3 form-title">Sign up</p>
 
-    <!--loads index on success until php is setup-->
-    <form action="vardump.php" onsubmit="return validSignUp()" method="post" name="sign-up-form">
+    <!--loads index on success until php is set up-->
+    <form action="signUpForm.php" onsubmit="return validSignUp()" method="post" name="sign-up-form">
 
         <!-- First Name* -->
         <label for="fName">First Name*</label>
-        <input type="text" id="fName" name="name">
+        <input type="text" id="fName" name="fName">
         <span class="text-danger" id="first-name-span"></span>
 
         <!-- Last Name* -->
         <label for="lName">Last Name*</label>
-        <input type="text" id="lName" name="name">
+        <input type="text" id="lName" name="lName">
         <span class="text-danger" id="last-name-span"></span>
 
         <!-- Email* (use Javascript to mention that their greenriver.edu email is preferred, but not required) -->
         <label for="email">Email*</label>
         <input type="email" id="email" name="email" onchange="signUpEmailWarning()">
         <br/>
-        <span class="text-primary" id="email-span-good"></span>
+        <span class="text-success" id="email-span-good"></span>
         <br/>
         <span class="text-danger" id="email-span-bad"></span>
 
         <!-- Cohort Number -->
         <label for="cohort-number">Cohort Number*</label>
-        <input type="number" id="cohort-number" name="number">
+        <input type="number" id="cohort-number" name="cohort-number">
         <span class="text-danger" id="cohort-number-span"></span>
 
         <!--Job Status-->
         <label>Current Job Status*</label>
         <div class="mb-2">
-            <label><input type="radio" name="jobStage" value="seekingInternship"> Seeking Internship</label>
-            <label><input type="radio" name="jobStage" value="seekingJob"> Seeking Job</label>
-            <label><input type="radio" name="jobStage" value="notActivelySearching"> Not Actively Searching</label>
+            <label><input type="radio" name="jobStage" value="Seeking internship"> Seeking internship</label>
+            <label><input type="radio" name="jobStage" value="Seeking job"> Seeking job</label>
+            <label><input type="radio" name="jobStage" value="Not actively searching"> Not actively searching</label>
         </div>
 
         <!-- Text*: What types of roles are you seeking? -->
