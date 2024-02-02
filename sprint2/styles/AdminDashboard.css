@@ -27,6 +27,10 @@
     border: none;
 }
 
+td {
+    background-color: white;
+}
+
 /* Customize the navbar-toggler icon */
 .navbar-toggler-icon {
     background-color: white;

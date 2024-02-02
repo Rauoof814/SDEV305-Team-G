@@ -19,22 +19,32 @@
             <div class="container-fluid">
                 <a class="navbar-brand fs-3" href="dashboard.html">GRC ATT</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-dark navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse fs-3" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" href="AdminDashboard.html">Admin Dashboard</a>
+                            <a class="nav-link active" href="dashboard.html">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Settings</a>
+                            <a class="nav-link" href="newApplicationForm.html">New Application</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
+                            <a class="nav-link" href="contactForm.html">Contact</a>
                         </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                            </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="./sprint2/AdminDashboard.html">Admin Dashboard</a></li>
+                        <li><a class="dropdown-item" href="./sprint2/AdminAnnouncements.html">Admin Announcements</a></li>
+                    </ul>
+                </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
+                            <a href="signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
                             <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
                         </li>
                     </ul>
@@ -44,11 +54,95 @@
     </div>
 </header>
 
-<!-- User Section -->
+<!-- Main content -->
+<main class="site-content">
+    <div class="container">
+        <br>
+        <!-- Applications & Reminders -->
+        <div class="row mb-3 g-3">
+            <!-- Applications panel -->
+            <div class="col-md-8 applications">
+                <p class="fs-2 heading">Recent Applications</p>
+                <div class="applications-list">
+                    <div class="d-flex flex-row column-heading">
+                        <div class="pt-2 col-2">Date</div>
+                        <div class="p-2 col-2">Title</div>
+                        <div class="p-2 col-4">Status</div>
+                        <div class="p-2 col align-self-end">Manage</div>
+                    </div>
+                    <div class="d-flex flex-row application-listing">
+                        <div class="pt-2 col-2">1/5/24</div>
+                        <div class="p-2 col-2">Google</div>
+                        <div class="p-2 col me-auto">Submitted</div>
+                        <div class="p-2 col align-self-end">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-bd-primary ">View</button>
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row application-listing">
+                        <div class="pt-2 col-2">12/23/23</div>
+                        <div class="p-2 col-2">Amazon</div>
+                        <div class="p-2 col me-auto">Interviewing</div>
+                        <div class="p-2 col align-self-end">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-bd-primary ">View</button>
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row application-listing">
+                        <div class="pt-2 col-2">12/5/23</div>
+                        <div class="p-2 col-2">Microsoft</div>
+                        <div class="p-2 col me-auto">Inactive/Expired</div>
+                        <div class="p-2 col align-self-end" style="min-width: 50px;">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-bd-primary ">View</button>
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="container-fluid btn btn-link" href="#" role="button">Show More</a>
+                </div>
+            </div>
+            <!-- Reminders panel -->
+            <!-- TODO: Fix view button spacing -->
+            <div class="col-md-4 reminders">
+                <p class="fs-2 heading">Recent Announcements</p>
+                <div class="container-fluid rounded reminder-content">
+                    <p>
+                        <text class="reminder-message">Check out this internship opportunity!</text>
+                        <button type="button" class="btn btn-bd-primary btn-sm float-end">View</button>
+                    </p>
+                </div>
+                <div class="container-fluid rounded reminder-content">
+                    <p>
+                        <text class="reminder-message">Resume Workshop</text>
+                        <button type="button" class="btn btn-bd-primary btn-sm float-end">View</button>
+                    </p>
+                </div>
+                <div class="container-fluid rounded reminder-content" style="min-height: 51px">
+                    <a class="container-fluid btn btn-link more-opportunities" href="#" role="button">Show more</a>
+                </div>
+            </div>
+        </div>
+        <!-- Application and account buttons -->    
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="gap-2 col-12 mx-auto">
+                    <a class="container-fluid btn btn-link" href="#" role="button">Account Settings</a>
+                </div> 
+            </div>
+        </div>
+        <br>
+
+        <!-- User Section -->
 <title>AdminDashboard</title>
 <div class="container mt-5">
     <h2>Users</h2>
-    <table class="table table-striped">
+    <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -60,25 +154,87 @@
             <tr>
                 <td>John Doe</td>
                 <td>john@example.com</td>
-                <td>
-                    <a href="#" class="btn btn-link">View</a>
-                    <a href="#" class="btn btn-link">Delete</a>
+                <td class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-bd-primary ">View</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
                 </td>
             </tr>
             <tr>
                 <td>Jane Smith</td>
                 <td>jane@example.com</td>
-                <td>
-                    <a href="#" class="btn btn-link">View</a>
-                    <a href="#" class="btn btn-link">Delete</a>
+                <td class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-bd-primary ">View</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Joe Swanson</td>
+                <td>joeswanson@example.com</td>
+                <td class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-bd-primary ">View</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Peter Griffin</td>
+                <td>peetah@example.com</td>
+                <td class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-bd-primary ">View</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Elmer Hartman</td>
+                <td>EllyHart@example.com</td>
+                <td class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-bd-primary ">View</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Ernie The Giant Chicken</td>
+                <td>ihatepeter@example.com</td>
+                <td class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-bd-primary ">View</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
                 </td>
             </tr>
             <!-- Add more users if needed -->
         </tbody>
     </table>
-</div>
+</div><br>
+        <!-- Site info -->
+        <hr>
+        <p class=" fs-5 text-center rounded site-information">
+            Welcome to the Green River College Software Development Application Tracking Tool (ATT). 
+            The purpose of this tool is to provide a centralized place to track your job/internship 
+            applications that can be helpful in your application journey!
+        </p>
+        <br>
+            <!-- About -->
+            <div class="col-md-8 about">
+                <div class="row">
+                    <div class="col-7">
+                        <p class="fs-2 heading">About Us</p>
+                        <p>
+                            The GRC Software Development program is an excellent way to prepare for a career in tech. 
+                            Through its affordable tuition, caring instructors, and thoughtfully curated curriculum, 
+                            you will be able to achieve whatever you set out to become. 
+                        </p>
+                    </div>
+                    <div class="col-4 gx-4 gy-4">
+                        <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
-<script src="scripts/script.js"></script>
+<!-- JavaScript for Dark Mode toggle -->
+<script src="./scripts/script.js"></script>
+<!-- Required JavaScript -->
+<!-- Popper.js, then Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>
