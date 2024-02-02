@@ -1,94 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-        <!-- Global CSS -->
-        <link rel="stylesheet" href="global.css">
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="global.css">
 
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="./styles/signUpForm.css">
-        <title>Sign Up Form</title>
-    </head>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./styles/signUpForm.css">
+    <title>Sign Up Form</title>
+</head>
 
-    <body>
-        <!-- Navbar -->
-        <header class="site-navigation">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                    <div class="container-fluid">
-                        <a class="navbar-brand fs-3" href="dashboard.html">GRC ATT</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse fs-3" id="navbarText">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="dashboard.html">Dashboard</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="newApplicationForm.html">New Application</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contactForm.html">Contact</a>
-                                </li>
-                            </ul>
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a href="signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
-                                    <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-                                </li>
-                            </ul>
-                        </div>                      
-                    </div>
-                </nav>
-            </div>
-        </header>
-
-        <!-- Sign Up Form -->
-        <div class="form-container">
-            <form action="vardump.php" method="post">
-                <!-- Title -->
-                <p class="fs-3 form-title">Sign up</p>
-                <!-- Name* -->
-                <label for="name">Name*</label>
-                <input type="text" id="name" name="name" required>
-                <!-- Email* (use Javascript to mention that their greenriver.edu email is preferred, but not required) -->
-                <label for="email">Email* - GRC email is preferred, but not required</label>
-                <input type="text" id="email" name="email" required>
-                <!-- Cohort Number -->
-                <label for="date">Cohort Number*</label>
-                <input type="number" id="number" name="number" required>
-                <!-- (use JS to confirm, must be between 1 and 100) -->
-                <script>
-                    for(x=0; x<100; x++) {
-                    document.getElementByID("cohortNumber").innerHTML= x;
-                    }
-                </script>
-                <!-- Radio buttons: Seeking Internship, Seeking Job, Not Actively Searching -->
-                <label>Current Job Status*</label>
-                <div class="mb-2">
-                    <label><input type="radio" name="jobStage" value="seekingInternship"> Seeking Internship</label>
-                    <label><input type="radio" name="jobStage" value="seekingJob"> Seeking Job</label>
-                    <label><input type="radio" name="jobStage" value="notActivelySearching"> Not Actively Searching</label>
+<body>
+<!-- Navbar -->
+<header class="site-navigation">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand fs-3" href="dashboard.html">GRC ATT</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse fs-3" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.html">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="newApplicationForm.html">New Application</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contactForm.html">Contact</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
+                            <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+                        </li>
+                    </ul>
                 </div>
-                <!-- Text*: What types of roles are you seeking? -->
-                <label for="notes">What types of roles are you seeking?*</label>
-                <textarea id="notes" name="notes" placeholder="Description..."></textarea>
-                <!-- Submit Sign-up button -->
-                <input class="btn btn-bd-primary" type="submit" value="Submit">
-            </form>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Sign Up Form -->
+<div class="form-container">
+    <p class="fs-3 form-title">Sign up</p>
+
+    <!--loads index on success until php is setup-->
+    <form action="vardump.php" onsubmit="return validSignUp()" method="post" name="sign-up-form">
+
+        <!-- First Name* -->
+        <label for="fName">First Name*</label>
+        <input type="text" id="fName" name="name">
+        <span class="text-danger" id="first-name-span"></span>
+
+        <!-- Last Name* -->
+        <label for="lName">Last Name*</label>
+        <input type="text" id="lName" name="name">
+        <span class="text-danger" id="last-name-span"></span>
+
+        <!-- Email* (use Javascript to mention that their greenriver.edu email is preferred, but not required) -->
+        <label for="email">Email*</label>
+        <input type="email" id="email" name="email" onchange="signUpEmailWarning()">
+        <br/>
+        <span class="text-primary" id="email-span-good"></span>
+        <br/>
+        <span class="text-danger" id="email-span-bad"></span>
+
+        <!-- Cohort Number -->
+        <label for="cohort-number">Cohort Number*</label>
+        <input type="number" id="cohort-number" name="number">
+        <span class="text-danger" id="cohort-number-span"></span>
+
+        <!--Job Status-->
+        <label>Current Job Status*</label>
+        <div class="mb-2">
+            <label><input type="radio" name="jobStage" value="seekingInternship"> Seeking Internship</label>
+            <label><input type="radio" name="jobStage" value="seekingJob"> Seeking Job</label>
+            <label><input type="radio" name="jobStage" value="notActivelySearching"> Not Actively Searching</label>
         </div>
-        
-        <!-- JavaScript for Dark Mode toggle -->
-        <script src="./scripts/script.js"></script>
-        <!-- Popper.js, then Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-    </body>
+
+        <!-- Text*: What types of roles are you seeking? -->
+        <label for="notes">What types of roles are you seeking?*</label>
+        <textarea id="notes" name="notes" placeholder="Description..."></textarea>
+
+        <!-- Submit Sign-up button -->
+        <input class="btn btn-bd-primary" type="submit" value="Submit" name="submit-sign-up">
+    </form>
+</div>
+
+<!-- JavaScript for Dark Mode toggle -->
+<script src="./scripts/script.js"></script>
+<!-- Popper.js, then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
 </html>
