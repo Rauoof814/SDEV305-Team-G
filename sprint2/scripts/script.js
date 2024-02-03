@@ -1,12 +1,33 @@
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-    var tdElements = document.getElementsByTagName("td");
+//dark mode preference persistent across page visits
 
+// This function toggles dark mode and saves the state in local storage
+function toggleDarkMode() {
+    var isDarkMode = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+
+    var tdElements = document.getElementsByTagName("td");
     for (var i = 0; i < tdElements.length; i++) {
-        tdElements[i].style.backgroundColor = "#0e0d0d !important";
+        tdElements[i].style.backgroundColor = isDarkMode ? "#0e0d0d" : ""; // Adjust the color or remove this line if not needed
     }
 }
 
+// This function checks the local storage to apply dark mode if it was previously enabled
+function applyDarkModeIfEnabled() {
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        var tdElements = document.getElementsByTagName("td");
+        for (var i = 0; i < tdElements.length; i++) {
+            tdElements[i].style.backgroundColor = "#0e0d0d"; // Adjust the color or remove this line if not needed
+        }
+    }
+}
+
+// Call applyDarkModeIfEnabled on page load
+document.addEventListener('DOMContentLoaded', applyDarkModeIfEnabled);
+
+
+
+// sign up validtion
 function validSignUp() {
     let fName = document.forms["sign-up-form"]["fName"].value.trim();
     let lName = document.forms["sign-up-form"]["lName"].value.trim();
