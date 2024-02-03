@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -11,9 +11,9 @@
     <!-- Global CSS -->
     <link rel="stylesheet" href="global.css">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="./styles/signUpForm.css">
-    <title>Sign Up Form</title>
+    <!-- Custom CSS | TODO: make custom css file-->
+    <link rel="stylesheet" href="./styles/contactForm.css">
+    <title>Admin Announcement</title>
 </head>
 <body>
 <!-- Navbar -->
@@ -42,7 +42,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item fs-5" href="adminDashboard.html">Admin Dashboard</a></li>
-                                <li><a class="dropdown-item fs-5" href="a">Admin Announcement</a></li>
+                                <li><a class="dropdown-item active fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -57,70 +57,83 @@
         </nav>
     </div>
 </header>
-
-<!--form handling for sign up form-->
-<?php
-    if(isset($_POST["fName"]) && isset($_POST["lName"]) && isset($_POST["email"]) && isset($_POST["cohort-number"]) && isset($_POST["jobStage"])
-        && $_POST["fName"] != "" && $_POST["lName"] != "" & $_POST["email"] != "" && $_POST["cohort-number"] && $_POST["jobStage"] != ""){
-
-        //string together results message
-        $results = compileUserInput();
-
-        //send email of results. Replace with tschrock@greenriver.edu when ready
-        sendConfirmationEmail($results, $_POST["email"]);
-
-        //display results on page
-        echo $results;
-    }
-    else{
-        $error = '
-            <div class="form-container">
-                <p class="fs-3 form-title">ERROR</p>
-                <p>One or more fields in the sign-up form are empty.</p>
-                <p>Please make sure to fill out all required fields.</p>
-                <a href="signUpForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>
-            </div>
-        ';
-
-        echo $error;
-    }
-
-    function compileUserInput(){
-        $results = "<div class='form-container'>
-            <p class='fs-3 form-title'>Welcome, " . $_POST["fName"] . "!</p>
-            <p class='text-decoration-underline'>Your account information is below:</p>
-            <p>First name: " . $_POST["fName"] . "</p>
-            <p>Last name: " . $_POST["lName"] . "</p>
-            <p>Email: " . $_POST["email"] . ".</p>
-            <p>Cohort number: " . $_POST["cohort-number"] . "</p>
-            <p>What are you seeking?: " . $_POST["jobStage"] . " </p>";
-
-        if(isset($_POST["notes"]) && $_POST["notes"] != "") {
-            $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ><a href='dashboard.html'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
+<main>
+    <div class="form-container">
+        <?php
+        //        TODO: add further validation to not accept any variation of "  " or single characters.
+        if (!empty($_POST) && !empty($_POST["title"]) && !empty($_POST["employmentType"]) && !empty($_POST["location"]) && !empty($_POST["employer"])  && !empty($_POST["moreInfo"])  && !empty($_POST["url"])  && !empty($_POST["email"])){
+            $title = $_POST["title"];
+            $employmentType = $_POST["employmentType"];
+            $location = $_POST["location"];
+            $employer = $_POST["employer"];
+            $moreInfo = $_POST["moreInfo"];
+            $url = $_POST["url"];
+            $email = $_POST["email"];
+            $form = true; // send an email
+            // Display a confirmation message
+            echo '<p class="fs-3 form-title">Announcement Confirmed</p>';
+            echo '<p>This announcement will be sent to: ' . $email . '</p>';
+            echo '<p>A preview of this announcement is below:</p>';
+            echo '<p>Title: ' . $title . '</p>';
+            echo '<p>Employment Type: ' . $employmentType . '</p>';
+            echo '<p>Location: ' . $location . '</p>';
+            echo '<p>Employer: ' . $employer . '</p>';
+            echo '<p>Additional Information: ' . $moreInfo . '</p>';
+            echo '<p>URL: ' . $url . '</p>';
+            echo '<a href="adminDashboard.html"><button type=button class="btn btn-bd-primary">Admin Dashboard</button></a>';
         }
-        else{
-            $results .= "<p> Any additional roles: *No additional information added</p ><a href='dashboard.html'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
+        else {
+            $form = false; // dont send an email
+            // Display error message
+            echo '<p class="fs-3 form-title">ERROR</p>';
+            echo '<p>One or more fields in the announcement form are empty.</p>';
+            echo '<p>Please make sure to fill out all required fields.</p>';
+            echo '<a href="adminAnnouncement.html"><button type=button class="btn btn-bd-primary">Try again</button></a>';
         }
-        return $results;
-    }
-
-    function sendConfirmationEmail($results,$to){
-        $subject = "Thanks for signing up!";
-
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $headers .= "From: <" . $_POST["email"] . ">" . "\r\n";
-
-        mail($to, $subject, $results, $headers);
-    }
-?>
+        ?>
+    </div>
+</main>
 
 <!-- JavaScript for Dark Mode toggle -->
 <script src="scripts/script.js"></script>
-
 <!-- Required JavaScript -->
 <!-- Popper.js, then Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+<!--  email php  -->
+<!--  TODO: define email styling  -->
+<?php
+if ($form) {
+    $to = $email;
+    $emailSubject = "New announcement: " . $title;
+    $body = '
+        <html>
+        <head>
+        <title>HTML email</title>
+        </head>
+        <body>
+        <p>Title: ' . $title . '</p>
+        <p>Employment Type: ' . $employmentType . '</p>
+        <p>Location: ' . $location . '</p>
+        <p>Employer: ' . $employer . '</p>
+        <p>Additional Information: ' . $moreInfo . '</p>
+        <p>URL: ' . $url . '</p>
+        </body>
+        </html>
+    ';
+
+// Always set content-type when sending HTML email
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+// More headers | sender email
+    $headers .= 'From: <gnocchig@gnocchi.greenriverdev.com>' . "\r\n";
+
+    mail($to,$emailSubject,$body,$headers);
+}
+
+?>
