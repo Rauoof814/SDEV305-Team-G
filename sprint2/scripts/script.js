@@ -7,7 +7,8 @@ function toggleDarkMode() {
 
     var tdElements = document.getElementsByTagName("td");
     for (var i = 0; i < tdElements.length; i++) {
-        tdElements[i].style.backgroundColor = isDarkMode ? "#0e0d0d" : ""; // Adjust the color or remove this line if not needed
+        tdElements[i].style.backgroundColor = isDarkMode ? "#131313" : ""; // Adjust the color or remove this line if not needed
+        tdElements[i].style.color = isDarkMode ? "#FFFFFF" : "";
     }
 }
 
@@ -17,14 +18,14 @@ function applyDarkModeIfEnabled() {
         document.body.classList.add('dark-mode');
         var tdElements = document.getElementsByTagName("td");
         for (var i = 0; i < tdElements.length; i++) {
-            tdElements[i].style.backgroundColor = "#0e0d0d"; // Adjust the color or remove this line if not needed
+            tdElements[i].style.backgroundColor = "#131313"; // Adjust the color or remove this line if not needed
+            tdElements[i].style.color = "#FFFFFF";
         }
     }
 }
 
 // Call applyDarkModeIfEnabled on page load
 document.addEventListener('DOMContentLoaded', applyDarkModeIfEnabled);
-
 
 
 // sign up validtion

@@ -27,7 +27,7 @@ body {
 
 /* Dark Mode */
 body.dark-mode {
-    background-color: #0e0d0d;
+    background-color: #131313;
     color: white;
 }
 
@@ -124,6 +124,10 @@ input[type="radio"] {
 
 .btn-link:hover {
     color: #2c882b !important;
+}
+
+.btn-width {
+    width: 65px;
 }
 
 /* Primary GRC GREEN */
