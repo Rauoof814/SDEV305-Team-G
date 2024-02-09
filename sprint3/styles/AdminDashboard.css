@@ -1,0 +1,44 @@
+.site-navigation {
+    font-family: "BigNoodleTitling", sans-serif;
+}
+
+.navbar {
+    background-color: #333333 !important;
+    color: aliceblue !important;
+}
+
+.nav-link {
+    color: white;
+}
+
+.nav-link:hover {
+    color: #ABB2B9 !important;
+}
+
+.active {
+    color: #6CB443 !important;
+}
+
+.signUp {
+    margin-right: 5px;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+td {
+    background-color: white;
+}
+
+/* Customize the navbar-toggler icon */
+.navbar-toggler-icon {
+    background-color: white;
+}
+
+/* Always display the hamburger icon */
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-toggler {
+        display: none;
+    }
+}
