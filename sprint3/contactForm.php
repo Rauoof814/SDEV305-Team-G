@@ -21,14 +21,14 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand fs-3" href="dashboard.html">GRC ATT</a>
+                <a class="navbar-brand fs-3" href="dashboard.php">GRC ATT</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
                     <span class="navbar-dark navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse fs-3" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="dashboard.html">Dashboard</a>
+                            <a class="nav-link" href="dashboard.php">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="newApplicationForm.html">New Application</a>
@@ -72,7 +72,7 @@
             echo '<p>We have received your message and will get back to you within 24 hours.</p>';
             echo '<p>A copy of your message has been sent to: ' . $email . '</p>';
             echo '<p class="fst-italic">"Subject: ' . $subject . '<p class="fst-italic">Message: ' . $message . '"</p></p>';
-            echo '<a href="dashboard.html"><button type=button class="btn btn-bd-primary">Dashboard</button></a>';
+            echo '<a href="dashboard.php"><button type=button class="btn btn-bd-primary">Dashboard</button></a>';
         }
         else {
             $form = false; // dont send an email

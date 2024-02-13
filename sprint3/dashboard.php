@@ -70,48 +70,53 @@
                     <!-- Applications panel -->
                     <div class="col-md-8 applications">
                         <p class="fs-2 heading">Recent Applications</p>
-                        <div class="applications-list">
-                            <div class="d-flex flex-row column-heading">
-                                <div class="pt-2 col-2">Date</div>
-                                <div class="p-2 col-2">Title</div>
-                                <div class="p-2 col-4">Status</div>
-                                <div class="p-2 col align-self-end">Manage</div>
-                            </div>
-                            <div class="d-flex flex-row application-listing">
-                                <div class="pt-2 col-2">1/5/24</div>
-                                <div class="p-2 col-2">Google</div>
-                                <div class="p-2 col me-auto">Submitted</div>
-                                <div class="p-2 col align-self-end">
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-bd-primary ">Update</button>
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row application-listing">
-                                <div class="pt-2 col-2">12/23/23</div>
-                                <div class="p-2 col-2">Amazon</div>
-                                <div class="p-2 col me-auto">Interviewing</div>
-                                <div class="p-2 col align-self-end">
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-bd-primary ">Update</button>
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row application-listing">
-                                <div class="pt-2 col-2">12/5/23</div>
-                                <div class="p-2 col-2">Microsoft</div>
-                                <div class="p-2 col me-auto">Inactive/Expired</div>
-                                <div class="p-2 col align-self-end" style="min-width: 50px;">
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-bd-primary ">Update</button>
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="container-fluid btn btn-link" href="#" role="button">Show More</a>
+                        <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 230px">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <td scope="col">Date</td>
+                                    <td scope="col">Title</td>
+                                    <td scope="col">Status</td>
+                                    <td scope="col">Manage</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- Display applications from DB onto dashboard table -->
+                                <!-- TODO: Make scrollbar less ugly -->
+                                <?php
+                                require '/home/gnocchig/attdb.php';
+                                $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
+                                $result = @mysqli_query($cnxn, $sql);
+                                while ($row = mysqli_fetch_assoc($result))
+                                {
+                                    $appID = $row['application_id'];
+                                    $appName = $row['application_name'];
+                                    $appURL = $row['application_url'];
+                                    $appDate = $row['application_date'];
+                                    $appStatus = $row['application_status'];
+                                    $appUpdates = $row['application_updates'];
+                                    $appFollowUp= $row['application_followUp'];
+
+                                    $row = '
+                                    <tr>
+                                        <td> ' . $appDate . '</td>
+                                        <td> ' . $appName . '</td>
+                                        <td> ' . $appStatus . '</td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <button type="button" class="btn btn-bd-primary btn-width">Update</button>
+                                                <button type="button" class="btn btn-danger btn-width">Delete</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    ';
+                                    echo $row;
+                                }
+                                ?>
+                                </tbody>
+                            </table>
                         </div>
+                        <a class="container-fluid btn btn-link" href="#" role="button">Show more Applications</a>
                     </div>
                     <!-- Reminders panel -->
                     <!-- TODO: Fix view button spacing -->

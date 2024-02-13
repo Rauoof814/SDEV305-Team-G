@@ -21,14 +21,14 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand fs-3" href="dashboard.html">GRC ATT</a>
+                <a class="navbar-brand fs-3" href="dashboard.php">GRC ATT</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
                     <span class="navbar-dark navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse fs-3" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="dashboard.html">Dashboard</a>
+                            <a class="nav-link" href="dashboard.php">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="newApplicationForm.html">New Application</a>
@@ -96,10 +96,10 @@
             <p>What are you seeking?: " . $_POST["jobStage"] . " </p>";
 
         if(isset($_POST["notes"]) && $_POST["notes"] != "") {
-            $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ><a href='dashboard.html'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
+            $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
         }
         else{
-            $results .= "<p> Any additional roles: *No additional information added</p ><a href='dashboard.html'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
+            $results .= "<p> Any additional roles: *No additional information added</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
         }
         return $results;
     }

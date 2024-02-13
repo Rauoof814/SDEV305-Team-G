@@ -72,7 +72,7 @@
             echo '<p>We have received your message and will get back to you within 24 hours.</p>';
             echo '<p>A copy of your message has been sent to: ' . $email . '</p>';
             echo '<p class="fst-italic">"Subject: ' . $subject . '<p class="fst-italic">Message: ' . $message . '"</p></p>';
-            echo '<a href="dashboard.html"><button type=button class="btn btn-bd-primary">Dashboard</button></a>';
+            echo '<a href="dashboard.php"><button type=button class="btn btn-bd-primary">Dashboard</button></a>';
         }
         else {
             $form = false; // dont send an email

@@ -96,10 +96,10 @@
             <p>What are you seeking?: " . $_POST["jobStage"] . " </p>";
 
         if(isset($_POST["notes"]) && $_POST["notes"] != "") {
-            $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ><a href='dashboard.html'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
+            $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
         }
         else{
-            $results .= "<p> Any additional roles: *No additional information added</p ><a href='dashboard.html'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
+            $results .= "<p> Any additional roles: *No additional information added</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
         }
         return $results;
     }
