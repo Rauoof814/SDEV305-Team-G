@@ -31,14 +31,6 @@ td {
     background-color: white;
 }
 
-/* Customize the navbar-toggler icon */
-.navbar-toggler-icon {
-    background-color: white;
-}
-
-/* Always display the hamburger icon */
-@media (min-width: 992px) {
-    .navbar-expand-lg .navbar-toggler {
-        display: none;
-    }
+.account-settings {
+    padding-top: 9px;
 }

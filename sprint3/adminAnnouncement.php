@@ -41,7 +41,7 @@
                                 Admin
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item fs-5" href="adminDashboard.html">Admin Dashboard</a></li>
+                                <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
                                 <li><a class="dropdown-item active fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
                             </ul>
                         </li>
@@ -80,7 +80,7 @@
             echo '<p>Employer: ' . $employer . '</p>';
             echo '<p>Additional Information: ' . $moreInfo . '</p>';
             echo '<p>URL: ' . $url . '</p>';
-            echo '<a href="adminDashboard.html"><button type=button class="btn btn-bd-primary">Admin Dashboard</button></a>';
+            echo '<a href="adminDashboard.php"><button type=button class="btn btn-bd-primary">Admin Dashboard</button></a>';
         }
         else {
             $form = false; // dont send an email
