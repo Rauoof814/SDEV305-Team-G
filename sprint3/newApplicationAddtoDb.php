@@ -58,44 +58,43 @@
     </div>
 </header>
 <div class="form-container">
-<?php
-    //require file with credentials _connect.php
+    <?php
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
+    require '/home/gnocchig/attdb.php';
 
     if(isset($_POST["role"]) && $_POST["role"] != "" && isset($_POST["jobDescription"]) && $_POST["jobDescription"] != "" &&
         isset($_POST["date"]) && $_POST["date"] != "" && isset($_POST["status"]) && $_POST["status"] && isset($_POST["followUpDate"]) && $_POST["followUpDate"] != "")
     {
-            $title = $_POST["role"];
-            $jobUrl = $_POST["jobDescription"];
-            $date = $_POST["date"];
-            $updates = $_POST["updates"];
-            $status = $_POST["status"];
-            $followUpDate = $_POST["followUpDate"];
+        $title = $_POST["role"];
+        $jobUrl = $_POST["jobDescription"];
+        $date = $_POST["date"];
+        $updates = $_POST["updates"];
+        $status = $_POST["status"];
+        $followUpDate = $_POST["followUpDate"];
 
-            // Display a confirmation message
-            echo '<p class="fs-3 form-title">New Application Added</p>';
-            echo '<p>Job Title: ' . $title . '</p>';
-            echo '<p>Job Url: ' . $jobUrl . '</p>';
-            echo '<p>Date: ' . $date . '</p>';
+        // Display a confirmation message
+        echo '<p class="fs-3 form-title">New Application Added</p>';
+        echo '<p>Job Title: ' . $title . '</p>';
+        echo '<p>Job Url: ' . $jobUrl . '</p>';
+        echo '<p>Date: ' . $date . '</p>';
 
-            if(!is_null($updates) && $updates != ""){
-                echo '<p>Updates: ' . $updates . '</p>';
-            }
-            else{
-                echo '<p>Updates: No updates at this time.</p>';
-            }
-            echo '<p>Status: ' . $status . '</p>';
-            echo '<p>Follow up on: ' . $followUpDate . '</p>';
-            echo '<a href="adminDashboard.html"><button type=button class="btn btn-bd-primary">Admin Dashboard</button></a>';
+        if(!is_null($updates) && $updates != ""){
+            echo '<p>Updates: ' . $updates . '</p>';
+        }
+        else{
+            echo '<p>Updates: No updates at this time.</p>';
+        }
+        echo '<p>Status: ' . $status . '</p>';
+        echo '<p>Follow up on: ' . $followUpDate . '</p>';
+        echo '<a href="adminDashboard.html"><button type=button class="btn btn-bd-primary">Admin Dashboard</button></a>';
 
-            //add to database
-            $sql = "INSERT INTO applications (application_name, application_url, application_date, application_status, application_updates, application_followUp) 
-                VALUES ('{$_POST["role"]}', '{$_POST["jobDescription"]}', '{$_POST["date"]}', '{$_POST["status"]}', '{$_POST["updates"]}', '{$_POST["followUpDate"]}')";
+        //add to database
+        $sql = "INSERT INTO `applications` (`application_name`, `application_url`, `application_date`, `application_status`, `application_updates`, `application_followUp`) 
+            VALUES ('$title', '$jobUrl', '$date', '$status', '$updates', '$followUpDate')";
 
-            $database = 'gnocchig_gnocchiATT';
-            $cnxn = @mysqli_connect('localhost', 'gnocchig', '', $database) or
-                    die("Error Connecting to DB: " . mysqli_connect_error());
-            mysqli_query($cnxn, $sql);
-            echo 'connected to Database!';
+        mysqli_query($cnxn, $sql);
     }
     else {
         // Display error message
@@ -104,11 +103,12 @@
         echo '<p>Please make sure to fill out all required fields.</p>';
         echo '<a href="newApplicationForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>';
     }
-?>
+    ?>
 </div>
 
 <!-- JavaScript for Dark Mode toggle -->
 <script src="scripts/script.js"></script>
+
 <!-- Required JavaScript -->
 <!-- Popper.js, then Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
