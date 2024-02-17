@@ -45,7 +45,7 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                        <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
+                                        <li><a class="dropdown-item fs-5" href="adminAnnouncement.php">Admin Announcement</a></li>
                                     </ul>
                                 </li>
                             </ul>
