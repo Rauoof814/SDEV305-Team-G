@@ -1,0 +1,36 @@
+.site-navigation {
+    font-family: "BigNoodleTitling", sans-serif;
+}
+
+.navbar {
+    background-color: #333333 !important;
+    color: aliceblue !important;
+}
+
+.nav-link {
+    color: white;
+}
+
+.nav-link:hover {
+    color: #ABB2B9 !important;
+}
+
+.active {
+    color: #6CB443 !important;
+}
+
+.signUp {
+    margin-right: 5px;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+td {
+    background-color: white;
+}
+
+.account-settings {
+    padding-top: 9px;
+}
