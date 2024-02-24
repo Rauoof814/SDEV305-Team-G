@@ -24,14 +24,14 @@
             <div class="container">
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                     <div class="container-fluid">
-                        <a class="navbar-brand fs-3" href="dashboard.html">GRC ATT</a>
+                        <a class="navbar-brand fs-3" href="dashboard.php">GRC ATT</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
                             <span class="navbar-dark navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse fs-3" id="navbarText">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="dashboard.html">Dashboard</a>
+                                    <a class="nav-link active" href="dashboard.php">Dashboard</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="newApplicationForm.html">New Application</a>
@@ -45,7 +45,7 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                        <li><a class="dropdown-item fs-5" href="adminAnnouncement.php">Admin Announcement</a></li>
+                                        <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -103,8 +103,8 @@
                                         <td> ' . $appName . '</td>
                                         <td> ' . $appStatus . '</td>
                                         <td>
-                                            <div class="btn-group btn-group-sm" role="group">
-                                                <button type="button" class="btn btn-bd-primary btn-width">Update</button>
+                                            <div class="btn-group btn-group-sm" role="group">                                       
+                                                <a href="edit_app.php?id=<?php echo $appID; ?>" class="btn btn-bd-primary btn-width">Update</a>
                                                 <button type="button" class="btn btn-danger btn-width">Delete</button>
                                             </div>
                                         </td>

@@ -60,80 +60,87 @@
 
 <!--form handling for sign up form-->
 <div class="form-container">
-    <?php
-        if(isset($_POST["fName"]) && isset($_POST["lName"]) && isset($_POST["email"]) && isset($_POST["cohort-number"]) && isset($_POST["jobStage"])
-            && $_POST["fName"] != "" && $_POST["lName"] != "" & $_POST["email"] != "" && $_POST["cohort-number"] && $_POST["jobStage"] != ""){
+<?php
+    if(isset($_POST["fName"]) && isset($_POST["lName"]) && isset($_POST["email"]) && isset($_POST["cohort-number"]) && isset($_POST["jobStage"])
+        && $_POST["fName"] != "" && $_POST["lName"] != "" & $_POST["email"] != "" && $_POST["cohort-number"] && $_POST["jobStage"] != ""){
 
-            //string together results message
-            $results = compileUserInput();
+        //string together results message
+        $results = compileUserInput();
 
-            //send email of results.
-            sendConfirmationEmail($results, $_POST["email"]);
+        //send email of results.
+        sendConfirmationEmail($results, $_POST["email"]);
 
-            //add to database
-            addNewUserToDb();
+        //display results on page
+        echo $results;
 
-            //display results on page
-            echo $results;
+        //add to database
+        addNewUserToDb();
+    }
+    else{
+        $error = '
+            <div class="form-container">
+                <p class="fs-3 form-title">ERROR</p>
+                <p>One or more fields in the sign-up form are empty.</p>
+                <p>Please make sure to fill out all required fields.</p>
+                <a href="signUpForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>
+            </div>
+        ';
+
+        echo $error;
+    }
+
+    function compileUserInput(){
+        $results = "<div class='form-container'>
+            <p class='fs-3 form-title'>Welcome, " . $_POST["fName"] . "!</p>
+            <p class='text-decoration-underline'>Your account information is below:</p>
+            <p>First name: " . $_POST["fName"] . "</p>
+            <p>Last name: " . $_POST["lName"] . "</p>
+            <p>Email: " . $_POST["email"] . ".</p>
+            <p>Cohort number: " . $_POST["cohort-number"] . "</p>
+            <p>What are you seeking?: " . $_POST["jobStage"] . " </p>";
+
+        if(isset($_POST["notes"]) && $_POST["notes"] != "") {
+            $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
         }
         else{
-            echo '<p class="fs-3 form-title">ERROR</p>
-                  <p>One or more fields in the sign-up form are empty.</p>
-                  <p>Please make sure to fill out all required fields.</p>
-                  <a href="signUpForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>';
+            $results .= "<p> Any additional roles: *No additional information added</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
+        }
+        return $results;
+    }
+
+    function sendConfirmationEmail($results,$to){
+        $subject = "Thanks for signing up!";
+
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= 'From: <gnocchig@gnocchi.greenriverdev.com>' . "\r\n";
+
+        mail($to, $subject, $results, $headers);
+    }
+
+    function addNewUserToDb(){
+        require '/home/gnocchig/attdb.php';
+        
+        $fName = $_POST["fName"];
+        $lName = $_POST["lName"];
+        $email = $_POST["email"];
+        $cohort = $_POST["cohort-number"];
+        $jobStage = $_POST["jobStage"];
+
+        if(isset($_POST["notes"]) && $_POST["notes"] != ""){
+            $notes = $_POST["notes"];
+        }
+        else{
+            $notes = "No additional information.";
         }
 
-        function compileUserInput(){
-            $results = "<p class='fs-3 form-title'>Welcome, " . $_POST["fName"] . "!</p>
-                        <p class='text-decoration-underline'>Your account information is below:</p>
-                        <p>First name: " . $_POST["fName"] . "</p>
-                        <p>Last name: " . $_POST["lName"] . "</p>
-                        <p>Email: " . $_POST["email"] . ".</p>
-                        <p>Cohort number: " . $_POST["cohort-number"] . "</p>
-                        <p>What are you seeking?: " . $_POST["jobStage"] . " </p>";
+        //add to database
+        $sql = "INSERT INTO `users` (`user_first`, `user_last`, `user_email`, `user_cohort`, `user_job_status`, `user_seeking`) 
+            VALUES ('$fName', '$lName', '$email', '$cohort', '$jobStage', '$notes')";
 
-            if(isset($_POST["notes"]) && $_POST["notes"] != "") {
-                $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a>";
-            }
-            else{
-                $results .= "<p> Any additional roles: *No additional information added</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a>";
-            }
-            return $results;
-        }
-
-        function sendConfirmationEmail($results,$to){
-            $subject = "Thanks for signing up!";
-
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-            $headers .= 'From: <gnocchig@gnocchi.greenriverdev.com>' . "\r\n";
-
-            mail($to, $subject, $results, $headers);
-        }
-
-        function addNewUserToDb(){
-            require '/home/gnocchig/attdb.php';
-
-            $fName = $_POST["fName"];
-            $lName = $_POST["lName"];
-            $email = $_POST["email"];
-            $cohort = $_POST["cohort-number"];
-            $jobStage = $_POST["jobStage"];
-
-            if(isset($_POST["notes"]) && $_POST["notes"] != ""){
-                $notes = $_POST["notes"];
-            }
-            else{
-                $notes = "No additional information.";
-            }
-
-            //add to database
-            $sql = "INSERT INTO `users` (`user_first`, `user_last`, `user_email`, `user_cohort`, `user_job_status`, `user_seeking`) 
-                    VALUES ('$fName', '$lName', '$email', '$cohort', '$jobStage', '$notes')";
-
-            mysqli_query($cnxn, $sql);
-        }
-    ?>
+        mysqli_query($cnxn, $sql);
+    }
+?>
 </div>
 
 <!-- JavaScript for Dark Mode toggle -->
