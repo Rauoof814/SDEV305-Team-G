@@ -103,11 +103,8 @@
                                         <td> ' . $appName . '</td>
                                         <td> ' . $appStatus . '</td>
                                         <td>
-                                            <div class="btn-group btn-group-sm" role="group">
-                                            
-                                                 <a href="edit_app.php?id=<?php echo $appID; ?>" class="btn btn-bd-primary btn-width">Update</a>
-                                                 
-                                                 
+                                            <div class="btn-group btn-group-sm" role="group">                                       
+                                                <a href="edit_app.php?id=<?php echo $appID; ?>" class="btn btn-bd-primary btn-width">Update</a>
                                                 <button type="button" class="btn btn-danger btn-width">Delete</button>
                                             </div>
                                         </td>

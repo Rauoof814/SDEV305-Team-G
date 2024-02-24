@@ -42,7 +42,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                <li><a class="dropdown-item fs-5" href="a">Admin Announcement</a></li>
+                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -59,6 +59,7 @@
 </header>
 
 <!--form handling for sign up form-->
+<div class="form-container">
 <?php
     if(isset($_POST["fName"]) && isset($_POST["lName"]) && isset($_POST["email"]) && isset($_POST["cohort-number"]) && isset($_POST["jobStage"])
         && $_POST["fName"] != "" && $_POST["lName"] != "" & $_POST["email"] != "" && $_POST["cohort-number"] && $_POST["jobStage"] != ""){
@@ -140,6 +141,7 @@
         mysqli_query($cnxn, $sql);
     }
 ?>
+</div>
 
 <!-- JavaScript for Dark Mode toggle -->
 <script src="scripts/script.js"></script>
