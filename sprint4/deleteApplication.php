@@ -1,17 +1,11 @@
 <?php
-// Establishing database connection
-$username = 'gnocchig';
-$password = '0I(gjj4L!6a1PK';
-$hostname = 'localhost';
-$database = 'gnocchig_test';
-
-$conn = @mysqli_connect($hostname, $username, $password, $database) or die("Error Connecting to DB: " . mysqli_connect_error());
+include 'attdb.php';
 
 // Delete application for regular users
 if(isset($_POST['delete_application'])) {
     $application_id = $_POST['application_id']; // Assuming you have application ID sent via form
 
-    // update statement to set is_deleted to 1
+    // Update statement to set is_deleted to 1 only if the application belongs to the current user
     $sql = "UPDATE applications SET is_deleted = 1 WHERE id = ? AND user_id = ?";
     $stmt = mysqli_prepare($conn, $sql);
 
