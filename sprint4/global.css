@@ -130,6 +130,13 @@ input[type="radio"] {
     width: 65px;
 }
 
+#delete_application {
+    color:aliceblue; 
+    background-color: transparent;
+    border-color: transparent;
+    padding: 0px !important;
+  }
+
 /* Primary GRC GREEN */
 .btn-bd-primary {
     background-color: #2c882b;
