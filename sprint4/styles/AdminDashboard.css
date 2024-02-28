@@ -31,6 +31,33 @@ td {
     background-color: white;
 }
 
-.account-settings {
+.see-all-announcements {
     padding-top: 9px;
+}
+
+.announcement-content {
+    border: 1px solid #dee2e6;
+    margin-top: 12px;
+    padding-top: 9px;
+}
+
+.announcement-message {
+    position: relative;
+    top: 3px;
+}
+
+.all-announcements {
+    padding-top: 2px;
+}
+
+/* Default text truncation */
+#truncated-text {
+    max-width: 300px; /* Default maximum width */
+}
+
+/* Media query for viewport width 576px or less */
+@media (max-width: 576px) {
+    #truncated-text {
+        max-width: 225px; /* Adjusted maximum width for smaller viewports */
+    }
 }
