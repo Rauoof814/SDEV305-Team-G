@@ -145,7 +145,7 @@ function validateAdminAnnounce() {
     let radioName = "employmentType";
 
     if (!validText(title)) {
-        document.getElementById("titleWarning").innerText = " Invalid title";
+        document.getElementById("titleWarning").innerText = " Title must not be blank";
         sendForm = false;
     }
     else {
@@ -159,14 +159,14 @@ function validateAdminAnnounce() {
         document.getElementById("radioWarning").innerText = ""
     }
     if (!validText(location)) {
-        document.getElementById("locationWarning").innerText = " Invalid location";
+        document.getElementById("locationWarning").innerText = " Location must not be blank";
         sendForm = false;
     }
     else {
         document.getElementById("titleWarning").innerText = "";
     }
     if (!validText(employer)) {
-        document.getElementById("employerWarning").innerText = " Invalid employer";
+        document.getElementById("employerWarning").innerText = " Employer must not be blank";
         sendForm = false;
     }
     else {
