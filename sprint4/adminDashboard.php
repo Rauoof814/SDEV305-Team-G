@@ -99,10 +99,15 @@
                                 <td> ' . $appName . '</td>
                                 <td> ' . $appStatus . '</td>
                                 <td>
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-bd-primary btn-width">Update</button>
-                                        <button type="button" class="btn btn-danger btn-width">Delete</button>
-                                    </div>
+                                    <div class="btn-group btn-group-sm" role="group">           
+                                    <a href="edit_app.php?id=' . $appID . '" class="btn btn-bd-primary btn-width">Update</a>
+                                    <a class="btn btn-danger btn-width" style="padding-top: 2px; padding-bottom: 0px;">
+                                    <form method="post" action="delete_application.php">
+                                        <input type="hidden" name="application_id" value="' . $appID . '">
+                                        <button type="submit" id="delete_application" name="delete_application">Delete</button>
+                                    </form>
+                                    </a>
+                                </div>
                                 </td>
                             </tr>
                             ';
