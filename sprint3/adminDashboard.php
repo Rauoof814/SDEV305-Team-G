@@ -79,7 +79,7 @@
                         <!-- Display applications from DB onto dashboard table -->
                         <!-- TODO: Make scrollbar less ugly -->
                         <?php
-                        $cnxn = mysqli_connect('localhost', 'root', 'Deadpool', 'gnocchig_gnocchiatt');
+                        require '/home/gnocchig/attdb.php';
                         $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
                         $result = @mysqli_query($cnxn, $sql);
                         while ($row = mysqli_fetch_assoc($result))
