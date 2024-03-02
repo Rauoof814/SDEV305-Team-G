@@ -79,7 +79,7 @@
                         <!-- Display applications from DB onto dashboard table -->
                         <!-- TODO: Make scrollbar less ugly -->
                         <?php
-                        require '/home/gnocchig/attdb.php';
+                        $cnxn = mysqli_connect('localhost', 'root', 'Deadpool', 'gnocchig_gnocchiatt');
                         $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
                         $result = @mysqli_query($cnxn, $sql);
                         while ($row = mysqli_fetch_assoc($result))
@@ -162,7 +162,7 @@
                     <!-- Display users from DB onto dashboard table -->
                     <!-- TODO: Display a max of 6 users or add scrollbar -->
                     <?php
-                    require '/home/gnocchig/attdb.php';
+                    $cnxn = mysqli_connect('localhost', 'root', 'Deadpool', 'gnocchig_gnocchiatt');
                     $sql = "SELECT * FROM users";
                     $result = @mysqli_query($cnxn, $sql);
                     while ($row = mysqli_fetch_assoc($result))
