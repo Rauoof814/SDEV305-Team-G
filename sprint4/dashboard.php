@@ -126,21 +126,58 @@
                     <!-- Reminders panel -->
                     <!-- TODO: Fix view button spacing -->
                     <div class="col-md-4 reminders">
-                        <p class="fs-2 heading">Reminders</p>
-                        <div class="container-fluid rounded reminder-content">
-                            <p>
-                                <text class="reminder-message">Follow Up with XYZ</text>
-                                <button type="button" class="btn btn-bd-primary btn-sm float-end">View</button>
-                            </p>
+                        <p class="fs-2 heading">Recent Announcements</p>
+                        <div class="overflow-y-scroll announcements-list" style="height: 300px">
+                            <!-- Display announcements from DB onto dashboard -->
+                            <!-- TODO: Make scrollbar less ugly -->
+                            <?php
+                            require '/home/gnocchig/attdb.php';
+                            $sql = "SELECT * FROM announcements WHERE `announcement_date` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND NOW() ORDER BY `announcement_date` DESC";
+                            $result = @mysqli_query($cnxn, $sql);
+                            while ($row = mysqli_fetch_assoc($result))
+                            {
+                                $announcementID = $row['announcement_id'];
+                                $announcementDate = $row['announcement_date'];
+                                $announcementTitle = $row['announcement_title'];
+                                $announcementJobType = $row['announcement_job_type'];
+                                $announcementLocation = $row['announcement_location'];
+                                $announcementEmployer= $row['announcement_employer'];
+                                $announcementAdditionalInfo= $row['announcement_additional_info'];
+                                $announcementURL = $row['announcement_url'];
+
+                                $row = '
+                                <div class="container-fluid rounded announcement-content">
+                                    <p style="margin-bottom: 10px">
+                                        <text class="d-inline-block text-truncate announcement-message" id="truncated-text"> ' . $announcementTitle . '</text>
+                                        <button type="button" class="btn btn-bd-primary btn-sm float-end">View</button>
+                                    </p>
+                                </div>
+                                ';
+                                echo $row;
+                            }
+
+                            // display follow up reminders
+                            $sql = "SELECT * FROM `applications` WHERE `application_followUp` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND DATE(NOW() + INTERVAL 5 DAY)";
+                            $result = @mysqli_query($cnxn, $sql);
+                            while ($row = mysqli_fetch_assoc($result))
+                            {
+                                $applicationID = $row['application_id'];
+                                $applicationName = $row['application_name'];
+
+                                $row = '
+                                <div class="container-fluid rounded announcement-content">
+                                    <p style="margin-bottom: 10px">
+                                        <text class="d-inline-block text-truncate announcement-message" id="truncated-text"> Follow up with ' . $applicationName . '</text>
+                                        <button type="button" class="btn btn-bd-primary btn-sm float-end">View</button>
+                                    </p>
+                                </div>
+                                ';
+                                echo $row;
+                            }
+                            ?>
                         </div>
-                        <div class="container-fluid rounded reminder-content">
-                            <p>
-                                <text class="reminder-message">3 Incomplete Apps</text>
-                                <button type="button" class="btn btn-bd-primary btn-sm float-end">View</button>
-                            </p>
-                        </div>
-                        <div class="container-fluid rounded reminder-content" style="min-height: 51px">
-                            <a class="container-fluid btn btn-link more-opportunities" href="#" role="button">Find More Opportunities</a>
+                        <div class="container-fluid see-all-announcements" style="min-height: 51px">
+                            <a class="container-fluid btn btn-link all-announcements" href="#" role="button">See All Announcements</a>
                         </div>
                     </div>
                 </div>

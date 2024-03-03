@@ -128,7 +128,7 @@
                     <!-- TODO: Make scrollbar less ugly -->
                     <?php
                     require '/home/gnocchig/attdb.php';
-                    $sql = "SELECT * FROM announcements ORDER BY `announcement_date` DESC";
+                    $sql = "SELECT * FROM announcements WHERE `announcement_date` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND NOW() ORDER BY `announcement_date` DESC";
                     $result = @mysqli_query($cnxn, $sql);
                     while ($row = mysqli_fetch_assoc($result))
                     {
@@ -145,6 +145,25 @@
                                 <div class="container-fluid rounded announcement-content">
                                     <p style="margin-bottom: 10px">
                                         <text class="d-inline-block text-truncate announcement-message" id="truncated-text"> ' . $announcementTitle . '</text>
+                                        <button type="button" class="btn btn-bd-primary btn-sm float-end">View</button>
+                                    </p>
+                                </div>
+                                ';
+                        echo $row;
+                    }
+
+                    // display follow up reminders
+                    $sql = "SELECT * FROM `applications` WHERE `application_followUp` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND DATE(NOW() + INTERVAL 5 DAY)";
+                    $result = @mysqli_query($cnxn, $sql);
+                    while ($row = mysqli_fetch_assoc($result))
+                    {
+                        $applicationID = $row['application_id'];
+                        $applicationName = $row['application_name'];
+
+                        $row = '
+                                <div class="container-fluid rounded announcement-content">
+                                    <p style="margin-bottom: 10px">
+                                        <text class="d-inline-block text-truncate announcement-message" id="truncated-text"> Follow up with ' . $applicationName . '</text>
                                         <button type="button" class="btn btn-bd-primary btn-sm float-end">View</button>
                                     </p>
                                 </div>
