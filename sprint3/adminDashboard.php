@@ -1,3 +1,26 @@
+<?php
+    //toggles making a user admin on button click and refreshes page to reflect change
+    require '/home/gnocchig/attdb.php';
+    if(isset($_POST['toggleAdmin'])){
+        $id = $_POST['userID'];
+
+        //sets update query
+        if($_POST['toggleAdmin'] == "Make Admin"){
+            $sql = "UPDATE `users` SET is_admin = true WHERE user_id = $id ";
+        }
+        else{
+            $sql = "UPDATE `users` SET is_admin = false WHERE user_id = $id ";
+        }
+
+        //execute query
+        @mysqli_query($cnxn, $sql);
+
+        //refreshes current page
+        header("Location: ".$_SERVER['PHP_SELF']);
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,35 +102,34 @@
                         <!-- Display applications from DB onto dashboard table -->
                         <!-- TODO: Make scrollbar less ugly -->
                         <?php
-                        require '/home/gnocchig/attdb.php';
-                        $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
-                        $result = @mysqli_query($cnxn, $sql);
-                        while ($row = mysqli_fetch_assoc($result))
-                        {
-                            $appID = $row['application_id'];
-                            $appName = $row['application_name'];
-                            $appURL = $row['application_url'];
-                            $appDate = $row['application_date'];
-                            $appStatus = $row['application_status'];
-                            $appUpdates = $row['application_updates'];
-                            $appFollowUp= $row['application_followUp'];
+                            $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
+                            $result = @mysqli_query($cnxn, $sql);
+                            while ($row = mysqli_fetch_assoc($result))
+                            {
+                                $appID = $row['application_id'];
+                                $appName = $row['application_name'];
+                                $appURL = $row['application_url'];
+                                $appDate = $row['application_date'];
+                                $appStatus = $row['application_status'];
+                                $appUpdates = $row['application_updates'];
+                                $appFollowUp= $row['application_followUp'];
 
-                            $row = '
-                            <tr>
-                                <td> ' . $appID . '</td>
-                                <td> ' . $appDate . '</td>
-                                <td> ' . $appName . '</td>
-                                <td> ' . $appStatus . '</td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-bd-primary btn-width">Update</button>
-                                        <button type="button" class="btn btn-danger btn-width">Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            ';
-                            echo $row;
-                        }
+                                $row = '
+                                <tr>
+                                    <td> ' . $appID . '</td>
+                                    <td> ' . $appDate . '</td>
+                                    <td> ' . $appName . '</td>
+                                    <td> ' . $appStatus . '</td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-bd-primary btn-width">Update</button>
+                                            <button type="button" class="btn btn-danger btn-width">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                ';
+                                echo $row;
+                            }
                         ?>
                         </tbody>
                     </table>
@@ -155,43 +177,65 @@
                             <td>Name</td>
                             <td>Email</td>
                             <td>Cohort</td>
+                            <td>Is Admin</td>
                             <td>Actions</td>
                         </tr>
                     </thead>
                     <tbody>
-                    <!-- Display users from DB onto dashboard table -->
-                    <!-- TODO: Display a max of 6 users or add scrollbar -->
-                    <?php
-                    $cnxn = mysqli_connect('localhost', 'root', 'Deadpool', 'gnocchig_gnocchiatt');
-                    $sql = "SELECT * FROM users";
-                    $result = @mysqli_query($cnxn, $sql);
-                    while ($row = mysqli_fetch_assoc($result))
-                    {
-                        $userID = $row['user_id'];
-                        $fname = $row['user_first'];
-                        $lname = $row['user_last'];
-                        $email = $row['user_email'];
-                        $cohort = $row['user_cohort'];
-                        $jobStatus = $row['user_job_status'];
+                        <!-- Display users from DB onto dashboard table -->
+                        <!-- TODO: Display a max of 6 users or add scrollbar -->
+                        <?php
+                            $sql = "SELECT * FROM users";
+                            $result = @mysqli_query($cnxn, $sql);
+                            while ($row = mysqli_fetch_assoc($result))
+                            {
+                                $userID = $row['user_id'];
+                                $fname = $row['user_first'];
+                                $lname = $row['user_last'];
+                                $email = $row['user_email'];
+                                $cohort = $row['user_cohort'];
+                                $jobStatus = $row['user_job_status'];
 
-                        $row = '
-                            <tr>
-                                <td> ' . $userID . '</td>
-                                <td> ' . $fname . ' ' . $lname . '</td>
-                                <td> ' . $email . '</td>
-                                <td> ' . $cohort . '</td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-bd-primary btn-width">View</button>
-                                        <button type="button" class="btn btn-danger btn-width">Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        ';
+                                if($row['is_admin']){
+                                    $isAdmin = 'Yes';
+                                }
+                                else{
+                                    $isAdmin = 'No';
+                                }
 
-                        echo $row;
-                    }
-                    ?>
+                                $row = '
+                                    <tr>
+                                        <td> ' . $userID . '</td>
+                                        <td> ' . $fname . ' ' . $lname . '</td>
+                                        <td> ' . $email . '</td>
+                                        <td> ' . $cohort . '</td>
+                                        <td> ' . $isAdmin . '</td>
+                                        
+                                        <td>
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <button type="button" class="btn btn-bd-primary btn-width">View</button>
+                                                <button type="button" class="btn btn-danger btn-width">Delete</button>
+                                                <form method="post">';
+
+                                    if($isAdmin == "Yes"){
+                                        $row .= '<input type="submit" class="btn btn-success" value="Remove Admin" name="toggleAdmin">
+                                                 <input type="hidden" name="userID" value="' . $userID . '">';
+                                    }
+                                    else {
+                                       $row .= '<input type = "submit" class="btn btn-success" value = "Make Admin" name = "toggleAdmin" >
+                                                <input type = "hidden" name = "userID" value = "' . $userID . '" >';
+                                    }
+
+                                $row .= '
+                                                </form>             
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ';
+
+                                echo $row;
+                            }
+                        ?>
                     </tbody>
                 </table>
             </div>
