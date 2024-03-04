@@ -60,27 +60,134 @@
 <main>
     <div class="form-container">
         <?php
+        if (!empty($_POST) && !empty($_POST["announcementID"]) && !empty($_POST["title"]) && !empty($_POST["employmentType"]) && !empty($_POST["location"]) && !empty($_POST["employer"])  && !empty($_POST["moreInfo"])  && !empty($_POST["url"])) {
+            $announcementID = $_POST["announcementID"];
+            $announcementDate = $_POST['announcementDate'];
+            $announcementTitle = $_POST['title'];
+            $announcementJobType = $_POST['employmentType'];
+            $announcementLocation = $_POST['location'];
+            $announcementEmployer= $_POST['employer'];
+            $announcementAdditionalInfo= $_POST['moreInfo'];
+            $announcementURL = $_POST['url'];
+
+            require '/home/gnocchig/attdb.php';
+            /* create a prepared statement */
+            $stmt = $cnxn->prepare("UPDATE `announcements` SET `announcement_date`=?, `announcement_title`=?, `announcement_job_type`=?, `announcement_location`=?, `announcement_employer`=?, `announcement_additional_info`=?, `announcement_url`=?  WHERE `announcement_id`=?");
+
+            /* bind parameters for markers */
+            $stmt->bind_param("ssssssss", $announcementDate, $announcementTitle, $announcementJobType, $announcementLocation, $announcementEmployer, $announcementAdditionalInfo, $announcementURL, $announcementID);
+
+            // Execute the statement
+            if ($stmt->execute()) {
+                echo '<script>console.log("Record updated successfully")</script>';
+            } else {
+                echo "Error updating record: " . $stmt->error;
+            }
+
+            // Close the statement
+            $stmt->close();
+
+            // Display a confirmation message
+            echo '<p class="fs-3 form-title">Announcement Confirmed</p>';
+            echo '<p>A preview of this announcement is below:</p>';
+            echo '<p>Title: ' . $announcementTitle . '</p>';
+            echo '<p>Employment Type: ' . $announcementJobType . '</p>';
+            echo '<p>Location: ' . $announcementLocation . '</p>';
+            echo '<p>Employer: ' . $announcementEmployer . '</p>';
+            echo '<p>Additional Information: ' . $announcementAdditionalInfo . '</p>';
+            echo '<p>URL: ' . $announcementURL . '</p>';
+            echo '<a href="adminDashboard.php"><button type=button class="btn btn-bd-primary">Admin Dashboard</button></a>';
+
+            $form = true;
+        }
+        else if (!empty($_POST) && !empty($_POST["announcementID"])) {
+            $announcementID = $_POST["announcementID"];
+            require '/home/gnocchig/attdb.php';
+            $sql = "SELECT * FROM `announcements` WHERE `announcement_id` = $announcementID;";
+            $result = @mysqli_query($cnxn, $sql);
+            while ($row = mysqli_fetch_assoc($result))
+            {
+                $announcementDate = $row['announcement_date'];
+                $announcementTitle = $row['announcement_title'];
+                $announcementJobType = $row['announcement_job_type'];
+                $announcementLocation = $row['announcement_location'];
+                $announcementEmployer = $row['announcement_employer'];
+                $announcementAdditionalInfo = $row['announcement_additional_info'];
+                $announcementURL = $row['announcement_url'];
+            }
+
+            $checkedJob = ($announcementJobType === "Job") ? "checked" : "";
+            $checkedInternship = ($announcementJobType === "Internship") ? "checked" : "";
+
+            $editForm = '
+                <form name="adminAnnouncementForm" id="adminAnnouncementForm" action="adminAnnouncement.php" onsubmit="return validateAdminAnnounce()" method="post">
+                    <p class="fs-3 form-title">Edit Announcement</p>
+
+                    <label for="title">Announcement Title*<span id="titleWarning" style="color: red"></span></label>
+                    <input type="text" id="title" name="title" value="' . $announcementTitle . '">
+
+                    <label>Employment type*<span id="radioWarning" style="color: red"></span></label>
+                    <div>
+                        <label><input type="radio" name="employmentType" value="Job" ' . $checkedJob . '> Job</label>
+                        <label><input type="radio" name="employmentType" value="Internship" ' . $checkedInternship . '> Internship</label>
+                    </div>
+
+                    <label for="location">Location*<span id="locationWarning" style="color: red"></span></label>
+                    <input type="text" id="location" name="location" value="' .  $announcementLocation . '">
+            
+                    <label for="employer">Employer*<span id="employerWarning" style="color: red"></span></label>
+                    <input type="text" id="employer" name="employer" value="' .  $announcementEmployer . '">
+            
+                    <label for="moreInfo">Additional Information*<span id="moreInfoWarning" style="color: red"></span></label>
+                    <textarea id="moreInfo" name="moreInfo">' . $announcementAdditionalInfo . '</textarea>
+
+                    <label for="url">Enter the job listings URL*<span id="urlWarning" style="color: red"></span></label>
+                    <input type="url" id="url" name="url" placeholder="https://example.com" pattern="https://.*" size="30" value="' . $announcementURL . '">
+                    
+                    <input type="hidden" name="announcementID" value=' . $announcementID . '>
+                    <input type="hidden" name="announcementDate" value=' . $announcementDate . '>
+                    <input class="btn btn-bd-primary" type="submit" value="Save Changes">
+                </form>
+            ';
+
+            echo $editForm;
+        }
         //        TODO: add further validation to not accept any variation of "  " or single characters.
-        if (!empty($_POST) && !empty($_POST["title"]) && !empty($_POST["employmentType"]) && !empty($_POST["location"]) && !empty($_POST["employer"])  && !empty($_POST["moreInfo"])  && !empty($_POST["url"])  && !empty($_POST["email"])){
-            $title = $_POST["title"];
-            $employmentType = $_POST["employmentType"];
-            $location = $_POST["location"];
-            $employer = $_POST["employer"];
-            $moreInfo = $_POST["moreInfo"];
-            $url = $_POST["url"];
-            $email = $_POST["email"];
+        else if (!empty($_POST) && !empty($_POST["title"]) && !empty($_POST["employmentType"]) && !empty($_POST["location"]) && !empty($_POST["employer"])  && !empty($_POST["moreInfo"])  && !empty($_POST["url"])){
+            $announcementTitle = $_POST["title"];
+            $announcementJobType = $_POST["employmentType"];
+            $announcementLocation = $_POST["location"];
+            $announcementEmployer = $_POST["employer"];
+            $announcementAdditionalInfo = $_POST["moreInfo"];
+            $announcementURL = $_POST["url"];
             $form = true; // send an email
             // Display a confirmation message
             echo '<p class="fs-3 form-title">Announcement Confirmed</p>';
-            echo '<p>This announcement will be sent to: ' . $email . '</p>';
             echo '<p>A preview of this announcement is below:</p>';
-            echo '<p>Title: ' . $title . '</p>';
-            echo '<p>Employment Type: ' . $employmentType . '</p>';
-            echo '<p>Location: ' . $location . '</p>';
-            echo '<p>Employer: ' . $employer . '</p>';
-            echo '<p>Additional Information: ' . $moreInfo . '</p>';
-            echo '<p>URL: ' . $url . '</p>';
+            echo '<p>Title: ' . $announcementTitle . '</p>';
+            echo '<p>Employment Type: ' . $announcementJobType . '</p>';
+            echo '<p>Location: ' . $announcementLocation . '</p>';
+            echo '<p>Employer: ' . $announcementEmployer . '</p>';
+            echo '<p>Additional Information: ' . $announcementAdditionalInfo . '</p>';
+            echo '<p>URL: ' . $announcementURL . '</p>';
             echo '<a href="adminDashboard.php"><button type=button class="btn btn-bd-primary">Admin Dashboard</button></a>';
+
+            // Insert row into DB
+            require '/home/gnocchig/attdb.php';
+            // set date
+            date_default_timezone_set('America/Los_Angeles');
+            $announcementDate = date('Y-m-d');
+            // open a statement
+            $stmt = $cnxn->prepare("INSERT INTO `announcements` (`announcement_date`, `announcement_title`, `announcement_job_type`, `announcement_location`, `announcement_employer`, `announcement_additional_info`, `announcement_url`) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssssss", $announcementDate, $announcementTitle, $announcementJobType, $announcementLocation, $announcementEmployer, $announcementAdditionalInfo, $announcementURL);
+            // Execute the statement
+            if ($stmt->execute()) {
+                echo '<script>console.log("Record updated successfully")</script>';
+            } else {
+                echo "Error updating record: " . $stmt->error;
+            }
+            // Close the statement
+            $stmt->close();
         }
         else {
             $form = false; // dont send an email
@@ -103,37 +210,41 @@
 </body>
 </html>
 
-
 <!--  email php  -->
 <!--  TODO: define email styling  -->
 <?php
 if ($form) {
-    $to = $email;
-    $emailSubject = "New announcement: " . $title;
-    $body = '
-        <html>
-        <head>
-        <title>HTML email</title>
-        </head>
-        <body>
-        <p>Title: ' . $title . '</p>
-        <p>Employment Type: ' . $employmentType . '</p>
-        <p>Location: ' . $location . '</p>
-        <p>Employer: ' . $employer . '</p>
-        <p>Additional Information: ' . $moreInfo . '</p>
-        <p>URL: ' . $url . '</p>
-        </body>
-        </html>
-    ';
+    require '/home/gnocchig/attdb.php';
+    $sql = "SELECT `user_email`FROM `users`;";
+    $result = @mysqli_query($cnxn, $sql);
+    while ($row = mysqli_fetch_assoc($result))
+    {
+        $to = $row['user_email'];
+        $emailSubject = "New announcement: " . $announcementTitle;
+        $body = '
+            <html>
+            <head>
+            <title>HTML email</title>
+            </head>
+            <body>
+            <p>Title: ' . $announcementTitle . '</p>
+            <p>Employment Type: ' . $announcementJobType . '</p>
+            <p>Location: ' . $announcementLocation . '</p>
+            <p>Employer: ' . $announcementEmployer . '</p>
+            <p>Additional Information: ' . $announcementAdditionalInfo . '</p>
+            <p>URL: ' . $announcementURL . '</p>
+            </body>
+            </html>
+        ';
 
-// Always set content-type when sending HTML email
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-// More headers | sender email
-    $headers .= 'From: <gnocchig@gnocchi.greenriverdev.com>' . "\r\n";
+        // More headers | sender email
+        $headers .= 'From: <gnocchig@gnocchi.greenriverdev.com>' . "\r\n";
 
-    mail($to,$emailSubject,$body,$headers);
+        mail($to,$emailSubject,$body,$headers);
+    }
 }
-
 ?>

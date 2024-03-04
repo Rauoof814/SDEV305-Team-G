@@ -14,6 +14,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Drop existing tables
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS applications;
+DROP TABLE IF EXISTS announcements;
 -- --------------------------------------------------------
 --
 -- Table Structure for table `users`
@@ -22,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `user_id` int(6) NOT NULL AUTO_INCREMENT,
     `user_first` varchar(30) DEFAULT NULL,
     `user_last` varchar(30) DEFAULT NULL,
-    `user_email` varchar(30) DEFAULT NULL,
+    `user_email` varchar(75) DEFAULT NULL,
     `user_cohort` int(2) DEFAULT 0,
     `user_job_status` varchar(30) DEFAULT NULL,
     `user_seeking` varchar(150) DEFAULT NULL,
