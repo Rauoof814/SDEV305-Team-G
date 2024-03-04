@@ -142,16 +142,16 @@
                         $announcementURL = $row['announcement_url'];
 
                         $row = '
-                                <div class="container-fluid rounded announcement-content" style="padding-bottom: 9px">
-                                    <p style="margin-bottom: 10px">                                   
-                                        <form action="adminAnnouncement.php" method="post">
-                                            <text class="d-inline-block text-truncate announcement-message"> ' . $announcementTitle . '</text>
-                                            <input type="hidden" name="announcementID" value=' . $announcementID . '>
-                                            <button type="submit" class="btn btn-bd-primary btn-sm float-end">View</button>
-                                        </form>
-                                    </p>
-                                </div>
-                                ';
+                            <div class="container-fluid rounded announcement-content" style="padding-bottom: 9px">
+                                <p style="margin-bottom: 10px">                                   
+                                    <form action="adminAnnouncement.php" method="post">
+                                        <text class="d-inline-block text-truncate announcement-message"> ' . $announcementTitle . '</text>
+                                        <input type="hidden" name="announcementID" value=' . $announcementID . '>
+                                        <button type="submit" class="btn btn-bd-primary btn-sm float-end">View</button>
+                                    </form>
+                                </p>
+                            </div>
+                            ';
                         echo $row;
                     }
 
