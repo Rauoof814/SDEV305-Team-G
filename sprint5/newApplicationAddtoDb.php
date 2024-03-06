@@ -9,10 +9,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <!-- Global CSS -->
-    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="global.css">
 
     <!-- Custom CSS | TODO: make custom css file-->
-    <link rel="stylesheet" href="../styles/contactForm.css">
+    <link rel="stylesheet" href="./styles/contactForm.css">
     <title>New Application</title>
 </head>
 <body>
@@ -31,10 +31,10 @@
                             <a class="nav-link" href="dashboard.php">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../html/newApplicationForm.html">New Application</a>
+                            <a class="nav-link" href="newApplicationForm.html">New Application</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../html/contactForm.html">Contact</a>
+                            <a class="nav-link" href="contactForm.html">Contact</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,13 +42,13 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                <li><a class="dropdown-item active fs-5" href="../html/adminAnnouncement.html">Admin Announcement</a></li>
+                                <li><a class="dropdown-item active fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="../html/signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
+                            <a href="signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
                             <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
                         </li>
                     </ul>
@@ -59,27 +59,22 @@
 </header>
 <div class="form-container">
     <?php
-        $title = $_POST["application_name"];
-        $jobUrl = $_POST["job_description_url"];
-        $date = $_POST["application_date"];
-        $updates = $_POST["application_updates"];
-        $status = $_POST["application_status"];
-        $followUpDate = $_POST["application_followUp"];
-        $id = $_POST['application_id'];
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
+    require '/home/gnocchig/attdb.php';
+
+    if(isset($_POST["role"]) && $_POST["role"] != "" && isset($_POST["jobDescription"]) && $_POST["jobDescription"] != "" &&
+        isset($_POST["date"]) && $_POST["date"] != "" && isset($_POST["status"]) && $_POST["status"] && isset($_POST["followUpDate"]) && $_POST["followUpDate"] != "")
+    {
+        $title = $_POST["role"];
+        $jobUrl = $_POST["jobDescription"];
+        $date = $_POST["date"];
+        $updates = $_POST["updates"];
+        $status = $_POST["status"];
+        $followUpDate = $_POST["followUpDate"];
 
         // Display a confirmation message
-        displayConfirmation($title, $jobUrl, $date, $updates, $status, $followUpDate);
-
-        //add new application info to database
-        addToDatabase($title, $jobUrl, $date, $updates, $status, $followUpDate, $id);
-
-        // Display error message
-        echo '<p class="fs-3 form-title">ERROR</p>';
-        echo '<p>One or more fields in the new application form are empty.</p>';
-        echo '<p>Please make sure to fill out all required fields.</p>';
-        echo '<a href="../html/newApplicationForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>';
-
-    function displayConfirmation($title, $jobUrl, $date, $updates, $status, $followUpDate){
         echo '<p class="fs-3 form-title">New Application Added</p>';
         echo '<p>Job Title: ' . $title . '</p>';
         echo '<p>Job Url: ' . $jobUrl . '</p>';
@@ -94,24 +89,26 @@
         }
         echo '<p>Status: ' . $status . '</p>';
         echo '<p>Follow up on: ' . $followUpDate . '</p>';
-        echo '<a href="adminDashboard.html"><button type=button class="btn btn-bd-primary">Admin Dashboard</button></a>';
-    }
+        echo '<a href="adminDashboard.php"><button type=button class="btn btn-bd-primary">Admin Dashboard</button></a>';
 
-    function addToDatabase($title, $jobUrl, $date, $updates, $status, $followUpDate, $id){
-        require '/home/gnocchig/attdb.php';
-
-        $sql = "UPDATE `applications` 
-                SET application_name= $title, application_url = $jobUrl, application_date = $date, application_status = $status, application_updates = $updates, application_followUp = $followUpDate
-                WHERE application_id = $id;";
-        require '/home/gnocchig/attdb.php';
+        //add to database
+        $sql = "INSERT INTO `applications` (`application_name`, `application_url`, `application_date`, `application_status`, `application_updates`, `application_followUp`) 
+            VALUES ('$title', '$jobUrl', '$date', '$status', '$updates', '$followUpDate')";
 
         mysqli_query($cnxn, $sql);
+    }
+    else {
+        // Display error message
+        echo '<p class="fs-3 form-title">ERROR</p>';
+        echo '<p>One or more fields in the new application form are empty.</p>';
+        echo '<p>Please make sure to fill out all required fields.</p>';
+        echo '<a href="newApplicationForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>';
     }
     ?>
 </div>
 
 <!-- JavaScript for Dark Mode toggle -->
-<script src="../scripts/script.js"></script>
+<script src="scripts/script.js"></script>
 
 <!-- Required JavaScript -->
 <!-- Popper.js, then Bootstrap JS -->

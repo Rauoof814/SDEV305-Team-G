@@ -9,10 +9,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <!-- Global CSS -->
-    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="global.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../styles/signUpForm.css">
+    <link rel="stylesheet" href="./styles/signUpForm.css">
     <title>Sign Up Form</title>
 </head>
 <body>
@@ -31,10 +31,10 @@
                             <a class="nav-link" href="dashboard.php">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../html/newApplicationForm.html">New Application</a>
+                            <a class="nav-link" href="newApplicationForm.html">New Application</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../html/contactForm.html">Contact</a>
+                            <a class="nav-link" href="contactForm.html">Contact</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,13 +42,13 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                <li><a class="dropdown-item fs-5" href="../html/adminAnnouncement.html">Admin Announcement</a></li>
+                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="../html/signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
+                            <a href="signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
                             <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
                         </li>
                     </ul>
@@ -82,7 +82,7 @@
                 <p class="fs-3 form-title">ERROR</p>
                 <p>One or more fields in the sign-up form are empty.</p>
                 <p>Please make sure to fill out all required fields.</p>
-                <a href="../html/signUpForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>
+                <a href="signUpForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>
             </div>
         ';
 
@@ -144,7 +144,7 @@
 </div>
 
 <!-- JavaScript for Dark Mode toggle -->
-<script src="../scripts/script.js"></script>
+<script src="scripts/script.js"></script>
 
 <!-- Required JavaScript -->
 <!-- Popper.js, then Bootstrap JS -->

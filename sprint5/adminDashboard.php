@@ -1,24 +1,24 @@
 <?php
-    //toggles making a user admin on button click and refreshes page to reflect change
-    require '/home/gnocchig/attdb.php';
-    if(isset($_POST['toggleAdmin'])){
-        $id = $_POST['userID'];
+//toggles making a user admin on button click and refreshes page to reflect change
+require '/home/gnocchig/attdb.php';
+if(isset($_POST['toggleAdmin'])){
+    $id = $_POST['userID'];
 
-        //sets update query
-        if($_POST['toggleAdmin'] == "Make Admin"){
-            $sql = "UPDATE `users` SET is_admin = true WHERE user_id = $id ";
-        }
-        else{
-            $sql = "UPDATE `users` SET is_admin = false WHERE user_id = $id ";
-        }
-
-        //execute query
-        @mysqli_query($cnxn, $sql);
-
-        //refreshes current page
-        header("Location: ".$_SERVER['PHP_SELF']);
-        exit();
+    //sets update query
+    if($_POST['toggleAdmin'] == "Make Admin"){
+        $sql = "UPDATE `users` SET is_admin = true WHERE user_id = $id ";
     }
+    else{
+        $sql = "UPDATE `users` SET is_admin = false WHERE user_id = $id ";
+    }
+
+    //execute query
+    @mysqli_query($cnxn, $sql);
+
+    //refreshes current page
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,9 +29,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../global.css">
-    <link rel="stylesheet" href="../styles/dashboard.css">
-    <link rel="stylesheet" href="../styles/AdminDashboard.css">
+    <link rel="stylesheet" href="./global.css">
+    <link rel="stylesheet" href="./styles/dashboard.css">
+    <link rel="stylesheet" href="./styles/AdminDashboard.css">
 </head>
 <body>
 
@@ -61,7 +61,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item active fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                <li><a class="dropdown-item fs-5" href="html/adminAnnouncement.html">Admin Announcement</a></li>
+                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -89,13 +89,13 @@
                 <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 300px">
                     <table class="table">
                         <thead>
-                            <tr>
-                                <td scope="col">ID</td>
-                                <td scope="col">Date</td>
-                                <td scope="col">Title</td>
-                                <td scope="col">Status</td>
-                                <td scope="col">Manage</td>
-                            </tr>
+                        <tr>
+                            <td scope="col">ID</td>
+                            <td scope="col">Date</td>
+                            <td scope="col">Title</td>
+                            <td scope="col">Status</td>
+                            <td scope="col">Manage</td>
+                        </tr>
                         </thead>
                         <tbody>
                         <!-- Display applications from DB onto dashboard table -->
@@ -166,7 +166,7 @@
                         $row = '
                                 <div class="container-fluid rounded announcement-content" style="padding-bottom: 9px">
                                     <p style="margin-bottom: 10px">                                   
-                                        <form action="php/adminAnnouncement.php" method="post">
+                                        <form action="adminAnnouncement.php" method="post">
                                             <text class="d-inline-block text-truncate announcement-message"> ' . $announcementTitle . '</text>
                                             <input type="hidden" name="announcementID" value=' . $announcementID . '>
                                             <button type="submit" class="btn btn-bd-primary btn-sm float-end">View</button>
@@ -189,38 +189,38 @@
             <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 350px">
                 <table class="table users-table">
                     <thead>
-                        <tr>
-                            <td>ID</td>
-                            <td>Name</td>
-                            <td>Email</td>
-                            <td>Cohort</td>
-                            <td>Is Admin</td>
-                            <td>Actions</td>
-                        </tr>
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Cohort</td>
+                        <td>Is Admin</td>
+                        <td>Actions</td>
+                    </tr>
                     </thead>
                     <tbody>
-                        <!-- Display users from DB onto dashboard table -->
-                        <!-- TODO: Display a max of 6 users or add scrollbar -->
-                        <?php
-                            $sql = "SELECT * FROM users";
-                            $result = @mysqli_query($cnxn, $sql);
-                            while ($row = mysqli_fetch_assoc($result))
-                            {
-                                $userID = $row['user_id'];
-                                $fname = $row['user_first'];
-                                $lname = $row['user_last'];
-                                $email = $row['user_email'];
-                                $cohort = $row['user_cohort'];
-                                $jobStatus = $row['user_job_status'];
+                    <!-- Display users from DB onto dashboard table -->
+                    <!-- TODO: Display a max of 6 users or add scrollbar -->
+                    <?php
+                    $sql = "SELECT * FROM users";
+                    $result = @mysqli_query($cnxn, $sql);
+                    while ($row = mysqli_fetch_assoc($result))
+                    {
+                        $userID = $row['user_id'];
+                        $fname = $row['user_first'];
+                        $lname = $row['user_last'];
+                        $email = $row['user_email'];
+                        $cohort = $row['user_cohort'];
+                        $jobStatus = $row['user_job_status'];
 
-                                if($row['is_admin']){
-                                    $isAdmin = 'Yes';
-                                }
-                                else{
-                                    $isAdmin = 'No';
-                                }
+                        if($row['is_admin']){
+                            $isAdmin = 'Yes';
+                        }
+                        else{
+                            $isAdmin = 'No';
+                        }
 
-                                $row = '
+                        $row = '
                                     <tr>
                                         <td> ' . $userID . '</td>
                                         <td> ' . $fname . ' ' . $lname . '</td>
@@ -234,25 +234,25 @@
                                                 <button type="button" class="btn btn-danger btn-width">Delete</button>
                                                 <form method="post">';
 
-                                    if($isAdmin == "Yes"){
-                                        $row .= '<input type="submit" class="btn btn-success" value="Remove Admin" name="toggleAdmin">
+                        if($isAdmin == "Yes"){
+                            $row .= '<input type="submit" class="btn btn-success" value="Remove Admin" name="toggleAdmin">
                                                  <input type="hidden" name="userID" value="' . $userID . '">';
-                                    }
-                                    else {
-                                       $row .= '<input type = "submit" class="btn btn-success" value = "Make Admin" name = "toggleAdmin" >
+                        }
+                        else {
+                            $row .= '<input type = "submit" class="btn btn-success" value = "Make Admin" name = "toggleAdmin" >
                                                 <input type = "hidden" name = "userID" value = "' . $userID . '" >';
-                                    }
+                        }
 
-                                $row .= '
+                        $row .= '
                                                 </form>             
                                             </div>
                                         </td>
                                     </tr>
                                 ';
 
-                                echo $row;
-                            }
-                        ?>
+                        echo $row;
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>
@@ -261,8 +261,8 @@
         <!-- Site info -->
         <hr>
         <p class=" fs-5 text-center rounded site-information">
-            Welcome to the Green River College Software Development Application Tracking Tool (ATT). 
-            The purpose of this tool is to provide a centralized place to track your job/internship 
+            Welcome to the Green River College Software Development Application Tracking Tool (ATT).
+            The purpose of this tool is to provide a centralized place to track your job/internship
             applications that can be helpful in your application journey!
         </p>
         <br>
