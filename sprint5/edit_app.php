@@ -1,55 +1,9 @@
-// <?php
-// require '/home/gnocchig/attdb.php';
-
-// $sql = "
-//         SELECT * FROM applications
-//         ORDER BY application_id
-//     ";
-
-// $result = mysqli_query($cnxn, $sql);
-
-// $applications = [];
-
-// while ($row = mysqli_fetch_assoc($result)) {
-//     $applications[] = $row;
-// }
-
-// header('Content-Type: application/json');
-// echo json_encode($applications);
-// ?>
-
-
-
-// <?php
-// require '/home/gnocchig/attdb.php';
-
-// if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-//     $applicationId = $_GET['id'];
-//     $sql = "SELECT * FROM applications WHERE application_id = 1";
-//     $stmt = mysqli_prepare($cnxn, $sql);
-//     mysqli_stmt_bind_param($stmt, "i", $applicationId);
-//     mysqli_stmt_execute($stmt);
-//     $result = mysqli_stmt_get_result($stmt);
-//     $appData = mysqli_fetch_assoc($result);
-    
-//     echo $result;
-    
-// } else {
-    
-//     echo $_GET['id'];
-//     echo "hello world!";
-//     // Handle the error case where 'id' is not set or not numeric
-// }
-
-// // ... rest of the code to display the form ...
-// ?>
 
 
 <?php
 // Include your database connection file
 require '/home/gnocchig/attdb.php';
 
-echo var_dump($_GET);
 
 // Check if the 'id' GET parameter is set
 if(isset($_GET["id"])) {
@@ -121,7 +75,6 @@ else
 <!DOCTYPE html>
     <html lang="en">
     <head>
-        
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -129,10 +82,10 @@ else
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
       
-        <link rel="stylesheet" href="../styles/newApplicationForm.css">
+        <link rel="stylesheet" href="./styles/newApplicationForm.css">
 
          
-        <link rel="stylesheet" href="../styles/global.css">
+        <link rel="stylesheet" href="global.css">
         <title>Application Form</title>
     </head>
     <body>
@@ -150,10 +103,10 @@ else
                                 <a class="nav-link" href="dashboard.php">Dashboard</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="../html/newApplicationForm.html">New Application</a>
+                                <a class="nav-link active" href="newApplicationForm.html">New Application</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../html/contactForm.html">Contact</a>
+                                <a class="nav-link" href="contactForm.html">Contact</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -161,13 +114,13 @@ else
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                    <li><a class="dropdown-item fs-5" href="../html/adminAnnouncement.html">Admin Announcement</a></li>
+                                    <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
                                 </ul>
                             </li>
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a href="../html/signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
+                                <a href="signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
                                 <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
                             </li>
                         </ul>
@@ -217,7 +170,7 @@ else
         </form>
     </div>
       
-    <script src="../scripts/script.js"></script>
+    <script src="./scripts/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     

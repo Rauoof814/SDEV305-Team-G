@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -9,13 +9,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <!-- Global CSS -->
-    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="global.css">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../styles/signUpForm.css">
-    <title>Sign Up Form</title>
+    <!-- Custom CSS | TODO: make custom css file-->
+    <link rel="stylesheet" href="./styles/contactForm.css">
+    <title>Admin Announcement</title>
 </head>
-
 <body>
 <!-- Navbar -->
 <header class="site-navigation">
@@ -58,51 +57,50 @@
         </nav>
     </div>
 </header>
-
-<!-- Sign Up Form -->
-<div class="form-container">
-    <p class="fs-3 form-title">Sign up</p>
-
-    <!--loads index on success until php is set up-->
-    <form action="../signUpForm.php" onsubmit="return validSignUp()" method="post" name="sign-up-form">
-
-        <!-- First Name* -->
-        <label for="fName">First Name*<span class="text-danger" id="first-name-span"></span></label>
-        <input type="text" id="fName" name="fName">
-
-        <!-- Last Name* -->
-        <label for="lName">Last Name*<span class="text-danger" id="last-name-span"></span></label>
-        <input type="text" id="lName" name="lName">
-
-        <!-- Email* (use Javascript to mention that their greenriver.edu email is preferred, but not required) -->
-        <label for="email">Email*<span class="text-success" id="email-span-good"></span><span class="text-danger" id="email-span-bad"></span></label>
-        <input type="email" id="email" name="email" onchange="signUpEmailWarning()">
-
-
-        <!-- Cohort Number -->
-        <label for="cohort-number">Cohort Number*<span class="text-danger" id="cohort-number-span"></span></label>
-        <input type="number" id="cohort-number" name="cohort-number">
-
-
-        <!--Job Status-->
-        <label>Current Job Status*</label>
-        <div class="mb-2">
-            <label><input type="radio" name="jobStage" value="Seeking internship"> Seeking internship</label>
-            <label><input type="radio" name="jobStage" value="Seeking job"> Seeking job</label>
-            <label><input type="radio" name="jobStage" value="Not actively searching"> Not actively searching</label>
-        </div>
-
-        <!-- Text*: What types of roles are you seeking? -->
-        <label for="notes">What types of roles are you seeking?*</label>
-        <textarea id="notes" name="notes" placeholder="Description..."></textarea>
-
-        <!-- Submit Sign-up button -->
-        <input class="btn btn-bd-primary" type="submit" value="Submit" name="submit-sign-up">
-    </form>
-</div>
+<main>
+    <div class="form-container">
+        <?php
+        if (!empty($_POST) && !empty($_POST["announcementID"])) {
+            $announcementID = $_POST["announcementID"];
+            require '/home/gnocchig/attdb.php';
+            $sql = "SELECT * FROM `announcements` WHERE `announcement_id` = $announcementID;";
+            $result = @mysqli_query($cnxn, $sql);
+            while ($row = mysqli_fetch_assoc($result))
+            {
+                $announcementDate = $row['announcement_date'];
+                $announcementTitle = $row['announcement_title'];
+                $announcementJobType = $row['announcement_job_type'];
+                $announcementLocation = $row['announcement_location'];
+                $announcementEmployer = $row['announcement_employer'];
+                $announcementAdditionalInfo = $row['announcement_additional_info'];
+                $announcementURL = $row['announcement_url'];
+            }
+            // Display announcement
+            echo '<p class="fs-3 form-title">View Announcement</p>';
+            echo '<p>Date: ' . $announcementDate . '</p>';
+            echo '<p>Title: ' . $announcementTitle . '</p>';
+            echo '<p>Employment Type: ' . $announcementJobType . '</p>';
+            echo '<p>Location: ' . $announcementLocation . '</p>';
+            echo '<p>Employer: ' . $announcementEmployer . '</p>';
+            echo '<p>Additional Information: ' . $announcementAdditionalInfo . '</p>';
+            echo '<p>URL: ' . $announcementURL . '</p>';
+            echo '<a href="dashboard.php"><button type=button class="btn btn-bd-primary">Dashboard</button></a>';
+        }
+        else {
+            // Display error message
+            echo '<p class="fs-3 form-title">ERROR</p>';
+            echo '<p>Announcement was unable to be retrieved.</p>';
+            echo '<p>Please try again from the dashboard.</p>';
+            echo '<p>If this issue persists, please contact us.</p>';
+            echo '<a href="dashboard.php"><button type=button class="btn btn-bd-primary">Dashboard</button></a>';
+        }
+        ?>
+    </div>
+</main>
 
 <!-- JavaScript for Dark Mode toggle -->
-<script src="../scripts/script.js"></script>
+<script src="scripts/script.js"></script>
+<!-- Required JavaScript -->
 <!-- Popper.js, then Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
