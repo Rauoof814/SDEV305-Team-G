@@ -59,25 +59,25 @@
 </header>
 <div class="form-container">
     <?php
-        $title = $_POST["application_name"];
-        $jobUrl = $_POST["job_description_url"];
-        $date = $_POST["application_date"];
-        $updates = $_POST["application_updates"];
-        $status = $_POST["application_status"];
-        $followUpDate = $_POST["application_followUp"];
-        $id = $_POST['application_id'];
+    $title = $_POST["application_name"];
+    $jobUrl = $_POST["job_description_url"];
+    $date = $_POST["application_date"];
+    $updates = $_POST["application_updates"];
+    $status = $_POST["application_status"];
+    $followUpDate = $_POST["application_followUp"];
+    $id = $_POST['application_id'];
 
-        // Display a confirmation message
-        displayConfirmation($title, $jobUrl, $date, $updates, $status, $followUpDate);
+    // Display a confirmation message
+    displayConfirmation($title, $jobUrl, $date, $updates, $status, $followUpDate);
 
-        //add new application info to database
-        addToDatabase($title, $jobUrl, $date, $updates, $status, $followUpDate, $id);
+    //add new application info to database
+    addToDatabase($title, $jobUrl, $date, $updates, $status, $followUpDate, $id);
 
-        // Display error message
-        echo '<p class="fs-3 form-title">ERROR</p>';
-        echo '<p>One or more fields in the new application form are empty.</p>';
-        echo '<p>Please make sure to fill out all required fields.</p>';
-        echo '<a href="newApplicationForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>';
+    // Display error message
+    echo '<p class="fs-3 form-title">ERROR</p>';
+    echo '<p>One or more fields in the new application form are empty.</p>';
+    echo '<p>Please make sure to fill out all required fields.</p>';
+    echo '<a href="newApplicationForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>';
 
     function displayConfirmation($title, $jobUrl, $date, $updates, $status, $followUpDate){
         echo '<p class="fs-3 form-title">New Application Added</p>';
@@ -103,7 +103,7 @@
         $sql = "UPDATE `applications` 
                 SET application_name= $title, application_url = $jobUrl, application_date = $date, application_status = $status, application_updates = $updates, application_followUp = $followUpDate
                 WHERE application_id = $id;";
-        $cnxn = mysqli_connect('localhost', 'root', 'Deadpool', 'gnocchig_gnocchiatt');
+        require '/home/gnocchig/attdb.php';
 
         mysqli_query($cnxn, $sql);
     }

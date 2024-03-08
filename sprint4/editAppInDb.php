@@ -103,7 +103,7 @@
         $sql = "UPDATE `applications` 
                 SET application_name= $title, application_url = $jobUrl, application_date = $date, application_status = $status, application_updates = $updates, application_followUp = $followUpDate
                 WHERE application_id = $id;";
-        $cnxn = mysqli_connect('localhost', 'root', 'Deadpool', 'gnocchig_gnocchiatt');
+        require '/home/gnocchig/attdb.php';
 
         mysqli_query($cnxn, $sql);
     }
