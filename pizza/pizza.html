@@ -12,155 +12,170 @@
         <link rel="stylesheet" href="pizza.css">
         <title>Pizza ordering form</title>
 
-        <!-- JavaScript -->
-        <script src="pizzascript.js"></script>
     </head>
     <body>
         <!-- Site nav -->
         <header class="site-navigation">
             <div class="container">
                 <div class="navbar">
-                    <a class="navbar-brand">PizzaTime</a>
+                    <a class="navbar-brand" href="pizza.html">PizzaTime</a>
+                    <span><a class="nav-link" href="ViewOrders.php">View All Orders</a></span>
                 </div>
             </div>
         </header>
-        
-        <script>
-                                function initialcode() {
-                                  // Choose other for dropdown
-                                  let instructions = window.open("notWashington.html","Instructions", "width= 400, height = 250, left = 600, top = 300");
-                                }
-        </script>
-        
         <br>
-        <main class="site-content">
-            <div class="container">
-                <Form onsubmit="validateform()" method="post" action="vardump.php">
-                    <!-- Form title -->
-                    <div class="form-title">
-                        <h1>Order Form</h1>
-                        <hr>    
-                    </div>
-                    <!-- Form instructions -->
-                    <div class="form-instructions">
-                        <h2>Instructions:</h2>
-                        <p>First, fill in your name, phone, email, and address. Then, select pizza size, toppings, and delivery option.</p>
-                    </div>
-                    <!-- Contact information -->
-                    <div class="contact-information">
-                        <h6>Contact Information</h6>
-                        <div class = "input-fields">
-                            <!-- Name -->
-                            <label for = "fname">Name:</label><br>
-                            <input type = "text" id = "fname" name = "fname"><br>
-
-                            <!-- Phone -->
-                            <label for="phone">Enter a phone number:</label><br>
-                            <input type="tel" id="phone" name="phone" placeholder="123-452-1678" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required><br>
-
-                            <!-- Email -->
-                            <label for="email">Enter your Green River email:</label><br>
-                            <input type="email" id="email" name="email"><br>
-
-                            <p>If not located in Washington, please contact a pizza delivery service near you.</p>
-
-                            <div class="dropdown">
-                                <select>
-                                    <option>Washington</option>
-                                    <option>Ineligble</option>
-                                </select>
-                            </div>
-
-                            <!-- Address -->
-                            <label for="address">Enter your address:</label><br>
-                            <input type="address" id="address" name="address"><br>
-                            
-                            <!-- City -->
-                            <label for= "city">Enter your city:</label><br>
-                            <input type="text" id = "city" name = "city"><br>
-                            
-                            <!-- Promo -->
-                            <label for="promo">Enter your promo code:</label><br>
-                            <input type="promo" id="promo" name="promo"><br>
-                            <hr>
-                        </div>
-                    </div>
-                    <!-- Pizza size -->
-                    <div class="pizza-size">
-                        <h6>Select your pizza size</h6>
-                        <!-- Size sm, md, lg -->
-                        <input type="radio" id="small" name="size" value="small">
-                        <label for="small">Small</label><br>
-
-                        <input type="radio" id="medium" name="size" value="medium">
-                        <label for="medium">Medium</label><br>
-
-                        <input type="radio" id="large" name="size" value="large">
-                        <label for="large">Large</label>
-                        <hr>
-                    </div>
-                    <!-- Toppings -->
-                    <div class="pizza-toppings">
-                        <h6>Select your toppings</h6>
-                        <!-- toppings (8 options) -->
-                        <input type="checkbox" id="pepperoni" name="topping" value="pepperoni">
-                        <label for="pepperoni">Pepperoni</label><br>
-                        
-                        <input type="checkbox" id="peppers" name="topping" value="peppers">
-                        <label for="peppers">Peppers</label><br>
-                        
-                        <input type="checkbox" id="onions" name="topping" value="onions">
-                        <label for="onions">Onions</label><br>
-
-                        <input type="checkbox" id="anchovies" name="topping" value="anchovies">
-                        <label for="anchovies">Anchovies</label><br>
-
-                        <input type="checkbox" id="pineapples" name="topping" value="pineapples">
-                        <label for="pineapples">Pineapples</label><br>
-
-                        <input type="checkbox" id="mushrooms" name="topping" value="mushrooms">
-                        <label for="mushrooms">Mushrooms</label><br>
-
-                        <input type="checkbox" id="chicken" name="topping" value="chicken">
-                        <label for="chicken">Chicken</label><br>
-
-                        <input type="checkbox" id="lobster" name="topping" value="lobster">
-                        <label for="lobster">Lobster</label><br>
-                        <hr>
-                    </div>
-                    <!-- Delivery or pickup -->
-                    <h6>Select delivery method</h6>
-                    <input type="radio" id="pick-up" name="delivery-option" value="pick-up">
-                    <label for="pick-up">Pick-up</label><br>
-                    <input type="radio" id="delivery" name="delivery-option" value="delivery">
-                    <label for="delivery">Delivery</label><br>
-                    <hr>
-                    <!-- Notes --> 
-                    <label for="notes">Notes:</label><br>
-                    <input type="text" id="notes" name="notes"><br>
-                    <hr>
-                    <input type="submit" value="submit">
-                    <img src="pizzatime.jpg">   
-                </Form>
+        <div class="container">
+            <!-- Form title -->
+            <div class="form-title">
+                <h1>Order Form</h1>
+                <hr>
             </div>
-        </main>
-
-
-        <!-- Validate phone and email -->
-        <!-- <script>
-            function validateform(){
-            var phone = document.getElementById("phone").value;
-            var email = document.getElementById("email").value;
-                if (phone == "" || email == ""){
-                    alert("Phone or email invalid");
-                    return false;
-                } else {
-                    return;
-                }
-            }
-        </script> -->
+            <!-- Form instructions -->
+            <div class="form-instructions">
+                <h2>Instructions:</h2>
+                <p>First, fill in your name, phone, email, and address. Then, select pizza size, toppings, and delivery option.</p>
+            </div>
+            <!--Submit the form to vardump-->
+            <form name="order-form" action="vardump.php" method="POST" onsubmit="return validateForm()">
+                <!-- Contact information -->
+                <div class="contact-information">
+                    <h6>Contact Information</h6>
+                    <!-- Name -->
+                    <label for="name" class="form-label">Name<span class="text-danger" id="name-span">*</span></label><br>
+                    <input type="text" id="name" name="name" maxlength="100" minlength="1" placeholder="Jane Doe" required><br>
+                    <!-- Email -->
+                    <label for="email" class="form-label">Email<span class="text-danger" id="email-span">*</span></label><br>
+                    <input type="email" id="email" name="email" placeholder="email@email.com" required><br>
+                    <!-- Phone -->
+                    <label for="phone" class="form-label">Phone<span class="text-danger" id="phone-span">*</span></label><br>
+                    <input type="tel" id="phone" name="phone" placeholder="111-111-1111" required><br>
+                </div>
+                <hr>
+                <div class="address">
+                    <h6>Address</h6>
+                    <!-- Street -->
+                    <label for="street" class="form-label">Street</label><br>
+                    <input type="text" id="street" name="street" placeholder="111 address st. E" required><br>
+                    <!-- City -->
+                    <label for="city" class="form-label">City<span class="text-danger" id="city-span">*</span></label><br>
+                    <input type="text" id="city" name="city" placeholder="Auburn" required><br>
+                    <!-- State -->
+                    <label for="state" class="form-label">State<span class="text-danger" id="state-span">*</span></label><br>
+                    <select id="state" name="state">
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="DC">District Of Columbia</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="ME">Maine</option>
+                        <option value="MD">Maryland</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MT">Montana</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NY">New York</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR">Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="TX">Texas</option>
+                        <option value="UT">Utah</option>
+                        <option value="VT">Vermont</option>
+                        <option value="VA">Virginia</option>
+                        <option value="WA">Washington</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                    </select><br>
+                    <!-- Zip -->
+                    <label for="zip" class="form-label">Zip Code</label><br>
+                    <input type="text" id="zip" name="zip" placeholder="98389" required><br>
+                </div>
+                <hr>
+                <div class="pizza-size">
+                    <h6>Pizza Size</h6>
+                    <!-- Pizza size -->
+                    <div>
+                        <label class="small-checked"><input class="small" type="radio" name="size" value="small"> Small</label><br>
+                        <label class="medium-checked"><input class="medium" type="radio" name="size" value="medium"> Medium</label><br>
+                        <label class="Large-checked"><input class="large" type="radio" name="size" value="large"> Large</label><br>
+                    </div>
+                </div>
+                <hr>
+                <div class="toppings">
+                    <h6>Toppings - <label class="form-label form-check-label">Select exactly 3 pizza Toppings:</label><span class="text-danger" id="toppings-warning"></span></h6>
+                    <input class="form-check-input" type="checkbox" id="peppers" name="topping[]" value="peppers">
+                    <label class="form-check-label" for="peppers">Peppers</label>
+                    <br>
+                    <input class="form-check-input" type="checkbox" id="sausage" name="topping[]" value="sausage">
+                    <label class="form-check-label" for="sausage">Sausage</label>
+                    <br>
+                    <input class="form-check-input" type="checkbox" id="pepperoni" name="topping[]" value="pepperoni">
+                    <label class="form-check-label" for="pepperoni">Pepperoni</label>
+                    <br>
+                    <input class="form-check-input" type="checkbox" id="mushrooms" name="topping[]" value="mushrooms">
+                    <label class="form-check-label" for="mushrooms">Mushrooms</label>
+                    <br>
+                    <input class="form-check-input" type="checkbox" id="ham" name="topping[]" value="ham">
+                    <label class="form-check-label" for="ham">Ham</label>
+                    <br>
+                    <input class="form-check-input" type="checkbox" id="pineapple" name="topping[]" value="pineapple">
+                    <label class="form-check-label" for="pineapple">Pineapple</label>
+                    <br>
+                    <input class="form-check-input" type="checkbox" id="cheese" name="topping[]" value="cheese">
+                    <label class="form-check-label" for="cheese">Cheese</label>
+                    <br>
+                    <input class="form-check-input" type="checkbox" id="spinach" name="topping[]" value="spinach">
+                    <label class="form-check-label" for="spinach">Spinach</label>
+                    <br />
+                </div>
+                <hr>
+                <div class="other">
+                    <!-- Optional Notes/Instructions -->
+                    <h6>Anything Else?</h6>
+                    <label for="notes" class="form-label">Notes/Instructions (Optional)</label><br>
+                    <input type="text" id="notes" name="notes"><br>
+                </div>
+                <br>
+                <input id="submit-button" type="submit">
+                <h1>Pizza Time!</h1>
+                <img src="img/pizzatime.jpg">
+            </form>
+            <br>
+            <br>
+        </div>
+            <!-- JavaScript -->
+        <script src="pizza.js"></script>
         <!-- Required JavaScript -->
         <!-- Popper.js, then Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     </body>
+</html>
