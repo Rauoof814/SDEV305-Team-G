@@ -83,44 +83,45 @@
                         <tbody>
                         <!-- Display applications from DB onto dashboard table -->
                         <!-- TODO: Make scrollbar less ugly -->
-                        <form action="edit_app.php" method="post">
-                            <?php
-                            session_start();
+                        <?php
+                        session_start();
 
                             require '/home/gnocchig/attdb.php';
                             $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
                             $result = @mysqli_query($cnxn, $sql);
 
-                            while ($row = mysqli_fetch_assoc($result))
-                            {
-                                $appID = $row['application_id'];
-                                $appName = $row['application_name'];
-                                $appURL = $row['application_url'];
-                                $appDate = $row['application_date'];
-                                $appStatus = $row['application_status'];
-                                $appUpdates = $row['application_updates'];
-                                $appFollowUp= $row['application_followUp'];
-                                $row = '
+                        while ($row = mysqli_fetch_assoc($result))
+                        {
+                            $appID = $row['application_id'];
+                            $appName = $row['application_name'];
+                            $appURL = $row['application_url'];
+                            $appDate = $row['application_date'];
+                            $appStatus = $row['application_status'];
+                            $appUpdates = $row['application_updates'];
+                            $appFollowUp= $row['application_followUp'];
+                            $row = '
                                     <tr>
                                         <td> ' . $appDate . '</td>
                                         <td> ' . $appName . '</td>
                                         <td> ' . $appStatus . '</td>
                                         <td>
-                                            <div class="btn-group btn-group-sm" role="group">           
-                                            <a href="edit_app.php?id=' . $appID . '" class="btn btn-bd-primary btn-width">Update</a>
-                                            <a class="btn btn-danger btn-width" style="padding-top: 2px; padding-bottom: 0px;">
-                                            <form method="post" action="delete_application.php">
-                                                <input type="hidden" name="application_id" value="' . '">
-                                                <button type="submit" id="delete_application" name="delete_application">Delete</button>
+                                            <div class="btn-group btn-group-sm" role="group">       
+                                                <form action="edit_app.php" method="post">
+                                                    <a href="edit_app.php? id=' . $appID . '" class="btn btn-bd-primary btn-width">Update</a>
+                                                </form>
+                                                
+                                            
+                                            <form method="post" action="deleteApplication.php">
+                                                <input type="hidden" name="delete_application" value="' . $appID . '">
+                                                <button type="submit" class="btn btn-danger btn-width" style="padding-top: 2px; padding-bottom: 0px;">Delete</button>
                                             </form>
-                                            </a>
                                         </div>
                                         </td>
                                     </tr>
                                     ';
-                                echo $row;
-                            }
-                            ?>
+                            echo $row;
+                        }
+                        ?>
                         </form>
                         </tbody>
                     </table>
