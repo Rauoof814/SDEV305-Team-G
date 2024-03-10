@@ -70,12 +70,12 @@
         <!-- Applications & Reminders -->
         <div class="row mb-3 g-3">
             <!-- Applications panel -->
-            <div class="col-md-8 applications">
-                <p class="fs-2 heading">Recent Applications</p>
+            <div class="col-md-8 applications border-end border-dark">
+                <p class="fs-2 heading border-bottom">Recent Applications</p>
                 <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 230px">
                     <table class="table">
                         <thead>
-                        <tr>
+                        <tr class="border-bottom border-dark">
                             <td scope="col">Date</td>
                             <td scope="col">Title</td>
                             <td scope="col">Status</td>
@@ -133,8 +133,8 @@
             <!-- Reminders panel -->
             <!-- TODO: Fix view button spacing -->
             <div class="col-md-4 reminders">
-                <p class="fs-2 heading">Reminders</p>
-                <div class="overflow-y-scroll announcements-list" style="height: 300px">
+                <p class="fs-2 heading border-bottom">Reminders</p>
+                <div class="overflow-y-scroll announcements-list border-left" style="height: 300px">
                     <!-- Display announcements from DB onto dashboard -->
                     <!-- TODO: Make scrollbar less ugly -->
                     <h5 class="text-decoration-underline">Recent Announcements</h5>

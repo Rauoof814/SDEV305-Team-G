@@ -85,12 +85,12 @@ if(isset($_POST['toggleAdmin'])){
         <!-- Applications & Reminders -->
         <div class="row mb-3 g-3">
             <!-- Applications panel -->
-            <div class="col-md-8 applications">
-                <p class="fs-2 heading">Recent Applications</p>
+            <div class="col-md-8 applications border-end border-dark"">
+                <p class="fs-2 heading border-bottom">Recent Applications</p>
                 <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 300px">
                     <table class="table">
                         <thead>
-                        <tr>
+                        <tr class="border-bottom border-dark">
                             <td scope="col">ID</td>
                             <td scope="col">Date</td>
                             <td scope="col">Title</td>
@@ -145,7 +145,7 @@ if(isset($_POST['toggleAdmin'])){
             <!-- Reminders panel -->
             <!-- TODO: Fix view button spacing -->
             <div class="col-md-4 reminders">
-                <p class="fs-2 heading">Recent Announcements</p>
+                <p class="fs-2 heading border-bottom">Recent Announcements</p>
                 <div class="overflow-y-scroll announcements-list" style="height: 300px">
                     <!-- Display announcements from DB onto dashboard -->
                     <!-- TODO: Make scrollbar less ugly -->
@@ -190,7 +190,7 @@ if(isset($_POST['toggleAdmin'])){
             <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 350px">
                 <table class="table users-table">
                     <thead>
-                    <tr>
+                    <tr class="border-bottom border-dark">
                         <td>ID</td>
                         <td>Name</td>
                         <td>Email</td>
