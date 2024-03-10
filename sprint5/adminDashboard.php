@@ -37,10 +37,12 @@ if(isset($_POST['toggleAdmin'])){
 
 <!-- Navbar -->
 <header class="site-navigation">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container pb-5 mb-5">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand fs-3" href="dashboard.php">GRC ATT</a>
+                <a class="navbar-brand fs-3" href="https://www.greenriver.edu/">
+                    <img src="img/GRC-logo.png" class="img-responsive" alt="GRC LOGO" height="50">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
                     <span class="navbar-dark navbar-toggler-icon"></span>
                 </button>
@@ -56,11 +58,11 @@ if(isset($_POST['toggleAdmin'])){
                             <a class="nav-link" href="contactForm.html">Contact</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link active dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Admin
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item active fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
+                                <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
                                 <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
                             </ul>
                         </li>
@@ -76,7 +78,6 @@ if(isset($_POST['toggleAdmin'])){
         </nav>
     </div>
 </header>
-
 <!-- Main content -->
 <main class="site-content">
     <div class="container">
@@ -166,7 +167,7 @@ if(isset($_POST['toggleAdmin'])){
                         $row = '
                                 <div class="container-fluid rounded announcement-content" style="padding-bottom: 9px">
                                     <p style="margin-bottom: 10px">                                   
-                                        <form action="adminAnnouncement.php" method="post">
+                                        <form action="announcement.php" method="post">
                                             <text class="d-inline-block text-truncate announcement-message"> ' . $announcementTitle . '</text>
                                             <input type="hidden" name="announcementID" value=' . $announcementID . '>
                                             <button type="submit" class="btn btn-bd-primary btn-sm float-end">View</button>

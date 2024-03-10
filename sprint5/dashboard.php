@@ -22,9 +22,11 @@
 <!-- Navbar -->
 <header class="site-navigation">
     <div class="container">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand fs-3" href="dashboard.php">GRC ATT</a>
+                <a class="navbar-brand fs-3" href="https://www.greenriver.edu/">
+                    <img src="img/GRC-logo.png" class="img-responsive" alt="GRC LOGO" height="50">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
                     <span class="navbar-dark navbar-toggler-icon"></span>
                 </button>
@@ -63,7 +65,7 @@
 
 <!-- Main content -->
 <main class="site-content">
-    <div class="container">
+    <div class="container pt-5 mt-5">
         <br>
         <!-- Applications & Reminders -->
         <div class="row mb-3 g-3">
@@ -225,12 +227,12 @@
             <ul class="resource-links">
                 <li class="list-group-item mb-2">
                     <a href="https://linkedin.com" target="_blank">
-                        <img src="./img/LI-Logo.png" style="height: 25px;">
+                        <img src="img/LI-Logo.png" style="height: 25px;" alt="Linkedin">
                     </a>
                 </li>
                 <li class="list-group-item mb-2">
                     <a href="https://indeed.com" target="_blank">
-                        <img src="./img/Indeed_Logo_RGB.png" style="height: 25px;">
+                        <img src="img/Indeed_Logo_RGB.png" style="height: 25px;" alt="Indeed">
                     </a>
                 </li>
                 <li class="list-group-item">
@@ -250,7 +252,7 @@
                     </p>
                 </div>
                 <div class="col-4 gx-4 gy-4">
-                    <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter">
+                    <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter" alt="Auburn Center">
                 </div>
             </div>
         </div>
