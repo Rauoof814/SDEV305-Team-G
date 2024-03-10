@@ -239,3 +239,10 @@ function validRadio(formID, radioName) {
     }
     return valid;
 }
+
+function changeFollowUpDate(){
+    let appDate = new Date((document.getElementById("date").value));
+    appDate.setDate(appDate.getDate() + 5);
+    let followUp = document.getElementById("followUpDate");
+    followUp.value = appDate.toISOString().split("T")[0];
+}
