@@ -204,6 +204,7 @@ if(isset($_POST['toggleAdmin'])){
                     <?php
                     $sql = "SELECT * FROM users";
                     $result = @mysqli_query($cnxn, $sql);
+                    $confirmMessage = "";
                     while ($row = mysqli_fetch_assoc($result))
                     {
                         $userID = $row['user_id'];
@@ -235,11 +236,11 @@ if(isset($_POST['toggleAdmin'])){
                                                 <form method="post">';
 
                         if($isAdmin == "Yes"){
-                            $row .= '<input type="submit" class="btn btn-success" value="Remove Admin" name="toggleAdmin">
+                            $row .= '<input type="submit" class="btn btn-success" value="Remove Admin" name="toggleAdmin" onclick="return confirm(\'Are you sure you want to remove admin privileges for this user?\');">
                                                  <input type="hidden" name="userID" value="' . $userID . '">';
                         }
                         else {
-                            $row .= '<input type = "submit" class="btn btn-success" value = "Make Admin" name = "toggleAdmin" >
+                            $row .= '<input type = "submit" class="btn btn-success" value = "Make Admin" name = "toggleAdmin" onclick="return confirm(\'Are you sure you want to grant admin privileges for this user?\');">
                                                 <input type = "hidden" name = "userID" value = "' . $userID . '" >';
                         }
 
