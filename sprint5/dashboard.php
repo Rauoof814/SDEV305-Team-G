@@ -22,9 +22,11 @@
 <!-- Navbar -->
 <header class="site-navigation">
     <div class="container">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand fs-3" href="dashboard.php">GRC ATT</a>
+                <a class="navbar-brand fs-3" href="https://www.greenriver.edu/">
+                    <img src="img/GRC-logo.png" class="img-responsive" alt="GRC LOGO" height="50">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
                     <span class="navbar-dark navbar-toggler-icon"></span>
                 </button>
@@ -63,17 +65,17 @@
 
 <!-- Main content -->
 <main class="site-content">
-    <div class="container">
+    <div class="container pt-5 mt-5">
         <br>
         <!-- Applications & Reminders -->
         <div class="row mb-3 g-3">
             <!-- Applications panel -->
-            <div class="col-md-8 applications">
-                <p class="fs-2 heading">Recent Applications</p>
+            <div class="col-md-8 applications border-end border-dark">
+                <p class="fs-2 heading border-bottom">Recent Applications</p>
                 <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 230px">
                     <table class="table">
                         <thead>
-                        <tr>
+                        <tr class="border-bottom border-dark">
                             <td scope="col">Date</td>
                             <td scope="col">Title</td>
                             <td scope="col">Status</td>
@@ -131,10 +133,11 @@
             <!-- Reminders panel -->
             <!-- TODO: Fix view button spacing -->
             <div class="col-md-4 reminders">
-                <p class="fs-2 heading">Reminders</p>
-                <div class="overflow-y-scroll announcements-list" style="height: 300px">
+                <p class="fs-2 heading border-bottom">Reminders</p>
+                <div class="overflow-y-scroll announcements-list border-left" style="height: 300px">
                     <!-- Display announcements from DB onto dashboard -->
                     <!-- TODO: Make scrollbar less ugly -->
+                    <h5 class="text-decoration-underline">Recent Announcements</h5>
                     <?php
                     require '/home/gnocchig/attdb.php';
                     $sql = "SELECT * FROM announcements WHERE `announcement_date` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND NOW() ORDER BY `announcement_date` DESC";
@@ -163,6 +166,8 @@
                                     ';
                         echo $row;
                     }
+                    echo '<h5 class="text-decoration-underline">Follow-Up</h5>';
+
 
                     // display follow up reminders
                     $sql = "SELECT * FROM `applications` WHERE `application_followUp` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND DATE(NOW() + INTERVAL 5 DAY)";
@@ -222,12 +227,12 @@
             <ul class="resource-links">
                 <li class="list-group-item mb-2">
                     <a href="https://linkedin.com" target="_blank">
-                        <img src="./img/LI-Logo.png" style="height: 25px;">
+                        <img src="img/LI-Logo.png" style="height: 25px;" alt="Linkedin">
                     </a>
                 </li>
                 <li class="list-group-item mb-2">
                     <a href="https://indeed.com" target="_blank">
-                        <img src="./img/Indeed_Logo_RGB.png" style="height: 25px;">
+                        <img src="img/Indeed_Logo_RGB.png" style="height: 25px;" alt="Indeed">
                     </a>
                 </li>
                 <li class="list-group-item">
@@ -247,7 +252,7 @@
                     </p>
                 </div>
                 <div class="col-4 gx-4 gy-4">
-                    <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter">
+                    <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter" alt="Auburn Center">
                 </div>
             </div>
         </div>

@@ -19,7 +19,7 @@
 <!-- Navbar -->
 <header class="site-navigation">
     <div class="container">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand fs-3" href="dashboard.php">GRC ATT</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
