@@ -85,61 +85,101 @@ if(isset($_POST['toggleAdmin'])){
         <!-- Applications & Reminders -->
         <div class="row mb-3 g-3">
             <!-- Applications panel -->
-            <div class="col-md-8 applications border-end border-dark"">
-                <p class="fs-2 heading border-bottom">Recent Applications</p>
-                <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 300px">
-                    <table class="table">
-                        <thead>
+            <div class="col-md-8 applications border-end border-dark">
+            <p class="fs-2 heading border-bottom">Recent Applications</p>
+            
+            <!-- Sorting dropdown -->
+            <form method="GET" action="adminDashboard.php">
+                <div class="input-group mb-3">
+                    <select class="form-select" name="sort">
+                        <option value="date">Sort by Date</option>
+                        <option value="name">Sort by Name</option>
+                    </select>
+                    <button class="btn btn-outline-secondary" type="submit">Sort</button>
+                </div>
+            </form>
+            
+            <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 230px">
+                <table class="table">
+                    <thead>
                         <tr class="border-bottom border-dark">
-                            <td scope="col">ID</td>
                             <td scope="col">Date</td>
                             <td scope="col">Title</td>
                             <td scope="col">Status</td>
                             <td scope="col">Manage</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        <!-- Display applications from DB onto dashboard table -->
-                        <!-- TODO: Make scrollbar less ugly -->
+                    </thead>
+                    <tbody>
+                        <!-- Display sorted applications -->
                         <?php
-                        require '/home/gnocchig/attdb.php';
-                        $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
-                        $result = @mysqli_query($cnxn, $sql);
-                        while ($row = mysqli_fetch_assoc($result))
-                        {
-                            $appID = $row['application_id'];
-                            $appName = $row['application_name'];
-                            $appURL = $row['application_url'];
-                            $appDate = $row['application_date'];
-                            $appStatus = $row['application_status'];
-                            $appUpdates = $row['application_updates'];
-                            $appFollowUp= $row['application_followUp'];
+                        session_start();
 
-                            $row = '
-                            <tr>
-                                <td> ' . $appID . '</td>
-                                <td> ' . $appDate . '</td>
-                                <td> ' . $appName . '</td>
-                                <td> ' . $appStatus . '</td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group">           
-                                        <a href="edit_app.php?id=' . $appID . '" class="btn btn-bd-primary btn-width">Update</a>
-                                        
-                                        
-                                        <form method="post" action="deleteApplication.php">
-                                                <input type="hidden" name="application_id" value="' . $appID . '">
-                                                <button type="submit" class="btn btn-danger btn-width" style="padding-top: 2px; padding-bottom: 0px;" name="delete_application">Delete</button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                            ';
-                            echo $row;
+                        require '/home/gnocchig/attdb.php';
+
+                        // Initialize $sort variable
+                        $sort = "";
+
+                        // Check if sorting criterion is provided
+                        if(isset($_GET['sort'])) {
+                            $sort = $_GET['sort'];
+                        }
+
+                        // Prepare the SQL query based on sorting criterion
+                        switch($sort) {
+                            case "date":
+                                $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
+                                break;
+                            case "name":
+                                $sql = "SELECT * FROM applications ORDER BY `application_name` ASC";
+                                break;
+                            case "status":
+                                $sql = "SELECT * FROM applications ORDER BY `application_status` ASC";
+                                break;
+                            default:
+                                $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
+                        }
+
+                        $result = mysqli_query($cnxn, $sql);
+
+                        // Check if result is not empty
+                        if(mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                // Output the application data
+                                $appID = $row['application_id'];
+                                $appName = $row['application_name'];
+                                $appURL = $row['application_url'];
+                                $appDate = $row['application_date'];
+                                $appStatus = $row['application_status'];
+                                $appUpdates = $row['application_updates'];
+                                $appFollowUp = $row['application_followUp'];
+                                $row = '
+                                    <tr>
+                                        <td> ' . $appDate . '</td>
+                                        <td> ' . $appName . '</td>
+                                        <td> ' . $appStatus . '</td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm" role="group">       
+                                                <form action="edit_app.php" method="post">
+                                                    <a href="edit_app.php?id=' . $appID . '" class="btn btn-bd-primary btn-width">Update</a>
+                                                </form>
+                                                <form method="post" action="deleteApplication.php">
+                                                    <input type="hidden" name="delete_application" value="' . $appID . '">
+                                                    <button type="submit" class="btn btn-danger btn-width" style="padding-top: 2px; padding-bottom: 0px;">Delete</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ';
+                                echo $row;
+                            }
+                        } else {
+                            // Output a message if no applications found
+                            echo "<tr><td colspan='4'>No applications found.</td></tr>";
                         }
                         ?>
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
+            </div>
                 <a class="container-fluid btn btn-link" href="#" role="button">See all Applications</a>
             </div>
             <!-- Reminders panel -->
