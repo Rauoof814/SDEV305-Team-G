@@ -132,7 +132,7 @@ else
 </header>
 <div class="form-container">
 
-    <form action="edit_app.php?id=<?php echo htmlspecialchars($appData['application_id']); ?>" method="post">
+    <form action="edit_app_confirmation.php?id=<?php echo htmlspecialchars($appData['application_id']); ?>" method="post">
 
         <input type="hidden" name="application_id" value="<?php echo $appData['application_id']; ?>" required>
 
@@ -163,7 +163,7 @@ else
         <input type="date" name="application_followUp"
                value="<?php echo htmlspecialchars($appData['application_followUp']); ?>" required>
 
-        <input type="submit" value="Update Application">
+        <input type="submit" value="Update Application" onclick="return confirm('Are you sure you want to alter this application?')">
     </form>
 </div>
 
