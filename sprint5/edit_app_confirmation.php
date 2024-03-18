@@ -72,17 +72,20 @@
             $appFollowUp = trim($_POST['application_followUp']);
 
             // Prepare the SQL UPDATE query
-            $update_sql = "UPDATE applications 
-                            SET `application_name` = '$appName', 
-                                `application_url` = '$appURL', 
-                                `application_date` = '$appDate', 
-                                `application_status` = '$appStatus', 
-                                `application_updates` = '$appUpdates',
-                                `application_followUp` = '$appFollowUp'
-                            WHERE `application_id` = '$appID'";
+            // Prepare the SQL statement
+            $update_sql = "UPDATE `applications` 
+               SET `application_name` = ?, 
+                   `application_url` = ?, 
+                   `application_date` = ?, 
+                   `application_status` = ?, 
+                   `application_updates` = ?,
+                   `application_followUp` = ?
+               WHERE `application_id` = ?";
 
-            // Execute the update
-            mysqli_query($cnxn, $update_sql);
+            $stmt = $cnxn->prepare($update_sql);
+            $stmt->bind_param("ssssssi", $appName, $appURL, $appDate, $appStatus, $appUpdates, $appFollowUp, $appID);
+            $stmt->execute();
+            $stmt->close();
 
             // handling Null inputs
             if (!empty($appName) && !empty($appURL) && !empty($appDate) && !empty($appStatus) && !empty($appFollowUp)) {

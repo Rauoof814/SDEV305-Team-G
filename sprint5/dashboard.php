@@ -99,7 +99,7 @@
                         <?php
                         //session_start();
 
-                       require '/home/gnocchig/attdb.php';
+                     require '/home/gnocchig/attdb.php';
 
                         // Initialize $sort variable
                         $sort = "";
@@ -140,13 +140,13 @@
                                         <td> ' . $appName . '</td>
                                         <td> ' . $appStatus . '</td>
                                         <td>
-                                            <div class="btn-group btn-group-sm" role="group">       
+                                            <div class="btn-group" role="group">       
                                                 <form action="edit_app.php" method="post">
-                                                    <a href="edit_app.php? id=' . $appID . '" class="btn btn-bd-primary btn-width">Update</a>
+                                                    <a href="edit_app.php? id=' . $appID . '" class="btn btn-primary">Update</a>
                                                 </form>
                                                 <form method="post" action="deleteApplication.php">
                                                     <input type="hidden" name="delete_application" value="' . $appID . '">
-                                                    <button type="submit" class="btn btn-danger btn-width" onclick="return confirm(\'Are you sure you want to delete this application?\');" style="padding-top: 2px; padding-bottom: 0px;">Delete</button>
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this application?\');">Delete</button>
                                                 </form>
                                             </div>
                                         </td>
@@ -173,7 +173,7 @@
                     <!-- TODO: Make scrollbar less ugly -->
                     <h5 class="text-decoration-underline">Recent Announcements</h5>
                     <?php
-                   require '/home/gnocchig/attdb.php';
+                 require '/home/gnocchig/attdb.php';
                     $sql = "SELECT * FROM announcements WHERE `announcement_date` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND NOW() ORDER BY `announcement_date` DESC";
                     $result = @mysqli_query($cnxn, $sql);
                     while ($row = mysqli_fetch_assoc($result))

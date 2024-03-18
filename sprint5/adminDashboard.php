@@ -158,13 +158,13 @@
                                         <td> ' . $appName . '</td>
                                         <td> ' . $appStatus . '</td>
                                         <td>
-                                            <div class="btn-group btn-group-sm" role="group">       
+                                            <div class="btn-group" role="group">       
                                                 <form action="edit_app.php" method="post">
-                                                    <a href="edit_app.php?id=' . $appID . '" class="btn btn-bd-primary btn-width">Update</a>
+                                                    <a href="edit_app.php? id=' . $appID . '" class="btn btn-primary">Update</a>
                                                 </form>
                                                 <form method="post" action="deleteApplication.php">
                                                     <input type="hidden" name="delete_application" value="' . $appID . '">
-                                                    <button type="submit" class="btn btn-danger btn-width" onclick="return confirm(\'Are you sure you want to delete this application?\');" style="padding-top: 2px; padding-bottom: 0px;">Delete</button>
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this application?\');">Delete</button>
                                                 </form>
                                             </div>
                                         </td>
@@ -190,7 +190,7 @@
                     <!-- Display announcements from DB onto dashboard -->
                     <!-- TODO: Make scrollbar less ugly -->
                     <?php
-                   require '/home/gnocchig/attdb.php';
+                 require '/home/gnocchig/attdb.php';
                     $sql = "SELECT * FROM announcements WHERE `announcement_date` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND NOW() ORDER BY `announcement_date` DESC";
                     $result = @mysqli_query($cnxn, $sql);
                     while ($row = mysqli_fetch_assoc($result))
@@ -277,11 +277,11 @@
                                                 <form method="post">';
 
                         if($isAdmin == "Yes"){
-                            $row .= '<input type="submit" class="btn btn-success" value="Remove Admin" name="toggleAdmin" onclick="return confirm(\'Are you sure you want to remove admin privileges for this user?\');">
+                            $row .= '<input type="submit" class="btn btn-warning" value="Remove Admin" name="toggleAdmin" onclick="return confirm(\'Are you sure you want to remove admin privileges for this user?\');">
                                                  <input type="hidden" name="userID" value="' . $userID . '">';
                         }
                         else {
-                            $row .= '<input type = "submit" class="btn btn-success" value = "Make Admin" name = "toggleAdmin" onclick="return confirm(\'Are you sure you want to grant admin privileges for this user?\');">
+                            $row .= '<input type = "submit" class="btn btn-warning" value = "Make Admin" name = "toggleAdmin" onclick="return confirm(\'Are you sure you want to grant admin privileges for this user?\');">
                                                 <input type = "hidden" name = "userID" value = "' . $userID . '" >';
                         }
 

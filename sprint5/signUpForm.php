@@ -121,7 +121,7 @@
     }
 
     function addNewUserToDb(){
-       require '/home/gnocchig/attdb.php';
+     require '/home/gnocchig/attdb.php';
         
         $fName = $_POST["fName"];
         $lName = $_POST["lName"];
