@@ -62,7 +62,7 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    require '/home/gnocchig/attdb.php';
+   require '/home/gnocchig/attdb.php';
 
     if(isset($_POST["role"]) && $_POST["role"] != "" && isset($_POST["jobDescription"]) && $_POST["jobDescription"] != "" &&
         isset($_POST["date"]) && $_POST["date"] != "" && isset($_POST["status"]) && $_POST["status"] && isset($_POST["followUpDate"]) && $_POST["followUpDate"] != "")

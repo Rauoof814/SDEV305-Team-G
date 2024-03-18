@@ -99,7 +99,7 @@
                         <?php
                         session_start();
 
-                        require '/home/gnocchig/attdb.php';
+                       require '/home/gnocchig/attdb.php';
 
                         // Initialize $sort variable
                         $sort = "";
@@ -173,7 +173,7 @@
                     <!-- TODO: Make scrollbar less ugly -->
                     <h5 class="text-decoration-underline">Recent Announcements</h5>
                     <?php
-                    require '/home/gnocchig/attdb.php';
+                   require '/home/gnocchig/attdb.php';
                     $sql = "SELECT * FROM announcements WHERE `announcement_date` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND NOW() ORDER BY `announcement_date` DESC";
                     $result = @mysqli_query($cnxn, $sql);
                     while ($row = mysqli_fetch_assoc($result))

@@ -98,12 +98,12 @@
     }
 
     function addToDatabase($title, $jobUrl, $date, $updates, $status, $followUpDate, $id){
-        require '/home/gnocchig/attdb.php';
+       require '/home/gnocchig/attdb.php';
 
         $sql = "UPDATE `applications` 
                 SET application_name= $title, application_url = $jobUrl, application_date = $date, application_status = $status, application_updates = $updates, application_followUp = $followUpDate
                 WHERE application_id = $id;";
-        require '/home/gnocchig/attdb.php';
+       require '/home/gnocchig/attdb.php';
 
         mysqli_query($cnxn, $sql);
     }

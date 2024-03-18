@@ -30,7 +30,7 @@
                 <div class="collapse navbar-collapse fs-3" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" href="dashboard.php">Dashboard</a>
+                            <a class="nav-link" href="dashboard.php">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="newApplicationForm.html">New Application</a>
@@ -64,7 +64,7 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    require '/home/gnocchig/attdb.php';
+   require '/home/gnocchig/attdb.php';
 
     if(isset($_POST["role"]) && $_POST["role"] != "" && isset($_POST["jobDescription"]) && $_POST["jobDescription"] != "" &&
         isset($_POST["date"]) && $_POST["date"] != "" && isset($_POST["status"]) && $_POST["status"] && isset($_POST["followUpDate"]) && $_POST["followUpDate"] != "")
@@ -94,10 +94,18 @@
         echo '<a href="adminDashboard.php"><button type=button class="btn btn-bd-primary">Admin Dashboard</button></a>';
 
         //add to database
-        $sql = "INSERT INTO `applications` (`application_name`, `application_url`, `application_date`, `application_status`, `application_updates`, `application_followUp`) 
-            VALUES ('$title', '$jobUrl', '$date', '$status', '$updates', '$followUpDate')";
+        $stmt = $cnxn->prepare("INSERT INTO `applications` (`application_name`, `application_url`, `application_date`, `application_status`, `application_updates`, `application_followUp`) 
+            VALUES (?, ?, ?, ?, ?, ?)");
 
-        mysqli_query($cnxn, $sql);
+        $stmt->bind_param("ssssss",$title,$jobUrl, $date, $status, $updates, $followUpDate);
+
+        if($stmt -> execute()){
+            echo "good job";
+        }
+        else{
+            echo " poop ";
+        }
+        $stmt -> close();
     }
     else {
         // Display error message

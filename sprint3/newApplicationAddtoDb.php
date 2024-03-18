@@ -101,7 +101,7 @@
         }
 
         function addToDatabase($title, $jobUrl, $date, $updates, $status, $followUpDate){
-            require '/home/gnocchig/attdb.php';
+           require '/home/gnocchig/attdb.php';
 
             $sql = "INSERT INTO `applications` (`application_name`, `application_url`, `application_date`, `application_status`, `application_updates`, `application_followUp`) 
                 VALUES ('$title', '$jobUrl', '$date', '$status', '$updates', '$followUpDate')";

@@ -79,7 +79,7 @@
                         <!-- Display applications from DB onto dashboard table -->
                         <!-- TODO: Make scrollbar less ugly -->
                         <?php
-                        require '/home/gnocchig/attdb.php';
+                       require '/home/gnocchig/attdb.php';
                         $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
                         $result = @mysqli_query($cnxn, $sql);
                         while ($row = mysqli_fetch_assoc($result))
@@ -127,7 +127,7 @@
                     <!-- Display announcements from DB onto dashboard -->
                     <!-- TODO: Make scrollbar less ugly -->
                     <?php
-                    require '/home/gnocchig/attdb.php';
+                   require '/home/gnocchig/attdb.php';
                     $sql = "SELECT * FROM announcements WHERE `announcement_date` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND NOW() ORDER BY `announcement_date` DESC";
                     $result = @mysqli_query($cnxn, $sql);
                     while ($row = mysqli_fetch_assoc($result))
@@ -198,7 +198,7 @@
                     <!-- Display users from DB onto dashboard table -->
                     <!-- TODO: Display a max of 6 users or add scrollbar -->
                     <?php
-                    require '/home/gnocchig/attdb.php';
+                   require '/home/gnocchig/attdb.php';
                     $sql = "SELECT * FROM users";
                     $result = @mysqli_query($cnxn, $sql);
                     while ($row = mysqli_fetch_assoc($result))

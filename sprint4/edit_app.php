@@ -1,6 +1,6 @@
 <?php
 // // Include your database connection file
-// require '/home/gnocchig/attdb.php';
+//require '/home/gnocchig/attdb.php';
 
 // // Check if the 'id' GET parameter is set
 // if(isset($_GET['id'])) {
@@ -26,7 +26,7 @@
 
 
 
-                    require '/home/gnocchig/attdb.php';
+                   require '/home/gnocchig/attdb.php';
                                 $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
                                 $result = @mysqli_query($cnxn, $sql);
                                 while ($row = mysqli_fetch_assoc($result))

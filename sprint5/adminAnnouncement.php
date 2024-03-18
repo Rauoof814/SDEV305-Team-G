@@ -70,7 +70,7 @@
             $announcementAdditionalInfo= $_POST['moreInfo'];
             $announcementURL = $_POST['url'];
 
-            require '/home/gnocchig/attdb.php';
+           require '/home/gnocchig/attdb.php';
             /* create a prepared statement */
             $stmt = $cnxn->prepare("UPDATE `announcements` SET `announcement_date`=?, `announcement_title`=?, `announcement_job_type`=?, `announcement_location`=?, `announcement_employer`=?, `announcement_additional_info`=?, `announcement_url`=?  WHERE `announcement_id`=?");
 
@@ -102,7 +102,7 @@
         }
         else if (!empty($_POST) && !empty($_POST["announcementID"])) {
             $announcementID = $_POST["announcementID"];
-            require '/home/gnocchig/attdb.php';
+           require '/home/gnocchig/attdb.php';
             $sql = "SELECT * FROM `announcements` WHERE `announcement_id` = $announcementID;";
             $result = @mysqli_query($cnxn, $sql);
             while ($row = mysqli_fetch_assoc($result))
@@ -173,7 +173,7 @@
             echo '<a href="adminDashboard.php"><button type=button class="btn btn-bd-primary">Admin Dashboard</button></a>';
 
             // Insert row into DB
-            require '/home/gnocchig/attdb.php';
+           require '/home/gnocchig/attdb.php';
             // set date
             date_default_timezone_set('America/Los_Angeles');
             $announcementDate = date('Y-m-d');
@@ -214,7 +214,7 @@
 <!--  TODO: define email styling  -->
 <?php
 if ($form) {
-    require '/home/gnocchig/attdb.php';
+   require '/home/gnocchig/attdb.php';
     $sql = "SELECT `user_email`FROM `users`;";
     $result = @mysqli_query($cnxn, $sql);
     while ($row = mysqli_fetch_assoc($result))

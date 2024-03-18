@@ -114,7 +114,7 @@ if(isset($_POST['toggleAdmin'])){
                         <?php
                         session_start();
 
-                        require '/home/gnocchig/attdb.php';
+                       require '/home/gnocchig/attdb.php';
 
                         // Initialize $sort variable
                         $sort = "";
@@ -190,7 +190,7 @@ if(isset($_POST['toggleAdmin'])){
                     <!-- Display announcements from DB onto dashboard -->
                     <!-- TODO: Make scrollbar less ugly -->
                     <?php
-                    require '/home/gnocchig/attdb.php';
+                   require '/home/gnocchig/attdb.php';
                     $sql = "SELECT * FROM announcements WHERE `announcement_date` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND NOW() ORDER BY `announcement_date` DESC";
                     $result = @mysqli_query($cnxn, $sql);
                     while ($row = mysqli_fetch_assoc($result))
