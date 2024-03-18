@@ -83,21 +83,21 @@
                     <button class="btn btn-outline-secondary" type="submit">Sort</button>
                 </div>
             </form>
-            
+
             <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 230px">
                 <table class="table">
-                    <thead>
+                    <thead class="sticky-top">
                         <tr class="border-bottom border-dark">
-                            <td scope="col">Date</td>
-                            <td scope="col">Title</td>
-                            <td scope="col">Status</td>
-                            <td scope="col">Manage</td>
+                            <th scope="col">Date</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Manage</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Display sorted applications -->
                         <?php
-                        session_start();
+                        //session_start();
 
                        require '/home/gnocchig/attdb.php';
 
@@ -246,51 +246,52 @@
     <br>
     <!-- Site info -->
     <hr>
-    <p class=" fs-5 text-center rounded site-information">
-        Welcome to the Green River College Software Development Application Tracking Tool (ATT).
-        The purpose of this tool is to provide a centralized place to track your job/internship
-        applications that can be helpful in your application journey!
-    </p>
-    <br>
-    <!-- About & resources -->
-    <div class="row mb-3 g-3">
-        <!-- Resources -->
-        <div class="col-md-4 resources">
-            <p class="fs-2 heading">Resources</p>
-            <p>Utilize these resources to help your job search!</p>
-            <ul class="resource-links">
-                <li class="list-group-item mb-2">
-                    <a href="https://linkedin.com" target="_blank">
-                        <img src="img/LI-Logo.png" style="height: 25px;" alt="Linkedin">
-                    </a>
-                </li>
-                <li class="list-group-item mb-2">
-                    <a href="https://indeed.com" target="_blank">
-                        <img src="img/Indeed_Logo_RGB.png" style="height: 25px;" alt="Indeed">
-                    </a>
-                </li>
-                <li class="list-group-item">
-                    <a href="https://devs.greenrivertech.net/" target="_blank">Green River Devs</a>
-                </li>
-            </ul>
-        </div>
-        <!-- About -->
-        <div class="col-md-8 about">
-            <div class="row">
-                <div class="col-7">
-                    <p class="fs-2 heading">About Us</p>
-                    <p>
-                        The GRC Software Development program is an excellent way to prepare for a career in tech.
-                        Through its affordable tuition, caring instructors, and thoughtfully curated curriculum,
-                        you will be able to achieve whatever you set out to become.
-                    </p>
-                </div>
-                <div class="col-4 gx-4 gy-4">
-                    <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter" alt="Auburn Center">
+    <div class="text-light" style="background-color: #333333">
+        <p class=" fs-5 text-center rounded site-information">
+            Welcome to the Green River College Software Development Application Tracking Tool (ATT).
+            The purpose of this tool is to provide a centralized place to track your job/internship
+            applications that can be helpful in your application journey!
+        </p>
+        <br>
+        <!-- About & resources -->
+        <div class="row mb-3 g-3">
+            <!-- Resources -->
+            <div class="col-md-4 resources">
+                <p class="fs-2 heading">Resources</p>
+                <p>Utilize these resources to help your job search!</p>
+                <ul class="resource-links">
+                    <li class="list-group-item mb-2">
+                        <a href="https://linkedin.com" target="_blank">
+                            <img src="img/LI-Logo.png" style="height: 25px;" alt="Linkedin">
+                        </a>
+                    </li>
+                    <li class="list-group-item mb-2">
+                        <a href="https://indeed.com" target="_blank">
+                            <img src="img/Indeed_Logo_RGB.png" style="height: 25px;" alt="Indeed">
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://devs.greenrivertech.net/" target="_blank">Green River Devs</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- About -->
+            <div class="col-md-8 about">
+                <div class="row">
+                    <div class="col-7">
+                        <p class="fs-2 heading">About Us</p>
+                        <p>
+                            The GRC Software Development program is an excellent way to prepare for a career in tech.
+                            Through its affordable tuition, caring instructors, and thoughtfully curated curriculum,
+                            you will be able to achieve whatever you set out to become.
+                        </p>
+                    </div>
+                    <div class="col-4 gx-4 gy-4">
+                        <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter" alt="Auburn Center">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </main>
 <!-- JavaScript for Dark Mode toggle -->

@@ -299,32 +299,35 @@ if(isset($_POST['toggleAdmin'])){
                 </table>
             </div>
         </div>
+    </div>
         <br>
         <!-- Site info -->
         <hr>
-        <p class=" fs-5 text-center rounded site-information">
-            Welcome to the Green River College Software Development Application Tracking Tool (ATT).
-            The purpose of this tool is to provide a centralized place to track your job/internship
-            applications that can be helpful in your application journey!
-        </p>
-        <br>
-        <!-- About -->
-        <div class="col-md-8 about">
-            <div class="row">
-                <div class="col-7">
-                    <p class="fs-2 heading">About Us</p>
-                    <p>
-                        The GRC Software Development program is an excellent way to prepare for a career in tech.
-                        Through its affordable tuition, caring instructors, and thoughtfully curated curriculum,
-                        you will be able to achieve whatever you set out to become.
-                    </p>
-                </div>
-                <div class="col-4 gx-4 gy-4">
-                    <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter">
+        <div class="text-light" style="background-color: #333333">
+            <p class=" fs-5 text-center rounded site-information">
+                Welcome to the Green River College Software Development Application Tracking Tool (ATT).
+                The purpose of this tool is to provide a centralized place to track your job/internship
+                applications that can be helpful in your application journey!
+            </p>
+            <br>
+            <!-- About -->
+            <div class="col-md-8 about">
+                <div class="row">
+                    <div class="col-7">
+                        <p class="fs-2 heading">About Us</p>
+                        <p>
+                            The GRC Software Development program is an excellent way to prepare for a career in tech.
+                            Through its affordable tuition, caring instructors, and thoughtfully curated curriculum,
+                            you will be able to achieve whatever you set out to become.
+                        </p>
+                    </div>
+                    <div class="col-4 gx-4 gy-4">
+                        <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
 </main>
 
 <!-- JavaScript for Dark Mode toggle -->
