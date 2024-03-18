@@ -83,23 +83,23 @@
                     <button class="btn btn-outline-secondary" type="submit">Sort</button>
                 </div>
             </form>
-            
+
             <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 230px">
                 <table class="table">
-                    <thead>
+                    <thead class="sticky-top">
                         <tr class="border-bottom border-dark">
-                            <td scope="col">Date</td>
-                            <td scope="col">Title</td>
-                            <td scope="col">Status</td>
-                            <td scope="col">Manage</td>
+                            <th scope="col">Date</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Manage</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Display sorted applications -->
                         <?php
-                        session_start();
+                        //session_start();
 
-                        require '/home/gnocchig/attdb.php';
+                     require '/home/gnocchig/attdb.php';
 
                         // Initialize $sort variable
                         $sort = "";
@@ -112,13 +112,13 @@
                         // Prepare the SQL query based on sorting criterion
                         switch($sort) {
                             case "date":
-                                $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
+                                $sql = "SELECT * FROM `applications` WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
                                 break;
                             case "name":
-                                $sql = "SELECT * FROM applications ORDER BY `application_name` ASC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_name` ASC";
                                 break;
                             default:
-                                $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
                         }
 
                         $result = mysqli_query($cnxn, $sql);
@@ -140,13 +140,13 @@
                                         <td> ' . $appName . '</td>
                                         <td> ' . $appStatus . '</td>
                                         <td>
-                                            <div class="btn-group btn-group-sm" role="group">       
+                                            <div class="btn-group" role="group">       
                                                 <form action="edit_app.php" method="post">
-                                                    <a href="edit_app.php? id=' . $appID . '" class="btn btn-bd-primary btn-width">Update</a>
+                                                    <a href="edit_app.php? id=' . $appID . '" class="btn btn-primary">Update</a>
                                                 </form>
                                                 <form method="post" action="deleteApplication.php">
                                                     <input type="hidden" name="delete_application" value="' . $appID . '">
-                                                    <button type="submit" class="btn btn-danger btn-width" style="padding-top: 2px; padding-bottom: 0px;">Delete</button>
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this application?\');">Delete</button>
                                                 </form>
                                             </div>
                                         </td>
@@ -173,7 +173,7 @@
                     <!-- TODO: Make scrollbar less ugly -->
                     <h5 class="text-decoration-underline">Recent Announcements</h5>
                     <?php
-                    require '/home/gnocchig/attdb.php';
+                 require '/home/gnocchig/attdb.php';
                     $sql = "SELECT * FROM announcements WHERE `announcement_date` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND NOW() ORDER BY `announcement_date` DESC";
                     $result = @mysqli_query($cnxn, $sql);
                     while ($row = mysqli_fetch_assoc($result))
@@ -246,51 +246,52 @@
     <br>
     <!-- Site info -->
     <hr>
-    <p class=" fs-5 text-center rounded site-information">
-        Welcome to the Green River College Software Development Application Tracking Tool (ATT).
-        The purpose of this tool is to provide a centralized place to track your job/internship
-        applications that can be helpful in your application journey!
-    </p>
-    <br>
-    <!-- About & resources -->
-    <div class="row mb-3 g-3">
-        <!-- Resources -->
-        <div class="col-md-4 resources">
-            <p class="fs-2 heading">Resources</p>
-            <p>Utilize these resources to help your job search!</p>
-            <ul class="resource-links">
-                <li class="list-group-item mb-2">
-                    <a href="https://linkedin.com" target="_blank">
-                        <img src="img/LI-Logo.png" style="height: 25px;" alt="Linkedin">
-                    </a>
-                </li>
-                <li class="list-group-item mb-2">
-                    <a href="https://indeed.com" target="_blank">
-                        <img src="img/Indeed_Logo_RGB.png" style="height: 25px;" alt="Indeed">
-                    </a>
-                </li>
-                <li class="list-group-item">
-                    <a href="https://devs.greenrivertech.net/" target="_blank">Green River Devs</a>
-                </li>
-            </ul>
-        </div>
-        <!-- About -->
-        <div class="col-md-8 about">
-            <div class="row">
-                <div class="col-7">
-                    <p class="fs-2 heading">About Us</p>
-                    <p>
-                        The GRC Software Development program is an excellent way to prepare for a career in tech.
-                        Through its affordable tuition, caring instructors, and thoughtfully curated curriculum,
-                        you will be able to achieve whatever you set out to become.
-                    </p>
-                </div>
-                <div class="col-4 gx-4 gy-4">
-                    <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter" alt="Auburn Center">
+    <div class="text-light" style="background-color: #333333">
+        <p class=" fs-5 text-center rounded site-information">
+            Welcome to the Green River College Software Development Application Tracking Tool (ATT).
+            The purpose of this tool is to provide a centralized place to track your job/internship
+            applications that can be helpful in your application journey!
+        </p>
+        <br>
+        <!-- About & resources -->
+        <div class="row mb-3 g-3">
+            <!-- Resources -->
+            <div class="col-md-4 resources">
+                <p class="fs-2 heading">Resources</p>
+                <p>Utilize these resources to help your job search!</p>
+                <ul class="resource-links">
+                    <li class="list-group-item mb-2">
+                        <a href="https://linkedin.com" target="_blank">
+                            <img src="img/LI-Logo.png" style="height: 25px;" alt="Linkedin">
+                        </a>
+                    </li>
+                    <li class="list-group-item mb-2">
+                        <a href="https://indeed.com" target="_blank">
+                            <img src="img/Indeed_Logo_RGB.png" style="height: 25px;" alt="Indeed">
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://devs.greenrivertech.net/" target="_blank">Green River Devs</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- About -->
+            <div class="col-md-8 about">
+                <div class="row">
+                    <div class="col-7">
+                        <p class="fs-2 heading">About Us</p>
+                        <p>
+                            The GRC Software Development program is an excellent way to prepare for a career in tech.
+                            Through its affordable tuition, caring instructors, and thoughtfully curated curriculum,
+                            you will be able to achieve whatever you set out to become.
+                        </p>
+                    </div>
+                    <div class="col-4 gx-4 gy-4">
+                        <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter" alt="Auburn Center">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </main>
 <!-- JavaScript for Dark Mode toggle -->

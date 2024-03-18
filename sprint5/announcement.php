@@ -62,7 +62,7 @@
         <?php
         if (!empty($_POST) && !empty($_POST["announcementID"])) {
             $announcementID = $_POST["announcementID"];
-            require '/home/gnocchig/attdb.php';
+           require '/home/gnocchig/attdb.php';
             $sql = "SELECT * FROM `announcements` WHERE `announcement_id` = $announcementID;";
             $result = @mysqli_query($cnxn, $sql);
             while ($row = mysqli_fetch_assoc($result))

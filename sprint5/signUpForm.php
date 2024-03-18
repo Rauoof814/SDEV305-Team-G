@@ -121,7 +121,7 @@
     }
 
     function addNewUserToDb(){
-        require '/home/gnocchig/attdb.php';
+     require '/home/gnocchig/attdb.php';
         
         $fName = $_POST["fName"];
         $lName = $_POST["lName"];
@@ -138,9 +138,14 @@
 
         //add to database
         $sql = "INSERT INTO `users` (`user_first`, `user_last`, `user_email`, `user_cohort`, `user_job_status`, `user_seeking`) 
-            VALUES ('$fName', '$lName', '$email', '$cohort', '$jobStage', '$notes')";
+            VALUES (?, ?, ?, ?, ?, ?)";
 
-        mysqli_query($cnxn, $sql);
+        //mysqli_query($cnxn, $sql);
+        $stmt = $cnxn->prepare($sql);
+        $stmt->bind_param("ssssss",$fName, $lName, $email, $cohort, $jobStage, $notes);
+        $stmt->execute();
+        $stmt->close();
+
     }
 ?>
 </div>

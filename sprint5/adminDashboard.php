@@ -1,24 +1,24 @@
 <?php
-//toggles making a user admin on button click and refreshes page to reflect change
-require '/home/gnocchig/attdb.php';
-if(isset($_POST['toggleAdmin'])){
-    $id = $_POST['userID'];
+    //toggles making a user admin on button click and refreshes page to reflect change
+    require '/home/gnocchig/attdb.php';
+    if(isset($_POST['toggleAdmin'])){
+        $id = $_POST['userID'];
 
-    //sets update query
-    if($_POST['toggleAdmin'] == "Make Admin"){
-        $sql = "UPDATE `users` SET is_admin = true WHERE user_id = $id ";
+        //sets update query
+        if($_POST['toggleAdmin'] == "Make Admin"){
+            $sql = "UPDATE `users` SET is_admin = true WHERE user_id = $id ";
+        }
+        else{
+            $sql = "UPDATE `users` SET is_admin = false WHERE user_id = $id ";
+        }
+
+        //execute query
+        @mysqli_query($cnxn, $sql);
+
+        //refreshes current page
+        header("Location: ".$_SERVER['PHP_SELF']);
+        exit();
     }
-    else{
-        $sql = "UPDATE `users` SET is_admin = false WHERE user_id = $id ";
-    }
-
-    //execute query
-    @mysqli_query($cnxn, $sql);
-
-    //refreshes current page
-    header("Location: ".$_SERVER['PHP_SELF']);
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,7 +101,7 @@ if(isset($_POST['toggleAdmin'])){
             
             <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 230px">
                 <table class="table">
-                    <thead>
+                    <thead class="sticky-top">
                         <tr class="border-bottom border-dark">
                             <td scope="col">Date</td>
                             <td scope="col">Title</td>
@@ -112,9 +112,9 @@ if(isset($_POST['toggleAdmin'])){
                     <tbody>
                         <!-- Display sorted applications -->
                         <?php
-                        session_start();
+                        //session_start();
 
-                        require '/home/gnocchig/attdb.php';
+                       require '/home/gnocchig/attdb.php';
 
                         // Initialize $sort variable
                         $sort = "";
@@ -127,16 +127,16 @@ if(isset($_POST['toggleAdmin'])){
                         // Prepare the SQL query based on sorting criterion
                         switch($sort) {
                             case "date":
-                                $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
                                 break;
                             case "name":
-                                $sql = "SELECT * FROM applications ORDER BY `application_name` ASC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_name` ASC";
                                 break;
                             case "status":
-                                $sql = "SELECT * FROM applications ORDER BY `application_status` ASC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_status` ASC";
                                 break;
                             default:
-                                $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
                         }
 
                         $result = mysqli_query($cnxn, $sql);
@@ -158,13 +158,13 @@ if(isset($_POST['toggleAdmin'])){
                                         <td> ' . $appName . '</td>
                                         <td> ' . $appStatus . '</td>
                                         <td>
-                                            <div class="btn-group btn-group-sm" role="group">       
+                                            <div class="btn-group" role="group">       
                                                 <form action="edit_app.php" method="post">
-                                                    <a href="edit_app.php?id=' . $appID . '" class="btn btn-bd-primary btn-width">Update</a>
+                                                    <a href="edit_app.php? id=' . $appID . '" class="btn btn-primary">Update</a>
                                                 </form>
                                                 <form method="post" action="deleteApplication.php">
                                                     <input type="hidden" name="delete_application" value="' . $appID . '">
-                                                    <button type="submit" class="btn btn-danger btn-width" style="padding-top: 2px; padding-bottom: 0px;">Delete</button>
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this application?\');">Delete</button>
                                                 </form>
                                             </div>
                                         </td>
@@ -190,7 +190,7 @@ if(isset($_POST['toggleAdmin'])){
                     <!-- Display announcements from DB onto dashboard -->
                     <!-- TODO: Make scrollbar less ugly -->
                     <?php
-                    require '/home/gnocchig/attdb.php';
+                 require '/home/gnocchig/attdb.php';
                     $sql = "SELECT * FROM announcements WHERE `announcement_date` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND NOW() ORDER BY `announcement_date` DESC";
                     $result = @mysqli_query($cnxn, $sql);
                     while ($row = mysqli_fetch_assoc($result))
@@ -229,7 +229,7 @@ if(isset($_POST['toggleAdmin'])){
             <p class="fs-2 heading">Users</p>
             <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 350px">
                 <table class="table users-table">
-                    <thead>
+                    <thead class="sticky-top">
                     <tr class="border-bottom border-dark">
                         <td>ID</td>
                         <td>Name</td>
@@ -277,11 +277,11 @@ if(isset($_POST['toggleAdmin'])){
                                                 <form method="post">';
 
                         if($isAdmin == "Yes"){
-                            $row .= '<input type="submit" class="btn btn-success" value="Remove Admin" name="toggleAdmin" onclick="return confirm(\'Are you sure you want to remove admin privileges for this user?\');">
+                            $row .= '<input type="submit" class="btn btn-warning" value="Remove Admin" name="toggleAdmin" onclick="return confirm(\'Are you sure you want to remove admin privileges for this user?\');">
                                                  <input type="hidden" name="userID" value="' . $userID . '">';
                         }
                         else {
-                            $row .= '<input type = "submit" class="btn btn-success" value = "Make Admin" name = "toggleAdmin" onclick="return confirm(\'Are you sure you want to grant admin privileges for this user?\');">
+                            $row .= '<input type = "submit" class="btn btn-warning" value = "Make Admin" name = "toggleAdmin" onclick="return confirm(\'Are you sure you want to grant admin privileges for this user?\');">
                                                 <input type = "hidden" name = "userID" value = "' . $userID . '" >';
                         }
 
@@ -299,32 +299,35 @@ if(isset($_POST['toggleAdmin'])){
                 </table>
             </div>
         </div>
+    </div>
         <br>
         <!-- Site info -->
         <hr>
-        <p class=" fs-5 text-center rounded site-information">
-            Welcome to the Green River College Software Development Application Tracking Tool (ATT).
-            The purpose of this tool is to provide a centralized place to track your job/internship
-            applications that can be helpful in your application journey!
-        </p>
-        <br>
-        <!-- About -->
-        <div class="col-md-8 about">
-            <div class="row">
-                <div class="col-7">
-                    <p class="fs-2 heading">About Us</p>
-                    <p>
-                        The GRC Software Development program is an excellent way to prepare for a career in tech.
-                        Through its affordable tuition, caring instructors, and thoughtfully curated curriculum,
-                        you will be able to achieve whatever you set out to become.
-                    </p>
-                </div>
-                <div class="col-4 gx-4 gy-4">
-                    <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter">
+        <div class="text-light" style="background-color: #333333">
+            <p class=" fs-5 text-center rounded site-information">
+                Welcome to the Green River College Software Development Application Tracking Tool (ATT).
+                The purpose of this tool is to provide a centralized place to track your job/internship
+                applications that can be helpful in your application journey!
+            </p>
+            <br>
+            <!-- About -->
+            <div class="col-md-8 about">
+                <div class="row">
+                    <div class="col-7">
+                        <p class="fs-2 heading">About Us</p>
+                        <p>
+                            The GRC Software Development program is an excellent way to prepare for a career in tech.
+                            Through its affordable tuition, caring instructors, and thoughtfully curated curriculum,
+                            you will be able to achieve whatever you set out to become.
+                        </p>
+                    </div>
+                    <div class="col-4 gx-4 gy-4">
+                        <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
 </main>
 
 <!-- JavaScript for Dark Mode toggle -->
