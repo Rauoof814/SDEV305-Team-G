@@ -112,13 +112,13 @@
                         // Prepare the SQL query based on sorting criterion
                         switch($sort) {
                             case "date":
-                                $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
+                                $sql = "SELECT * FROM `applications` WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
                                 break;
                             case "name":
-                                $sql = "SELECT * FROM applications ORDER BY `application_name` ASC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_name` ASC";
                                 break;
                             default:
-                                $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
                         }
 
                         $result = mysqli_query($cnxn, $sql);
@@ -146,7 +146,7 @@
                                                 </form>
                                                 <form method="post" action="deleteApplication.php">
                                                     <input type="hidden" name="delete_application" value="' . $appID . '">
-                                                    <button type="submit" class="btn btn-danger btn-width" style="padding-top: 2px; padding-bottom: 0px;">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-width" onclick="return confirm(\'Are you sure you want to delete this application?\');" style="padding-top: 2px; padding-bottom: 0px;">Delete</button>
                                                 </form>
                                             </div>
                                         </td>

@@ -1,24 +1,24 @@
 <?php
-//toggles making a user admin on button click and refreshes page to reflect change
-require '/home/gnocchig/attdb.php';
-if(isset($_POST['toggleAdmin'])){
-    $id = $_POST['userID'];
+    //toggles making a user admin on button click and refreshes page to reflect change
+    require '/home/gnocchig/attdb.php';
+    if(isset($_POST['toggleAdmin'])){
+        $id = $_POST['userID'];
 
-    //sets update query
-    if($_POST['toggleAdmin'] == "Make Admin"){
-        $sql = "UPDATE `users` SET is_admin = true WHERE user_id = $id ";
+        //sets update query
+        if($_POST['toggleAdmin'] == "Make Admin"){
+            $sql = "UPDATE `users` SET is_admin = true WHERE user_id = $id ";
+        }
+        else{
+            $sql = "UPDATE `users` SET is_admin = false WHERE user_id = $id ";
+        }
+
+        //execute query
+        @mysqli_query($cnxn, $sql);
+
+        //refreshes current page
+        header("Location: ".$_SERVER['PHP_SELF']);
+        exit();
     }
-    else{
-        $sql = "UPDATE `users` SET is_admin = false WHERE user_id = $id ";
-    }
-
-    //execute query
-    @mysqli_query($cnxn, $sql);
-
-    //refreshes current page
-    header("Location: ".$_SERVER['PHP_SELF']);
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,7 +101,7 @@ if(isset($_POST['toggleAdmin'])){
             
             <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 230px">
                 <table class="table">
-                    <thead>
+                    <thead class="sticky-top">
                         <tr class="border-bottom border-dark">
                             <td scope="col">Date</td>
                             <td scope="col">Title</td>
@@ -112,7 +112,7 @@ if(isset($_POST['toggleAdmin'])){
                     <tbody>
                         <!-- Display sorted applications -->
                         <?php
-                        session_start();
+                        //session_start();
 
                        require '/home/gnocchig/attdb.php';
 
@@ -127,16 +127,16 @@ if(isset($_POST['toggleAdmin'])){
                         // Prepare the SQL query based on sorting criterion
                         switch($sort) {
                             case "date":
-                                $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
                                 break;
                             case "name":
-                                $sql = "SELECT * FROM applications ORDER BY `application_name` ASC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_name` ASC";
                                 break;
                             case "status":
-                                $sql = "SELECT * FROM applications ORDER BY `application_status` ASC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_status` ASC";
                                 break;
                             default:
-                                $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
                         }
 
                         $result = mysqli_query($cnxn, $sql);
@@ -164,7 +164,7 @@ if(isset($_POST['toggleAdmin'])){
                                                 </form>
                                                 <form method="post" action="deleteApplication.php">
                                                     <input type="hidden" name="delete_application" value="' . $appID . '">
-                                                    <button type="submit" class="btn btn-danger btn-width" style="padding-top: 2px; padding-bottom: 0px;">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-width" onclick="return confirm(\'Are you sure you want to delete this application?\');" style="padding-top: 2px; padding-bottom: 0px;">Delete</button>
                                                 </form>
                                             </div>
                                         </td>
@@ -229,7 +229,7 @@ if(isset($_POST['toggleAdmin'])){
             <p class="fs-2 heading">Users</p>
             <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 350px">
                 <table class="table users-table">
-                    <thead>
+                    <thead class="sticky-top">
                     <tr class="border-bottom border-dark">
                         <td>ID</td>
                         <td>Name</td>
