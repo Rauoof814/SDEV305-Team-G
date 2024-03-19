@@ -246,7 +246,7 @@
     <br>
     <!-- Site info -->
     <hr>
-    <div class="text-light" style="background-color: #333333">
+    <div class="text-light px-2" style="background-color: #333333">
         <p class=" fs-5 text-center rounded site-information">
             Welcome to the Green River College Software Development Application Tracking Tool (ATT).
             The purpose of this tool is to provide a centralized place to track your job/internship
