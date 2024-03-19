@@ -62,7 +62,7 @@
                                 Admin
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
+                                <li><a class="dropdown-item fs-5 active" href="adminDashboard.php">Admin Dashboard</a></li>
                                 <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
                             </ul>
                         </li>
@@ -303,7 +303,7 @@
         <br>
         <!-- Site info -->
         <hr>
-        <div class="text-light" style="background-color: #333333">
+        <div class="text-light px-2" style="background-color: #333333">
             <p class=" fs-5 text-center rounded site-information">
                 Welcome to the Green River College Software Development Application Tracking Tool (ATT).
                 The purpose of this tool is to provide a centralized place to track your job/internship

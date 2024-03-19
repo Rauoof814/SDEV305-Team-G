@@ -7,8 +7,8 @@ function toggleDarkMode() {
 
     var tdElements = document.getElementsByTagName("td");
     for (var i = 0; i < tdElements.length; i++) {
-        tdElements[i].style.backgroundColor = isDarkMode ? "#131313" : ""; // Adjust the color or remove this line if not needed
-        tdElements[i].style.color = isDarkMode ? "#FFFFFF" : "";
+        tdElements[i].style.backgroundColor = isDarkMode ? "#1c1c1c" : ""; // Adjust the color or remove this line if not needed
+        tdElements[i].style.color = isDarkMode ? "#e3e3e3" : "";
     }
 }
 
@@ -18,8 +18,8 @@ function applyDarkModeIfEnabled() {
         document.body.classList.add('dark-mode');
         var tdElements = document.getElementsByTagName("td");
         for (var i = 0; i < tdElements.length; i++) {
-            tdElements[i].style.backgroundColor = "#131313"; // Adjust the color or remove this line if not needed
-            tdElements[i].style.color = "#FFFFFF";
+            tdElements[i].style.backgroundColor = "#1c1c1c"; // Adjust the color or remove this line if not needed
+            tdElements[i].style.color = "#e3e3e3";
         }
     }
 }
