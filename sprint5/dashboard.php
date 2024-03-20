@@ -232,7 +232,7 @@ else {
 
 
                     // display follow up reminders
-                    $sql = "SELECT * FROM `applications` WHERE `application_followUp` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND DATE(NOW() + INTERVAL 5 DAY)";
+                    $sql = "SELECT * FROM `applications` WHERE `application_followUp` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND DATE(NOW() + INTERVAL 5 DAY) AND `is_deleted` = 0";
                     $result = @mysqli_query($cnxn, $sql);
                     while ($row = mysqli_fetch_assoc($result))
                     {
@@ -243,7 +243,6 @@ else {
                                 <div class="container-fluid rounded announcement-content">
                                     <p style="margin-bottom: 10px">
                                         <text class="d-inline-block text-truncate announcement-message" id="truncated-text"> Follow up with ' . $applicationName . '</text>
-                                        <button type="button" class="btn btn-bd-primary btn-sm float-end">View</button>
                                     </p>
                                 </div>
                                 ';

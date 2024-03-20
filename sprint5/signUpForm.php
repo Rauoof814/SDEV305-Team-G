@@ -145,12 +145,12 @@
 
         //add to database
 
-        $sql = "INSERT INTO `users` (`user_first`, `user_last`, `user_email`, `user_cohort`, `user_job_status`, `user_seeking`) 
-            VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO `users` (`user_first`, `user_last`, `user_email`, `user_password_hash`, `user_cohort`, `user_job_status`, `user_seeking`) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         //mysqli_query($cnxn, $sql);
         $stmt = $cnxn->prepare($sql);
-        $stmt->bind_param("ssssss",$fName, $lName, $email, $cohort, $jobStage, $notes);
+        $stmt->bind_param("sssssss",$fName, $lName, $email, $hash, $cohort, $jobStage, $notes);
         $stmt->execute();
         $stmt->close();
 
