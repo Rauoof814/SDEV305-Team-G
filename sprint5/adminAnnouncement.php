@@ -1,3 +1,18 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id']) && !isset($_SESSION['is_admin'])) {
+    echo '<meta http-equiv="refresh" content="0;url=admin.php">';
+}
+else {
+    // verify admin status
+    if (!$_SESSION['is_admin']) {
+        session_unset();
+        $_SESSION['login_status'] = 2; // user is not admin
+        // redirect to login
+        echo '<meta http-equiv="refresh" content="0;url=admin.php">';         
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -44,13 +59,13 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                <li><a class="dropdown-item active fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
+                                <li><a class="dropdown-item active fs-5" href="adminAnnouncement.php">Admin Announcement</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
+                            <a href="logout.php"><button type="button" class="btn btn-bd-primary signUp">Sign Out</button></a>
                             <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
                         </li>
                     </ul>
@@ -62,7 +77,39 @@
 <main>
     <div class="form-container">
         <?php
-        if (!empty($_POST) && !empty($_POST["announcementID"]) && !empty($_POST["title"]) && !empty($_POST["employmentType"]) && !empty($_POST["location"]) && !empty($_POST["employer"])  && !empty($_POST["moreInfo"])  && !empty($_POST["url"])) {
+        if (empty($_POST)) { // display announcement form
+            $form = '
+                <form name="adminAnnouncementForm" id="adminAnnouncementForm" action="adminAnnouncement.php" onsubmit="return validateAdminAnnounce()" method="post">
+                    <p class="fs-3 form-title">Create a New Announcement</p>
+        
+                    <label for="title">Announcement Title*<span id="titleWarning" style="color: red"></span></label>
+                    <input type="text" id="title" name="title">
+        
+                    <label>Employment type*<span id="radioWarning" style="color: red"></span></label>
+                    <div>
+                        <label><input type="radio" name="employmentType" value="Job"> Job</label>
+                        <label><input type="radio" name="employmentType" value="Internship"> Internship</label>
+                    </div>
+        
+                    <label for="location">Location*<span id="locationWarning" style="color: red"></span></label>
+                    <input type="text" id="location" name="location">
+        
+                    <label for="employer">Employer*<span id="employerWarning" style="color: red"></span></label>
+                    <input type="text" id="employer" name="employer">
+        
+                    <label for="moreInfo">Additional Information*<span id="moreInfoWarning" style="color: red"></span></label>
+                    <textarea id="moreInfo" name="moreInfo" ></textarea>
+        
+                    <label for="url">Enter the job listings URL*<span id="urlWarning" style="color: red"></span></label>
+                    <input type="url" id="url" name="url" placeholder="https://example.com" pattern="https://.*" size="30" required />
+        
+                    <input class="btn btn-bd-primary" type="submit" value="Submit">
+                </form>
+            ';
+            
+            echo $form;
+        }
+        else if (!empty($_POST) && !empty($_POST["announcementID"]) && !empty($_POST["title"]) && !empty($_POST["employmentType"]) && !empty($_POST["location"]) && !empty($_POST["employer"])  && !empty($_POST["moreInfo"])  && !empty($_POST["url"])) {
             $announcementID = $_POST["announcementID"];
             $announcementDate = $_POST['announcementDate'];
             $announcementTitle = $_POST['title'];
@@ -197,7 +244,7 @@
             echo '<p class="fs-3 form-title">ERROR</p>';
             echo '<p>One or more fields in the announcement form are empty.</p>';
             echo '<p>Please make sure to fill out all required fields.</p>';
-            echo '<a href="adminAnnouncement.html"><button type=button class="btn btn-bd-primary">Try again</button></a>';
+            echo '<a href="adminAnnouncement.php"><button type=button class="btn btn-bd-primary">Try again</button></a>';
         }
         ?>
     </div>

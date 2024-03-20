@@ -17,6 +17,7 @@
 </head>
 
 <body>
+
 <!-- Navbar -->
 <header class="site-navigation">
     <div class="container pb-5 mb-5">
@@ -61,7 +62,9 @@
     </div>
 </header>
 
+
 <!-- Sign Up Form -->
+<br>
 <div class="form-container">
     <p class="fs-3 form-title">Sign up</p>
 
@@ -79,7 +82,9 @@
         <!-- Email* (use Javascript to mention that their greenriver.edu email is preferred, but not required) -->
         <label for="email">Email*<span class="text-primary" id="email-span-good"></span><span class="text-danger" id="email-span-bad"></span></label>
         <input type="email" id="email" name="email" onchange="signUpEmailWarning()">
-
+        
+        <label for="password">Password*</label>
+        <input type="password" id="password" name="password" required>
 
         <!-- Cohort Number -->
         <label for="cohort-number">Cohort Number*<span class="text-danger" id="cohort-number-span"></span></label>

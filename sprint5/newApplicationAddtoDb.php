@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    echo '<meta http-equiv="refresh" content="0;url=login.php">';
+}
+else {
+// assign variables
+$userID = $_SESSION['user_id'];
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -91,21 +101,30 @@
         }
         echo '<p>Status: ' . $status . '</p>';
         echo '<p>Follow up on: ' . $followUpDate . '</p>';
-        echo '<a href="adminDashboard.php"><button type=button class="btn btn-bd-primary">Admin Dashboard</button></a>';
+        echo '<a href="dashboard.php"><button type=button class="btn btn-bd-primary">dashboard</button></a>';
+        
+        $stmt = $cnxn->prepare("INSERT INTO applications (user_id, application_name, application_url, application_date, application_status, application_updates, application_followUp) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        
+        $stmt->bind_param("issssss", $userID, $title, $jobUrl, $date, $status, $updates, $followUpDate);
 
-        //add to database
-        $stmt = $cnxn->prepare("INSERT INTO `applications` (`application_name`, `application_url`, `application_date`, `application_status`, `application_updates`, `application_followUp`) 
-            VALUES (?, ?, ?, ?, ?, ?)");
 
-        $stmt->bind_param("ssssss",$title,$jobUrl, $date, $status, $updates, $followUpDate);
+            // Execute the statement
+            if ($stmt->execute()) {
+                echo '<script>console.log("Record updated successfully")</script>';
+            } else {
+                echo "Error updating record: " . $stmt->error;
+            }
 
-        if($stmt -> execute()){
-            echo "good job";
-        }
-        else{
-            echo " poop ";
-        }
-        $stmt -> close();
+            // Close the statement
+            $stmt->close();
+        
+
+        // //add to database
+        // $sql = "INSERT INTO `applications` (`user_id`, `application_name`, `application_url`, `application_date`, `application_status`, `application_updates`, `application_followUp`) 
+        //     VALUES ('$userID', $title', '$jobUrl', '$date', '$status', '$updates', '$followUpDate')";
+
+        // mysqli_query($cnxn, $sql);
+
     }
     else {
         // Display error message

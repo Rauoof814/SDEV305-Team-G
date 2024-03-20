@@ -1,3 +1,31 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    echo '<meta http-equiv="refresh" content="0;url=login.php">';
+}
+else {
+    // db connection
+    require '/home/gnocchig/attdb.php';
+
+    // assign variables
+    $userID = $_SESSION['user_id'];
+
+    // create a prepared statement
+    $stmt = $cnxn->prepare("SELECT `is_admin` FROM `users` WHERE `user_id`=?");
+    $stmt->bind_param("s", $userID);
+    $stmt->execute();
+    $stmt->bind_result($isAdmin);
+    $stmt->fetch();
+
+    // verify admin status
+    if ($isAdmin) {
+        $_SESSION['is_admin'] = true;
+    }
+    else {
+        $_SESSION['is_admin'] = false;
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -52,11 +80,11 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a href="signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
-                            <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-                        </li>
-                    </ul>
+                                <li class="nav-item">
+                                    <a href="logout.php"><button type="button" class="btn btn-bd-primary signUp">Sign out</button></a>
+                                    <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+                                </li>
+                            </ul>
                 </div>
             </div>
         </nav>

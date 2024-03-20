@@ -16,6 +16,7 @@
     <title>Sign Up Form</title>
 </head>
 <body>
+
 <!-- Navbar -->
 <header class="site-navigation">
     <div class="container pb-5 mb-5">
@@ -63,7 +64,7 @@
 <!--form handling for sign up form-->
 <div class="form-container">
 <?php
-    if(isset($_POST["fName"]) && isset($_POST["lName"]) && isset($_POST["email"]) && isset($_POST["cohort-number"]) && isset($_POST["jobStage"])
+    if(isset($_POST["fName"]) && isset($_POST["lName"]) && isset($_POST["email"]) &&isset($_POST['password']) && isset($_POST["cohort-number"]) && isset($_POST["jobStage"])
         && $_POST["fName"] != "" && $_POST["lName"] != "" & $_POST["email"] != "" && $_POST["cohort-number"] && $_POST["jobStage"] != ""){
 
         //string together results message
@@ -80,19 +81,17 @@
     }
     else{
         $error = '
-            <div class="form-container">
                 <p class="fs-3 form-title">ERROR</p>
                 <p>One or more fields in the sign-up form are empty.</p>
                 <p>Please make sure to fill out all required fields.</p>
                 <a href="signUpForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>
-            </div>
         ';
 
         echo $error;
     }
 
     function compileUserInput(){
-        $results = "<div class='form-container'>
+        $results = "
             <p class='fs-3 form-title'>Welcome, " . $_POST["fName"] . "!</p>
             <p class='text-decoration-underline'>Your account information is below:</p>
             <p>First name: " . $_POST["fName"] . "</p>
@@ -102,10 +101,10 @@
             <p>What are you seeking?: " . $_POST["jobStage"] . " </p>";
 
         if(isset($_POST["notes"]) && $_POST["notes"] != "") {
-            $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
+            $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ><a href='login.php'><button type='button' class='btn btn-bd-primary'>Login</button></a>";
         }
         else{
-            $results .= "<p> Any additional roles: *No additional information added</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
+            $results .= "<p> Any additional roles: *No additional information added</p ><a href='login.php'><button type='button' class='btn btn-bd-primary'>Login</button></a>";
         }
         return $results;
     }
@@ -135,8 +134,17 @@
         else{
             $notes = "No additional information.";
         }
+        
+        // hash password
+        $password = $_POST['password'];
+        $options = [
+            'cost' => 12,
+        ];
+        
+        $hash = password_hash($password, PASSWORD_BCRYPT, $options);
 
         //add to database
+
         $sql = "INSERT INTO `users` (`user_first`, `user_last`, `user_email`, `user_cohort`, `user_job_status`, `user_seeking`) 
             VALUES (?, ?, ?, ?, ?, ?)";
 

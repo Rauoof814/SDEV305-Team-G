@@ -1,8 +1,41 @@
 <?php
-    //toggles making a user admin on button click and refreshes page to reflect change
+
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    echo '<meta http-equiv="refresh" content="0;url=admin.php">';
+}
+else {
+    // db connection
     require '/home/gnocchig/attdb.php';
-    if(isset($_POST['toggleAdmin'])){
-        $id = $_POST['userID'];
+
+    // assign variables
+    $userID = $_SESSION['user_id'];
+
+    // create a prepared statement
+    $stmt = $cnxn->prepare("SELECT `is_admin` FROM `users` WHERE `user_id`=?");
+    $stmt->bind_param("s", $userID);
+    $stmt->execute();
+    $stmt->bind_result($isAdmin);
+    $stmt->fetch();
+
+    // verify admin status
+    if ($isAdmin) {
+        $_SESSION['is_admin'] = true;
+    }
+    else {
+        session_unset();
+        $_SESSION['login_status'] = 2; // user is not admin
+        // redirect to login
+        echo '<meta http-equiv="refresh" content="0;url=admin.php">';
+    }
+}
+
+//toggles making a user admin on button click and refreshes page to reflect change
+// db connection
+require '/home/gnocchig/attdb.php';
+if(isset($_POST['toggleAdmin'])){
+    $id = $_POST['userID'];
+
 
         //sets update query
         if($_POST['toggleAdmin'] == "Make Admin"){
@@ -55,13 +88,14 @@
                             <a class="nav-link" href="newApplicationForm.html">New Application</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contactForm.html">Contact</a>
+                            <a class="nav-link" href="contactForm.php">Contact</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Admin
                             </a>
                             <ul class="dropdown-menu">
+
                                 <li><a class="dropdown-item fs-5 active" href="adminDashboard.php">Admin Dashboard</a></li>
                                 <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
                             </ul>
@@ -69,7 +103,7 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
+                            <a href="logout.php"><button type="button" class="btn btn-bd-primary signUp">Sign Out</button></a>
                             <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
                         </li>
                     </ul>
@@ -112,8 +146,6 @@
                     <tbody>
                         <!-- Display sorted applications -->
                         <?php
-                        //session_start();
-
                        require '/home/gnocchig/attdb.php';
 
                         // Initialize $sort variable
