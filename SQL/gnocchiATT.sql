@@ -24,43 +24,49 @@ CREATE TABLE IF NOT EXISTS `users` (
     `user_first` varchar(30) DEFAULT NULL,
     `user_last` varchar(30) DEFAULT NULL,
     `user_email` varchar(75) DEFAULT NULL,
+    `user_password_hash` varchar(255) DEFAULT NULL,
     `user_cohort` int(2) DEFAULT 0,
     `user_job_status` varchar(30) DEFAULT NULL,
     `user_seeking` varchar(150) DEFAULT NULL,
+    `is_admin` BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
 -- Dumping data for table `users`
 --
-INSERT INTO `users` (`user_first`, `user_last`, `user_email`, `user_cohort`, `user_job_status`, `user_seeking`)
+INSERT INTO `users` (`user_first`, `user_last`, `user_email`, `user_password_hash`, `user_cohort`, `user_job_status`, `user_seeking`, `is_admin`)
 VALUES
-    ('Peter', 'Griffin', 'peter@greenriver.edu', 19, 'Not Actively Searching', 'Ernie'),
-    ('Ernie', 'The Giant Chicken', 'ernie@greenriver.edu', 19, 'Seeking Job', 'Peter Griffin'),
-    ('John', 'Doe', 'john@greenriver.edu', 19, 'Seeking internship', 'Web Developer'),
-    ('Jane', 'Doe', 'jane@greenriver.edu', 19, 'Seeking internship', 'Data Analyst');
+    ('John', 'Doe', 'john.doe@example.com', '$2y$12$GEJqlZObG6ZDVt/BnmMcwOSTXq32QVfG2/4yQm.vVRiYTKrb3uBGm', 19, 'Seeking internship', 'Software Engineer', false), -- password
+    ('Jane', 'Smith', 'jane.smith@example.com', '$2y$12$R4edOkWimUOMZCMWCh8r/OnzvnIo0XvYADhmV4oKTlZ8wDeWtMLWi',  19, 'Seeking internship', 'Data Scientist', false), -- password
+    ('Alice', 'Johnson', 'alice.johnson@example.com', '$2y$12$rS7GQwBabKQARh9qx3DLvO5IntPWn6uwseG7EW6O7pAeuIQ/UeRIK', 19, 'Not actively searching', 'Project Manager', false), -- 123456
+    ('Bob', 'Williams', 'bob.williams@example.com', '$2y$12$h3YdxNv14cBRit0H28ALueMuYm7DhEbhz.2uCacO.u1KK4.b3K/ZC', 19, 'Seeking job', 'UX Designer', false), -- qwerty
+    ('Administrator', 'Administrator', 'admin@example.com', '$2y$12$zXcq5SlznwM5ot4nqdeXYO.UPY43..Ijp8YJF/2pl2cay9vwqWsBq', 19, 'Seeking job', 'Database Administrator', true); -- admin
 -- --------------------------------------------------------
 --
 -- Table Structure for table `applications`
 --
 CREATE TABLE IF NOT EXISTS `applications` (
     `application_id` int(6) NOT NULL AUTO_INCREMENT,
+    `user_id` int(6) NOT NULL,
     `application_name` varchar(150) DEFAULT NULL,
     `application_url` varchar(150) DEFAULT NULL,
     `application_date` varchar(30) DEFAULT NULL,
     `application_status` varchar(30) DEFAULT NULL,
     `application_updates` varchar(150) DEFAULT NULL,
     `application_followUp` varchar(30) DEFAULT NULL,
-    PRIMARY KEY (`application_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+    `is_deleted` BOOLEAN DEFAULT FALSE,
+    PRIMARY KEY (`application_id`),
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
 -- Dumping data for table `applications`
 --
-INSERT INTO `applications` (`application_name`, `application_url`, `application_date`, `application_status`, `application_updates`, `application_followUp`)
+INSERT INTO `applications` (`user_id`, `application_name`, `application_url`, `application_date`, `application_status`, `application_updates`, `application_followUp`)
 VALUES
-    ('Web Developer @Amazon', 'https://amazon.com', '2024-01-11', 'Applied', 'None yet', '2024-01-25'),
-    ('Data Analyst @Microsoft', 'https://microsoft.com', '2024-01-12', 'Applied', 'None yet', '2024-01-26'),
-    ('Product Manager @Google', 'https://google.com', '2024-01-14', 'Interviewing', 'Completed first round of Interviews', '2024-01-28'),
-    ('Systems Engineer @Dassault Systèmes', 'https://3ds.com', '2024-01-17', 'Rejected', 'Ghosted', '2024-01-31');
+    (5, 'Web Developer @Amazon', 'https://amazon.com', '2024-01-11', 'Applied', 'None yet', '2024-01-25'),
+    (5, 'Data Analyst @Microsoft', 'https://microsoft.com', '2024-01-12', 'Applied', 'None yet', '2024-01-26'),
+    (5, 'Product Manager @Google', 'https://google.com', '2024-01-14', 'Interviewing', 'Completed first round of Interviews', '2024-01-28'),
+    (1, 'Systems Engineer @Dassault Systemes', 'https://3ds.com', '2024-01-17', 'Rejected', 'Ghosted', '2024-01-31');
 -- --------------------------------------------------------
 --
 -- Table Structure for table `announcements`
