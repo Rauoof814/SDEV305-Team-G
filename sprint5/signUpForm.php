@@ -16,52 +16,11 @@
     <title>Sign Up Form</title>
 </head>
 <body>
-<!-- Navbar -->
-<header class="site-navigation">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand fs-3" href="dashboard.php">GRC ATT</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
-                    <span class="navbar-dark navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse fs-3" id="navbarText">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="dashboard.php">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="newApplicationForm.html">New Application</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contactForm.html">Contact</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Admin
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a href="signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
-                            <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-</header>
-
+<br>
 <!--form handling for sign up form-->
 <div class="form-container">
 <?php
-    if(isset($_POST["fName"]) && isset($_POST["lName"]) && isset($_POST["email"]) && isset($_POST["cohort-number"]) && isset($_POST["jobStage"])
+    if(isset($_POST["fName"]) && isset($_POST["lName"]) && isset($_POST["email"]) &&isset($_POST['password']) && isset($_POST["cohort-number"]) && isset($_POST["jobStage"])
         && $_POST["fName"] != "" && $_POST["lName"] != "" & $_POST["email"] != "" && $_POST["cohort-number"] && $_POST["jobStage"] != ""){
 
         //string together results message
@@ -78,19 +37,17 @@
     }
     else{
         $error = '
-            <div class="form-container">
                 <p class="fs-3 form-title">ERROR</p>
                 <p>One or more fields in the sign-up form are empty.</p>
                 <p>Please make sure to fill out all required fields.</p>
                 <a href="signUpForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>
-            </div>
         ';
 
         echo $error;
     }
 
     function compileUserInput(){
-        $results = "<div class='form-container'>
+        $results = "
             <p class='fs-3 form-title'>Welcome, " . $_POST["fName"] . "!</p>
             <p class='text-decoration-underline'>Your account information is below:</p>
             <p>First name: " . $_POST["fName"] . "</p>
@@ -100,10 +57,10 @@
             <p>What are you seeking?: " . $_POST["jobStage"] . " </p>";
 
         if(isset($_POST["notes"]) && $_POST["notes"] != "") {
-            $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
+            $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ><a href='login.php'><button type='button' class='btn btn-bd-primary'>Login</button></a>";
         }
         else{
-            $results .= "<p> Any additional roles: *No additional information added</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
+            $results .= "<p> Any additional roles: *No additional information added</p ><a href='login.php'><button type='button' class='btn btn-bd-primary'>Login</button></a>";
         }
         return $results;
     }
@@ -133,10 +90,18 @@
         else{
             $notes = "No additional information.";
         }
+        
+        // hash password
+        $password = $_POST['password'];
+        $options = [
+            'cost' => 12,
+        ];
+        
+        $hash = password_hash($password, PASSWORD_BCRYPT, $options);
 
         //add to database
-        $sql = "INSERT INTO `users` (`user_first`, `user_last`, `user_email`, `user_cohort`, `user_job_status`, `user_seeking`) 
-            VALUES ('$fName', '$lName', '$email', '$cohort', '$jobStage', '$notes')";
+        $sql = "INSERT INTO `users` (`user_first`, `user_last`, `user_email`, `user_password_hash`, `user_cohort`, `user_job_status`, `user_seeking`) 
+            VALUES ('$fName', '$lName', '$email', '$hash', '$cohort', '$jobStage', '$notes')";
 
         mysqli_query($cnxn, $sql);
     }

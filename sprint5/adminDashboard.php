@@ -1,5 +1,36 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    echo '<meta http-equiv="refresh" content="0;url=admin.php">';
+}
+else {
+    // db connection
+    require '/home/gnocchig/attdb.php';
+
+    // assign variables
+    $userID = $_SESSION['user_id'];
+
+    // create a prepared statement
+    $stmt = $cnxn->prepare("SELECT `is_admin` FROM `users` WHERE `user_id`=?");
+    $stmt->bind_param("s", $userID);
+    $stmt->execute();
+    $stmt->bind_result($isAdmin);
+    $stmt->fetch();
+
+    // verify admin status
+    if ($isAdmin) {
+        $_SESSION['is_admin'] = true;
+    }
+    else {
+        session_unset();
+        $_SESSION['login_status'] = 2; // user is not admin
+        // redirect to login
+        echo '<meta http-equiv="refresh" content="0;url=admin.php">';
+    }
+}
+
 //toggles making a user admin on button click and refreshes page to reflect change
+// db connection
 require '/home/gnocchig/attdb.php';
 if(isset($_POST['toggleAdmin'])){
     $id = $_POST['userID'];
@@ -53,7 +84,7 @@ if(isset($_POST['toggleAdmin'])){
                             <a class="nav-link" href="newApplicationForm.html">New Application</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contactForm.html">Contact</a>
+                            <a class="nav-link" href="contactForm.php">Contact</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -61,13 +92,13 @@ if(isset($_POST['toggleAdmin'])){
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item active fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
+                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.php">Admin Announcement</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
+                            <a href="logout.php"><button type="button" class="btn btn-bd-primary signUp">Sign Out</button></a>
                             <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
                         </li>
                     </ul>
@@ -122,14 +153,14 @@ if(isset($_POST['toggleAdmin'])){
                                 <td> ' . $appStatus . '</td>
                                 <td>
                                     <div class="btn-group btn-group-sm" role="group">           
-                                    <a href="edit_app.php?id=' . $appID . '" class="btn btn-bd-primary btn-width">Update</a>
-                                    <a class="btn btn-danger btn-width" style="padding-top: 2px; padding-bottom: 0px;">
-                                    <form method="post" action="delete_application.php">
-                                        <input type="hidden" name="application_id" value="' . $appID . '">
-                                        <button type="submit" id="delete_application" name="delete_application">Delete</button>
-                                    </form>
-                                    </a>
-                                </div>
+                                        <a href="edit_app.php?id=' . $appID . '" class="btn btn-bd-primary btn-width">Update</a>
+                                        
+                                        
+                                        <form method="post" action="deleteApplication.php">
+                                                <input type="hidden" name="application_id" value="' . $appID . '">
+                                                <button type="submit" class="btn btn-danger btn-width" style="padding-top: 2px; padding-bottom: 0px;" name="delete_application">Delete</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                             ';

@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    echo '<meta http-equiv="refresh" content="0;url=login.php">';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +40,7 @@
                             <a class="nav-link" href="newApplicationForm.html">New Application</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="contactForm.html">Contact</a>
+                            <a class="nav-link active" href="contactForm.php">Contact</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,13 +48,13 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
+                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.php">Admin Announcement</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
+                            <a href="logout.php"><button type="button" class="btn btn-bd-primary signUp">Sign Out</button></a>
                             <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
                         </li>
                     </ul>
@@ -60,8 +66,31 @@
 <main>
     <div class="form-container">
         <?php
+        if (empty($_POST)) {
+            $form = '
+                <form name="contactForm" action="contactForm.php" onsubmit="return validateContact()" method="post">
+                    <p class="fs-3 form-title">Contact Us</p>
+                    
+                    <label for="name">Name*<span id="nameWarning" style="color: red"></span></label>
+                    <input type="text" id="name" name="name">
+                    
+                    <label for="email">Email*<span id="emailWarning" style="color: red"></span></label>
+                    <input type="text" id="email" name="email">
+    
+                    <label for="subject">Subject*<span id="subjectWarning" style="color: red"></span></label>
+                    <input type="text" id="subject" name="subject">
+                    
+                    <label for="message">Message*<span id="messageWarning" style="color: red"></span></label>
+                    <textarea id="message" name="message" ></textarea>
+                    
+                    <input class="btn btn-bd-primary" type="submit" value="Submit">
+                </form>
+            ';
+            
+            echo $form;
+        }
         //        TODO: add further validation to not accept any variation of "  " or single characters.
-        if (!empty($_POST) && !empty($_POST["name"]) && !empty($_POST["email"]) && !empty($_POST["subject"]) && !empty($_POST["message"])){
+        else if (!empty($_POST) && !empty($_POST["name"]) && !empty($_POST["email"]) && !empty($_POST["subject"]) && !empty($_POST["message"])){
             $name = $_POST["name"];
             $email = $_POST["email"];
             $subject = $_POST["subject"];
@@ -80,7 +109,7 @@
             echo '<p class="fs-3 form-title">ERROR</p>';
             echo '<p>One or more fields in the contact form are empty.</p>';
             echo '<p>Please make sure to fill out all required fields.</p>';
-            echo '<a href="contactForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>';
+            echo '<a href="contactForm.php"><button type=button class="btn btn-bd-primary">Try again</button></a>';
         }
         ?>
     </div>
