@@ -212,7 +212,7 @@ if(isset($_POST['toggleAdmin'])){
                     </tbody>
                 </table>
             </div>
-                <a class="container-fluid btn btn-link" href="#" role="button">See all Applications</a>
+                <a class="container-fluid btn btn-link" href="allApplications.php" role="button">See all Applications</a>
             </div>
             <!-- Reminders panel -->
             <!-- TODO: Fix view button spacing -->

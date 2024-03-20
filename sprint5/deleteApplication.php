@@ -2,9 +2,8 @@
     require '/home/gnocchig/attdb.php';
 
     // Delete application for regular users
-    if (isset($_POST['delete_application']) && isset($_POST['delete_application'])) {
+    if (isset($_POST['delete_application'])) {
         $application_id = $_POST['delete_application']; // Assuming you have application ID sent via form
-        echo $application_id;
 
         // Update statement to set is_deleted to 1 only if the application belongs to the current user
         $sql = "UPDATE `applications` SET `is_deleted` = 1 WHERE `application_id` = ?";
