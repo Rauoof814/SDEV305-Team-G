@@ -16,7 +16,51 @@
     <title>Sign Up Form</title>
 </head>
 <body>
-<br>
+
+<!-- Navbar -->
+<header class="site-navigation">
+    <div class="container pb-5 mb-5">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand fs-3" href="https://www.greenriver.edu/">
+                    <img src="img/GRC-logo.png" class="img-responsive" alt="GRC LOGO" height="50">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
+                    <span class="navbar-dark navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse fs-3" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.php">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="newApplicationForm.html">New Application</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contactForm.html">Contact</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
+                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="signUpForm.html"><button type="button" class="btn btn-bd-primary signUp">Sign Up</button></a>
+                            <button type="button" class="btn btn-bd-primary signUp dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
 <!--form handling for sign up form-->
 <div class="form-container">
 <?php
@@ -76,7 +120,7 @@
     }
 
     function addNewUserToDb(){
-        require '/home/gnocchig/attdb.php';
+     require '/home/gnocchig/attdb.php';
         
         $fName = $_POST["fName"];
         $lName = $_POST["lName"];
@@ -100,10 +144,16 @@
         $hash = password_hash($password, PASSWORD_BCRYPT, $options);
 
         //add to database
-        $sql = "INSERT INTO `users` (`user_first`, `user_last`, `user_email`, `user_password_hash`, `user_cohort`, `user_job_status`, `user_seeking`) 
-            VALUES ('$fName', '$lName', '$email', '$hash', '$cohort', '$jobStage', '$notes')";
 
-        mysqli_query($cnxn, $sql);
+        $sql = "INSERT INTO `users` (`user_first`, `user_last`, `user_email`, `user_cohort`, `user_job_status`, `user_seeking`) 
+            VALUES (?, ?, ?, ?, ?, ?)";
+
+        //mysqli_query($cnxn, $sql);
+        $stmt = $cnxn->prepare($sql);
+        $stmt->bind_param("ssssss",$fName, $lName, $email, $cohort, $jobStage, $notes);
+        $stmt->execute();
+        $stmt->close();
+
     }
 ?>
 </div>

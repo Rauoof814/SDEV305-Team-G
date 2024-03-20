@@ -27,15 +27,13 @@ body {
 
 /* Dark Mode */
 body.dark-mode {
-    background-color: #131313;
-    color: white;
+    background-color: #1c1c1c;
+    color: #e6e3e3;
 }
 
 /* Navigation styles */
 .site-navigation {
     font-family: "BigNoodleTitling",sans-serif;
-    background-color: #333333 !important;
-    color: aliceblue !important;
 }
 
 .navbar-brand {
@@ -43,7 +41,7 @@ body.dark-mode {
 }
 
 .navbar {
-    background-color: #333333 !important;
+    background-color: #006225 !important;
     color: aliceblue !important;
 }
 

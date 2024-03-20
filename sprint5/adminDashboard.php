@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if (!isset($_SESSION['user_id'])) {
     echo '<meta http-equiv="refresh" content="0;url=admin.php">';
@@ -35,21 +36,22 @@ require '/home/gnocchig/attdb.php';
 if(isset($_POST['toggleAdmin'])){
     $id = $_POST['userID'];
 
-    //sets update query
-    if($_POST['toggleAdmin'] == "Make Admin"){
-        $sql = "UPDATE `users` SET is_admin = true WHERE user_id = $id ";
-    }
-    else{
-        $sql = "UPDATE `users` SET is_admin = false WHERE user_id = $id ";
-    }
 
-    //execute query
-    @mysqli_query($cnxn, $sql);
+        //sets update query
+        if($_POST['toggleAdmin'] == "Make Admin"){
+            $sql = "UPDATE `users` SET is_admin = true WHERE user_id = $id ";
+        }
+        else{
+            $sql = "UPDATE `users` SET is_admin = false WHERE user_id = $id ";
+        }
 
-    //refreshes current page
-    header("Location: ".$_SERVER['PHP_SELF']);
-    exit();
-}
+        //execute query
+        @mysqli_query($cnxn, $sql);
+
+        //refreshes current page
+        header("Location: ".$_SERVER['PHP_SELF']);
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,10 +70,12 @@ if(isset($_POST['toggleAdmin'])){
 
 <!-- Navbar -->
 <header class="site-navigation">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container pb-5 mb-5">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand fs-3" href="dashboard.php">GRC ATT</a>
+                <a class="navbar-brand fs-3" href="https://www.greenriver.edu/">
+                    <img src="img/GRC-logo.png" class="img-responsive" alt="GRC LOGO" height="50">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
                     <span class="navbar-dark navbar-toggler-icon"></span>
                 </button>
@@ -87,12 +91,13 @@ if(isset($_POST['toggleAdmin'])){
                             <a class="nav-link" href="contactForm.php">Contact</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link active dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Admin
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item active fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.php">Admin Announcement</a></li>
+
+                                <li><a class="dropdown-item fs-5 active" href="adminDashboard.php">Admin Dashboard</a></li>
+                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -107,7 +112,6 @@ if(isset($_POST['toggleAdmin'])){
         </nav>
     </div>
 </header>
-
 <!-- Main content -->
 <main class="site-content">
     <div class="container">
@@ -115,72 +119,110 @@ if(isset($_POST['toggleAdmin'])){
         <!-- Applications & Reminders -->
         <div class="row mb-3 g-3">
             <!-- Applications panel -->
-            <div class="col-md-8 applications">
-                <p class="fs-2 heading">Recent Applications</p>
-                <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 300px">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <td scope="col">ID</td>
+            <div class="col-md-8 applications border-end border-dark">
+            <p class="fs-2 heading border-bottom">Recent Applications</p>
+            
+            <!-- Sorting dropdown -->
+            <form method="GET" action="adminDashboard.php">
+                <div class="input-group mb-3">
+                    <select class="form-select" name="sort">
+                        <option value="date">Sort by Date</option>
+                        <option value="name">Sort by Name</option>
+                    </select>
+                    <button class="btn btn-outline-secondary" type="submit">Sort</button>
+                </div>
+            </form>
+            
+            <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 230px">
+                <table class="table">
+                    <thead class="sticky-top">
+                        <tr class="border-bottom border-dark">
                             <td scope="col">Date</td>
                             <td scope="col">Title</td>
                             <td scope="col">Status</td>
                             <td scope="col">Manage</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        <!-- Display applications from DB onto dashboard table -->
-                        <!-- TODO: Make scrollbar less ugly -->
+                    </thead>
+                    <tbody>
+                        <!-- Display sorted applications -->
                         <?php
-                        require '/home/gnocchig/attdb.php';
-                        $sql = "SELECT * FROM applications ORDER BY `application_date` DESC";
-                        $result = @mysqli_query($cnxn, $sql);
-                        while ($row = mysqli_fetch_assoc($result))
-                        {
-                            $appID = $row['application_id'];
-                            $appName = $row['application_name'];
-                            $appURL = $row['application_url'];
-                            $appDate = $row['application_date'];
-                            $appStatus = $row['application_status'];
-                            $appUpdates = $row['application_updates'];
-                            $appFollowUp= $row['application_followUp'];
+                       require '/home/gnocchig/attdb.php';
 
-                            $row = '
-                            <tr>
-                                <td> ' . $appID . '</td>
-                                <td> ' . $appDate . '</td>
-                                <td> ' . $appName . '</td>
-                                <td> ' . $appStatus . '</td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group">           
-                                        <a href="edit_app.php?id=' . $appID . '" class="btn btn-bd-primary btn-width">Update</a>
-                                        
-                                        
-                                        <form method="post" action="deleteApplication.php">
-                                                <input type="hidden" name="application_id" value="' . $appID . '">
-                                                <button type="submit" class="btn btn-danger btn-width" style="padding-top: 2px; padding-bottom: 0px;" name="delete_application">Delete</button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                            ';
-                            echo $row;
+                        // Initialize $sort variable
+                        $sort = "";
+
+                        // Check if sorting criterion is provided
+                        if(isset($_GET['sort'])) {
+                            $sort = $_GET['sort'];
+                        }
+
+                        // Prepare the SQL query based on sorting criterion
+                        switch($sort) {
+                            case "date":
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
+                                break;
+                            case "name":
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_name` ASC";
+                                break;
+                            case "status":
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_status` ASC";
+                                break;
+                            default:
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
+                        }
+
+                        $result = mysqli_query($cnxn, $sql);
+
+                        // Check if result is not empty
+                        if(mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                // Output the application data
+                                $appID = $row['application_id'];
+                                $appName = $row['application_name'];
+                                $appURL = $row['application_url'];
+                                $appDate = $row['application_date'];
+                                $appStatus = $row['application_status'];
+                                $appUpdates = $row['application_updates'];
+                                $appFollowUp = $row['application_followUp'];
+                                $row = '
+                                    <tr>
+                                        <td> ' . $appDate . '</td>
+                                        <td> ' . $appName . '</td>
+                                        <td> ' . $appStatus . '</td>
+                                        <td>
+                                            <div class="btn-group" role="group">       
+                                                <form action="edit_app.php" method="post">
+                                                    <a href="edit_app.php? id=' . $appID . '" class="btn btn-primary">Update</a>
+                                                </form>
+                                                <form method="post" action="deleteApplication.php">
+                                                    <input type="hidden" name="delete_application" value="' . $appID . '">
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this application?\');">Delete</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ';
+                                echo $row;
+                            }
+                        } else {
+                            // Output a message if no applications found
+                            echo "<tr><td colspan='4'>No applications found.</td></tr>";
                         }
                         ?>
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
+            </div>
                 <a class="container-fluid btn btn-link" href="#" role="button">See all Applications</a>
             </div>
             <!-- Reminders panel -->
             <!-- TODO: Fix view button spacing -->
             <div class="col-md-4 reminders">
-                <p class="fs-2 heading">Recent Announcements</p>
+                <p class="fs-2 heading border-bottom">Recent Announcements</p>
                 <div class="overflow-y-scroll announcements-list" style="height: 300px">
                     <!-- Display announcements from DB onto dashboard -->
                     <!-- TODO: Make scrollbar less ugly -->
                     <?php
-                    require '/home/gnocchig/attdb.php';
+                 require '/home/gnocchig/attdb.php';
                     $sql = "SELECT * FROM announcements WHERE `announcement_date` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND NOW() ORDER BY `announcement_date` DESC";
                     $result = @mysqli_query($cnxn, $sql);
                     while ($row = mysqli_fetch_assoc($result))
@@ -197,7 +239,7 @@ if(isset($_POST['toggleAdmin'])){
                         $row = '
                                 <div class="container-fluid rounded announcement-content" style="padding-bottom: 9px">
                                     <p style="margin-bottom: 10px">                                   
-                                        <form action="adminAnnouncement.php" method="post">
+                                        <form action="announcement.php" method="post">
                                             <text class="d-inline-block text-truncate announcement-message"> ' . $announcementTitle . '</text>
                                             <input type="hidden" name="announcementID" value=' . $announcementID . '>
                                             <button type="submit" class="btn btn-bd-primary btn-sm float-end">View</button>
@@ -210,7 +252,7 @@ if(isset($_POST['toggleAdmin'])){
                     ?>
                 </div>
                 <div class="container-fluid see-all-announcements" style="min-height: 51px">
-                    <a class="container-fluid btn btn-link all-announcements" href="#" role="button">See All Announcements</a>
+                    <a class="container-fluid btn btn-link all-announcements" href="allAnnouncements.php" role="button">See All Announcements</a>
                 </div>
             </div>
         </div>
@@ -219,8 +261,8 @@ if(isset($_POST['toggleAdmin'])){
             <p class="fs-2 heading">Users</p>
             <div class="overflow-y-scroll overflow-x-auto applications-list" style="height: 350px">
                 <table class="table users-table">
-                    <thead>
-                    <tr>
+                    <thead class="sticky-top">
+                    <tr class="border-bottom border-dark">
                         <td>ID</td>
                         <td>Name</td>
                         <td>Email</td>
@@ -235,6 +277,7 @@ if(isset($_POST['toggleAdmin'])){
                     <?php
                     $sql = "SELECT * FROM users";
                     $result = @mysqli_query($cnxn, $sql);
+                    $confirmMessage = "";
                     while ($row = mysqli_fetch_assoc($result))
                     {
                         $userID = $row['user_id'];
@@ -266,11 +309,11 @@ if(isset($_POST['toggleAdmin'])){
                                                 <form method="post">';
 
                         if($isAdmin == "Yes"){
-                            $row .= '<input type="submit" class="btn btn-success" value="Remove Admin" name="toggleAdmin">
+                            $row .= '<input type="submit" class="btn btn-warning" value="Remove Admin" name="toggleAdmin" onclick="return confirm(\'Are you sure you want to remove admin privileges for this user?\');">
                                                  <input type="hidden" name="userID" value="' . $userID . '">';
                         }
                         else {
-                            $row .= '<input type = "submit" class="btn btn-success" value = "Make Admin" name = "toggleAdmin" >
+                            $row .= '<input type = "submit" class="btn btn-warning" value = "Make Admin" name = "toggleAdmin" onclick="return confirm(\'Are you sure you want to grant admin privileges for this user?\');">
                                                 <input type = "hidden" name = "userID" value = "' . $userID . '" >';
                         }
 
@@ -288,32 +331,35 @@ if(isset($_POST['toggleAdmin'])){
                 </table>
             </div>
         </div>
+    </div>
         <br>
         <!-- Site info -->
         <hr>
-        <p class=" fs-5 text-center rounded site-information">
-            Welcome to the Green River College Software Development Application Tracking Tool (ATT).
-            The purpose of this tool is to provide a centralized place to track your job/internship
-            applications that can be helpful in your application journey!
-        </p>
-        <br>
-        <!-- About -->
-        <div class="col-md-8 about">
-            <div class="row">
-                <div class="col-7">
-                    <p class="fs-2 heading">About Us</p>
-                    <p>
-                        The GRC Software Development program is an excellent way to prepare for a career in tech.
-                        Through its affordable tuition, caring instructors, and thoughtfully curated curriculum,
-                        you will be able to achieve whatever you set out to become.
-                    </p>
-                </div>
-                <div class="col-4 gx-4 gy-4">
-                    <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter">
+        <div class="footer text-light px-2" style="background-color: #333333">
+            <p class=" fs-5 text-center rounded site-information">
+                Welcome to the Green River College Software Development Application Tracking Tool (ATT).
+                The purpose of this tool is to provide a centralized place to track your job/internship
+                applications that can be helpful in your application journey!
+            </p>
+            <br>
+            <!-- About -->
+            <div class="col-md-8 about">
+                <div class="row">
+                    <div class="col-7">
+                        <p class="fs-2 heading">About Us</p>
+                        <p>
+                            The GRC Software Development program is an excellent way to prepare for a career in tech.
+                            Through its affordable tuition, caring instructors, and thoughtfully curated curriculum,
+                            you will be able to achieve whatever you set out to become.
+                        </p>
+                    </div>
+                    <div class="col-4 gx-4 gy-4">
+                        <img src="img/Auburn-Center-building-exterior.jpg" class="img-fluid rounded mx-auto d-block auburnCenter">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
 </main>
 
 <!-- JavaScript for Dark Mode toggle -->

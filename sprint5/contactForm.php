@@ -25,9 +25,11 @@ if (!isset($_SESSION['user_id'])) {
 <!-- Navbar -->
 <header class="site-navigation">
     <div class="container">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand fs-3" href="dashboard.php">GRC ATT</a>
+                <a class="navbar-brand fs-3" href="https://www.greenriver.edu/">
+                    <img src="img/GRC-logo.png" class="img-responsive" alt="GRC LOGO" height="50">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
                     <span class="navbar-dark navbar-toggler-icon"></span>
                 </button>

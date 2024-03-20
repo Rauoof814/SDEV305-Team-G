@@ -33,10 +33,12 @@ else {
 <body>
 <!-- Navbar -->
 <header class="site-navigation">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container pb-5 mb-5">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand fs-3" href="dashboard.php">GRC ATT</a>
+                <a class="navbar-brand fs-3" href="https://www.greenriver.edu/">
+                    <img src="img/GRC-logo.png" class="img-responsive" alt="GRC LOGO" height="50">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
                     <span class="navbar-dark navbar-toggler-icon"></span>
                 </button>
@@ -117,7 +119,7 @@ else {
             $announcementAdditionalInfo= $_POST['moreInfo'];
             $announcementURL = $_POST['url'];
 
-            require '/home/gnocchig/attdb.php';
+           require '/home/gnocchig/attdb.php';
             /* create a prepared statement */
             $stmt = $cnxn->prepare("UPDATE `announcements` SET `announcement_date`=?, `announcement_title`=?, `announcement_job_type`=?, `announcement_location`=?, `announcement_employer`=?, `announcement_additional_info`=?, `announcement_url`=?  WHERE `announcement_id`=?");
 
@@ -149,7 +151,7 @@ else {
         }
         else if (!empty($_POST) && !empty($_POST["announcementID"])) {
             $announcementID = $_POST["announcementID"];
-            require '/home/gnocchig/attdb.php';
+           require '/home/gnocchig/attdb.php';
             $sql = "SELECT * FROM `announcements` WHERE `announcement_id` = $announcementID;";
             $result = @mysqli_query($cnxn, $sql);
             while ($row = mysqli_fetch_assoc($result))
@@ -220,7 +222,7 @@ else {
             echo '<a href="adminDashboard.php"><button type=button class="btn btn-bd-primary">Admin Dashboard</button></a>';
 
             // Insert row into DB
-            require '/home/gnocchig/attdb.php';
+           require '/home/gnocchig/attdb.php';
             // set date
             date_default_timezone_set('America/Los_Angeles');
             $announcementDate = date('Y-m-d');
@@ -261,7 +263,7 @@ else {
 <!--  TODO: define email styling  -->
 <?php
 if ($form) {
-    require '/home/gnocchig/attdb.php';
+   require '/home/gnocchig/attdb.php';
     $sql = "SELECT `user_email`FROM `users`;";
     $result = @mysqli_query($cnxn, $sql);
     while ($row = mysqli_fetch_assoc($result))

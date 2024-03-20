@@ -28,10 +28,12 @@ $userID = $_SESSION['user_id'];
 <body>
 <!-- Navbar -->
 <header class="site-navigation">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container pb-5 mb-5">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand fs-3" href="dashboard.php">GRC ATT</a>
+                <a class="navbar-brand fs-3" href="https://www.greenriver.edu/">
+                    <img src="img/GRC-logo.png" class="img-responsive" alt="GRC LOGO" height="50">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
                     <span class="navbar-dark navbar-toggler-icon"></span>
                 </button>
@@ -41,18 +43,18 @@ $userID = $_SESSION['user_id'];
                             <a class="nav-link" href="dashboard.php">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="newApplicationForm.html">New Application</a>
+                            <a class="nav-link active" href="newApplicationForm.html">New Application</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contactForm.html">Contact</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link active dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Admin
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                <li><a class="dropdown-item active fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
+                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -72,7 +74,7 @@ $userID = $_SESSION['user_id'];
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    require '/home/gnocchig/attdb.php';
+   require '/home/gnocchig/attdb.php';
 
     if(isset($_POST["role"]) && $_POST["role"] != "" && isset($_POST["jobDescription"]) && $_POST["jobDescription"] != "" &&
         isset($_POST["date"]) && $_POST["date"] != "" && isset($_POST["status"]) && $_POST["status"] && isset($_POST["followUpDate"]) && $_POST["followUpDate"] != "")
@@ -105,6 +107,7 @@ $userID = $_SESSION['user_id'];
         
         $stmt->bind_param("issssss", $userID, $title, $jobUrl, $date, $status, $updates, $followUpDate);
 
+
             // Execute the statement
             if ($stmt->execute()) {
                 echo '<script>console.log("Record updated successfully")</script>';
@@ -121,6 +124,7 @@ $userID = $_SESSION['user_id'];
         //     VALUES ('$userID', $title', '$jobUrl', '$date', '$status', '$updates', '$followUpDate')";
 
         // mysqli_query($cnxn, $sql);
+
     }
     else {
         // Display error message

@@ -1,6 +1,6 @@
 <?php
     //toggles making a user admin on button click and refreshes page to reflect change
-    require '/home/gnocchig/attdb.php';
+   require '/home/gnocchig/attdb.php';
     if(isset($_POST['toggleAdmin'])){
         $id = $_POST['userID'];
 
