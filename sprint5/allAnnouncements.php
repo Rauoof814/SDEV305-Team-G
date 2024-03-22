@@ -40,15 +40,19 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="contactForm.html">Contact</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Admin
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                    <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
-                                </ul>
-                            </li>
+                            <?php
+                                if($_SESSION['is_admin']){
+                                    echo   '<li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Admin
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
+                                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
+                                            </ul>
+                                            </li>';
+                                }
+                            ?>
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item">

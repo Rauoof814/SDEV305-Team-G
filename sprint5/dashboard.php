@@ -69,15 +69,19 @@ else {
                         <li class="nav-item">
                             <a class="nav-link" href="contactForm.html">Contact</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Admin
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
-                                <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
-                            </ul>
-                        </li>
+                        <?php
+                            if($isAdmin){
+                                echo '<li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Admin
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item fs-5" href="adminDashboard.php">Admin Dashboard</a></li>
+                                        <li><a class="dropdown-item fs-5" href="adminAnnouncement.html">Admin Announcement</a></li>
+                                    </ul>
+                                </li>';
+                            }
+                        ?>
                     </ul>
                     <ul class="navbar-nav">
                                 <li class="nav-item">
@@ -107,6 +111,7 @@ else {
                     <select class="form-select" name="sort">
                         <option value="date">Sort by Date</option>
                         <option value="name">Sort by Name</option>
+                        <option value="status">Sort by Status</option>
                     </select>
                     <button class="btn btn-outline-secondary" type="submit">Sort</button>
                 </div>
@@ -140,13 +145,16 @@ else {
                         // Prepare the SQL query based on sorting criterion
                         switch($sort) {
                             case "date":
-                                $sql = "SELECT * FROM `applications` WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 AND `user_id` = $userID ORDER BY `application_date` DESC";
                                 break;
                             case "name":
-                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_name` ASC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 AND `user_id` = $userID ORDER BY `application_name` ASC";
+                                break;
+                            case "status":
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 AND `user_id` = $userID ORDER BY `application_status` ASC";
                                 break;
                             default:
-                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 AND `user_id` = $userID ORDER BY `application_date` DESC";
                         }
 
                         $result = mysqli_query($cnxn, $sql);
@@ -162,25 +170,39 @@ else {
                                 $appStatus = $row['application_status'];
                                 $appUpdates = $row['application_updates'];
                                 $appFollowUp = $row['application_followUp'];
+                                $appUser = $row['user_id'];
                                 $row = '
-                                    <tr>
-                                        <td> ' . $appDate . '</td>
-                                        <td> ' . $appName . '</td>
-                                        <td> ' . $appStatus . '</td>
-                                        <td>
-                                            <div class="btn-group" role="group">       
-                                                <form action="edit_app.php" method="post">
-                                                    <a href="edit_app.php? id=' . $appID . '" class="btn btn-primary">Update</a>
-                                                </form>
-                                                <form method="post" action="deleteApplication.php">
-                                                    <input type="hidden" name="delete_application" value="' . $appID . '">
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this application?\');">Delete</button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ';
-                                echo $row;
+                                        <tr>
+                                            <td>' . $appDate . '</td>
+                                            <td>' . $appName . '</td>
+                                            <td>' . $appStatus . '</td>
+                                            <td>
+                                                <div class="btn-group" role="group">';
+                                    if ($userID == $appUser) {
+                                        $row .= '
+                                                    <form action="edit_app.php" method="post">
+                                                        <a href="edit_app.php? id=' . $appID . '" class="btn btn-primary">Update</a>
+                                                    </form>
+                                                    <form method="post" action="deleteApplication.php">
+                                                        <input type="hidden" name="delete_application" value="' . $appID . '">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this application?\');">Delete</button>
+                                                    </form>';
+                                    } else {
+                                        $row .= '
+                                                    <form action="edit_app.php" method="post">
+                                                        <a href="edit_app.php? id=' . $appID . '" class="btn btn-primary">Update</a>
+                                                    </form>
+                                                    <form method="post" action="deleteApplication.php">
+                                                        <input type="hidden" name="delete_application" value="' . $appID . '">
+                                                        <button type="submit" class="btn btn-danger" onclick="alert(\'Not authorized to delete\'); return false;">Delete</button>
+                                                    </form>';
+                                    }
+                                    $row .= '
+                                                </div>
+                                            </td>
+                                        </tr>';
+                                    
+                                    echo $row;
                             }
                         } else {
                             // Output a message if no applications found
@@ -190,7 +212,11 @@ else {
                     </tbody>
                 </table>
             </div>
-                <a class="container-fluid btn btn-link" href="allApplications.php" role="button">Show more Applications</a>
+            <?php
+                if($isAdmin){
+                 echo '<a class="container-fluid btn btn-link" href="allApplications.php" role="button">Show more Applications</a>';
+                }
+            ?>
             </div>
             <!-- Reminders panel -->
             <!-- TODO: Fix view button spacing -->
@@ -232,7 +258,7 @@ else {
 
 
                     // display follow up reminders
-                    $sql = "SELECT * FROM `applications` WHERE `application_followUp` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND DATE(NOW() + INTERVAL 5 DAY) AND `is_deleted` = 0";
+                    $sql = "SELECT * FROM `applications` WHERE `application_followUp` BETWEEN DATE(NOW() - INTERVAL 5 DAY) AND DATE(NOW() + INTERVAL 5 DAY) AND `is_deleted` = 0 AND `user_id` = $userID";
                     $result = @mysqli_query($cnxn, $sql);
                     while ($row = mysqli_fetch_assoc($result))
                     {
