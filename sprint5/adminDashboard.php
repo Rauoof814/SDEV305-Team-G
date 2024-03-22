@@ -128,6 +128,7 @@ if(isset($_POST['toggleAdmin'])){
                     <select class="form-select" name="sort">
                         <option value="date">Sort by Date</option>
                         <option value="name">Sort by Name</option>
+                        <option value="status">Sort by Status</option>
                     </select>
                     <button class="btn btn-outline-secondary" type="submit">Sort</button>
                 </div>
@@ -159,16 +160,16 @@ if(isset($_POST['toggleAdmin'])){
                         // Prepare the SQL query based on sorting criterion
                         switch($sort) {
                             case "date":
-                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 AND `user_id` = $userID ORDER BY `application_date` ASC";
                                 break;
                             case "name":
-                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_name` ASC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 AND `user_id` = $userID ORDER BY `application_name` ASC";
                                 break;
                             case "status":
-                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_status` ASC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 AND `user_id` = $userID ORDER BY `application_status` ASC";
                                 break;
                             default:
-                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
+                                $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 AND `user_id` = $userID ORDER BY `application_date` DESC";
                         }
 
                         $result = mysqli_query($cnxn, $sql);
@@ -184,25 +185,39 @@ if(isset($_POST['toggleAdmin'])){
                                 $appStatus = $row['application_status'];
                                 $appUpdates = $row['application_updates'];
                                 $appFollowUp = $row['application_followUp'];
+                                $appUser = $row['user_id'];
                                 $row = '
-                                    <tr>
-                                        <td> ' . $appDate . '</td>
-                                        <td> ' . $appName . '</td>
-                                        <td> ' . $appStatus . '</td>
-                                        <td>
-                                            <div class="btn-group" role="group">       
-                                                <form action="edit_app.php" method="post">
-                                                    <a href="edit_app.php? id=' . $appID . '" class="btn btn-primary">Update</a>
-                                                </form>
-                                                <form method="post" action="deleteApplication.php">
-                                                    <input type="hidden" name="delete_application" value="' . $appID . '">
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this application?\');">Delete</button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ';
-                                echo $row;
+                                        <tr>
+                                            <td>' . $appDate . '</td>
+                                            <td>' . $appName . '</td>
+                                            <td>' . $appStatus . '</td>
+                                            <td>
+                                                <div class="btn-group" role="group">';
+                                    if ($userID == $appUser) {
+                                        $row .= '
+                                                    <form action="edit_app.php" method="post">
+                                                        <a href="edit_app.php? id=' . $appID . '" class="btn btn-primary">Update</a>
+                                                    </form>
+                                                    <form method="post" action="deleteApplication.php">
+                                                        <input type="hidden" name="delete_application" value="' . $appID . '">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this application?\');">Delete</button>
+                                                    </form>';
+                                    } else {
+                                        $row .= '
+                                                    <form action="edit_app.php" method="post">
+                                                        <a href="edit_app.php? id=' . $appID . '" class="btn btn-primary">Update</a>
+                                                    </form>
+                                                    <form method="post" action="deleteApplication.php">
+                                                        <input type="hidden" name="delete_application" value="' . $appID . '">
+                                                        <button type="submit" class="btn btn-danger" onclick="alert(\'Not authorized to delete\'); return false;">Delete</button>
+                                                    </form>';
+                                    }
+                                    $row .= '
+                                                </div>
+                                            </td>
+                                        </tr>';
+                                    
+                                    echo $row;
                             }
                         } else {
                             // Output a message if no applications found

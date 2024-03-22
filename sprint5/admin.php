@@ -96,6 +96,9 @@ else {
         
                 <input class="container-fluid btn btn-bd-primary" id="sign-in" type="submit" value="Sign in">
             </form>
+            </br>
+            <a class="container-fluid btn btn-bd-primary" href="login.php">Non Admin Login</a>
+
         </div>       
         
 

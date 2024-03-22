@@ -69,7 +69,6 @@
                 <th scope="col">Date</th>
                 <th scope="col">Title</th>
                 <th scope="col">Status</th>
-                <th scope="col">Manage</th>
             </tr>
             </thead>
             <tbody>
@@ -78,27 +77,7 @@
                 //session_start();
 
                 require '/home/gnocchig/attdb.php';
-
-                // Initialize $sort variable
-                $sort = "";
-
-                // Check if sorting criterion is provided
-                if(isset($_GET['sort'])) {
-                    $sort = $_GET['sort'];
-                }
-
-                // Prepare the SQL query based on sorting criterion
-                switch($sort) {
-                    case "date":
-                        $sql = "SELECT * FROM `applications` WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
-                        break;
-                    case "name":
-                        $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_name` ASC";
-                        break;
-                    default:
-                        $sql = "SELECT * FROM applications WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
-                }
-
+                $sql = "SELECT * FROM `applications` WHERE `is_deleted` = 0 ORDER BY `application_date` DESC";
                 $result = mysqli_query($cnxn, $sql);
 
                 // Check if result is not empty
@@ -117,17 +96,6 @@
                                         <td> ' . $appDate . '</td>
                                         <td> ' . $appName . '</td>
                                         <td> ' . $appStatus . '</td>
-                                        <td>
-                                            <div class="btn-group" role="group">       
-                                                <form action="edit_app.php" method="post">
-                                                    <a href="edit_app.php? id=' . $appID . '" class="btn btn-primary">View/Update</a>
-                                                </form>
-                                                <form method="post" action="deleteApplication.php">
-                                                    <input type="hidden" name="delete_application" value="' . $appID . '">
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this application?\');">Delete</button>
-                                                </form>
-                                            </div>
-                                        </td>
                                     </tr>
                                 ';
                         echo $row;
