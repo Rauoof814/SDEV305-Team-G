@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="./styles/signUpForm.css">
     <title>Sign Up Form</title>
 </head>
-
 <body>
 <!-- Navbar -->
 <header class="site-navigation">
@@ -24,7 +23,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand fs-3" href="dashboard.html">GRC ATT</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-dark navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse fs-3" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -36,6 +35,15 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contactForm.html">Contact</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="admin-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item fs-5" href="adminDashboard.html">Admin Dashboard</a></li>
+                                <li><a class="dropdown-item fs-5" href="a">Admin Announcement</a></li>
+                            </ul>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -65,13 +73,22 @@
         echo $results;
     }
     else{
-        echo "<p class='text-danger'>*Please fill out form completely and submit again</p>";
+        $error = '
+            <div class="form-container">
+                <p class="fs-3 form-title">ERROR</p>
+                <p>One or more fields in the sign-up form are empty.</p>
+                <p>Please make sure to fill out all required fields.</p>
+                <a href="signUpForm.html"><button type=button class="btn btn-bd-primary">Try again</button></a>
+            </div>
+        ';
+
+        echo $error;
     }
 
     function compileUserInput(){
-        $results = "<div class='form-container pt-0'>
-            <h1 class='pt-5 header-text'>Welcome!</h1>
-            <h4>Your account information:</h4><br/>
+        $results = "<div class='form-container'>
+            <p class='fs-3 form-title'>Welcome, " . $_POST["fName"] . "!</p>
+            <p class='text-decoration-underline'>Your account information is below:</p>
             <p>First name: " . $_POST["fName"] . "</p>
             <p>Last name: " . $_POST["lName"] . "</p>
             <p>Email: " . $_POST["email"] . ".</p>
@@ -79,10 +96,10 @@
             <p>What are you seeking?: " . $_POST["jobStage"] . " </p>";
 
         if(isset($_POST["notes"]) && $_POST["notes"] != "") {
-            $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ></div>";
+            $results .= "<p> Any additional roles: " . $_POST["notes"] . "</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
         }
         else{
-            $results .= "<p> Any additional roles: *No additional information added</p ></div>";
+            $results .= "<p> Any additional roles: *No additional information added</p ><a href='dashboard.php'><button type='button' class='btn btn-bd-primary'>Go to Dashboard</button></a></div>";
         }
         return $results;
     }
@@ -92,7 +109,7 @@
 
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $headers .= "From: <" . $_POST["email"] . ">" . "\r\n";
+        $headers .= 'From: <gnocchig@gnocchi.greenriverdev.com>' . "\r\n";
 
         mail($to, $subject, $results, $headers);
     }

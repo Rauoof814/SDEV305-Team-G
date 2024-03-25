@@ -1,0 +1,55 @@
+/* custom styles for dashboard.php */
+
+.fs-2 {
+    font-family: "BigNoodleTitling",sans-serif;
+}
+
+.heading {
+    margin-bottom: -5px;
+}
+
+.column-heading, .application-listing {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.application-data.dark-mode {
+    background-color: #0e0d0d;
+}
+
+/* Table styles */
+
+.table {
+    margin-top: -5px;
+    margin-bottom: 0px;
+}
+
+.application-data {
+    padding-top:13px !important;
+}
+
+/* End table styles */
+   
+.reminder-content {
+    border: 1px solid #dee2e6;
+    margin-top: 12px;
+    padding-top: 9px;  
+}
+
+.reminder-message {
+    position: relative;
+    top: 3px;
+}
+
+.more-opportunities {
+    padding-top: 2px;
+}
+
+.resource-links {
+    padding-left: 2px;
+}
+
+.auburnCenter {
+    width: 250px;
+    margin-top: 15px;
+    border: 1px solid #757575;
+}
